@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { SidebarService } from './sidebar.service';
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.css'],
+  providers: [SidebarService]
 })
-export class SidebarComponent implements OnInit {
+
+export class SidebarComponent {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  required = false;
+
+  hasError = false;
+  error = 'The input has an error!';
 
 }

@@ -3,8 +3,15 @@
   box-sizing: border-box;
 }
 
-.datatable {
+div.datatable {
   width: 75%;
   float: right;
   padding: 10px;
+}
+
+div.sidebar {
+  width: 25%;
+  float: left;
+  padding: 10px;
+  padding-bottom: 40px;
 }
