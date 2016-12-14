@@ -10,12 +10,14 @@ import { handsontable } from 'ng2-handsontable/components/index';
 
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    handsontable
+    handsontable,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

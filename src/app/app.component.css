@@ -1,0 +1,10 @@
+
+* {
+  box-sizing: border-box;
+}
+
+.datatable {
+  width: 75%;
+  float: right;
+  padding: 10px;
+}

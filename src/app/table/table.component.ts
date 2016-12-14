@@ -17,13 +17,23 @@ export class TableComponent {
     this.data = [
             ["2008", 10, 11, 12, 13],
             ["2009", 20, 11, 14, 13],
+            ["2010", 30, 15, 12, 13],
+            ["2008", 10, 11, 12, 13],
+            ["2009", 20, 11, 14, 13],
+            ["2010", 30, 15, 12, 13],
+            ["2008", 10, 11, 12, 13],
+            ["2009", 20, 11, 14, 13],
+            ["2010", 30, 15, 12, 13],
+            ["2008", 10, 11, 12, 13],
+            ["2009", 20, 11, 14, 13],
             ["2010", 30, 15, 12, 13]
         ];
     this.options = {
-      height: 396,
+      // height: 396,
       rowHeaders: true,
       stretchH: 'all',
       contextMenu: true,
+      columnSorting: true,
       className: 'htCenter htMiddle'
     };
   }
