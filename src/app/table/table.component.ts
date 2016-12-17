@@ -1,44 +1,53 @@
-import { Component } from '@angular/core';
-import { handsontable } from 'ng2-handsontable/components/index';
-import * as Handsontable from 'handsontable/dist/handsontable.full.js';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'datatable',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent {
-  private data:Array<any>;
-  private colHeaders:Array<string>;
-  private options:any;
+export class TableComponent implements OnInit {
+
+  private data:any;
+  private data2:any;
+  private hot:any;
 
   constructor() {
-    this.colHeaders = ['', 'Kia', 'Nissan', 'Toyota', 'Honda'];
     this.data = [
-            ["2008", 10, 11, 12, 13],
-            ["2009", 20, 11, 14, 13],
-            ["2010", 30, 15, 12, 13],
-            ["2008", 10, 11, 12, 13],
-            ["2009", 20, 11, 14, 13],
-            ["2010", 30, 15, 12, 13],
-            ["2008", 10, 11, 12, 13],
-            ["2009", 20, 11, 14, 13],
-            ["2010", 30, 15, 12, 13],
-            ["2008", 10, 11, 12, 13],
-            ["2009", 20, 11, 14, 13],
-            ["2010", 30, 15, 12, 13]
-        ];
-    this.options = {
-      // height: 396,
-      rowHeaders: true,
-      stretchH: 'all',
-      contextMenu: true,
-      columnSorting: true,
-      className: 'htCenter htMiddle'
-    };
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"]
+      ];
+    this.data2 = [
+      ["", "Ford", "Volvo", "Toyota", "Honda"],
+      ["2016", 10, 11, 12, 13]
+      ];
+  }
+
+  ngOnInit() {
+    var container = document.getElementById('example');
+    this.hot = new Handsontable(container, {
+    data: this.data,
+    rowHeaders: true,
+    colHeaders: true,
+    contextMenu: true,
+    height: 300,
+    stretchH: 'all',
+    columnSorting: true,
+    className: 'htCenter htMiddle',
+    });
   }
 
   change() {
+    this.data = this.data2;
+    this.hot.loadData(this.data);
     console.log(this.data);
+    }
   }
-}

@@ -6,8 +6,6 @@ import { MaterialModule } from '@angular/material';
 import { ClarityModule } from 'clarity-angular';
 import { NglModule } from 'ng-lightning/ng-lightning';
 
-import { handsontable } from 'ng2-handsontable/components/index';
-
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -16,7 +14,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   declarations: [
     AppComponent,
     TableComponent,
-    handsontable,
     SidebarComponent
   ],
   imports: [
