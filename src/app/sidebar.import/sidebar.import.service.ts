@@ -3,20 +3,20 @@ import { Injectable } from '@angular/core';
 import * as datalib from 'datalib';
 
 @Injectable()
-export class SidebarService {
+export class SidebarImportService {
 
   constructor() { }
 
   getFile (selectFile) { 
 
-    let _url: String;
-    let _data: any;
+    let filePath: String;
+    let data: any;
 
     if (selectFile == 'Stocks') {
-      _url = '../data/stocks.csv';
+      filePath = '../data/stocks.csv';
     }
 
-    let data = datalib.load({url: _url});
+    data = datalib.load({url: filePath});
     return data;
     }
 

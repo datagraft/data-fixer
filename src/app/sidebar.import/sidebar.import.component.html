@@ -1,5 +1,5 @@
 
-<div class="import">
+<div class="sidebarImport">
   <ngl-form-element label="Select file for import" [error]="hasError ? error : null" class="slds-m-top--small">
   <select nglFormControl class="slds-select" [required]="required" [(ngModel)]="selectFile">
     <option>Stocks</option>
@@ -8,8 +8,4 @@
     <option>Airports</option>
   </select>
 </ngl-form-element>
-</div>
-
-<div class="button">
-    <button type="button" nglButton="brand" (click)="change()">Change</button>    
 </div>

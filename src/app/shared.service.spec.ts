@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { SidebarService } from './sidebar.service';
+import { SharedService } from './shared.service';
 
-describe('SidebarService', () => {
+describe('SharedService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SidebarService]
+      providers: [SharedService]
     });
   });
 
-  it('should ...', inject([SidebarService], (service: SidebarService) => {
+  it('should ...', inject([SharedService], (service: SharedService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -8,13 +8,15 @@ import { NglModule } from 'ng-lightning/ng-lightning';
 
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
+
+import { SharedService } from './shared.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    SidebarComponent
+    SidebarImportComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     MaterialModule.forRoot(),
     NglModule.forRoot()
   ],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

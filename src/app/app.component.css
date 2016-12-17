@@ -9,9 +9,16 @@ div.datatable {
   padding: 10px;
 }
 
-div.sidebar {
+div.sidebarImport {
   width: 25%;
   float: left;
   padding: 10px;
-  padding-bottom: 40px;
+  padding-bottom: 10px;
+}
+
+div.sidebarImportButton {
+  width: 25%;
+  float: left;
+  padding: 10px;
+  padding-bottom: 5px;
 }
