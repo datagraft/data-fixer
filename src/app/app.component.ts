@@ -19,10 +19,17 @@ export class AppComponent {
   
   constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService) { }
 
+    dataParsed: any;
+
     getDataRaw () {
-    console.log(this.sidebarImportComponent.selectFile);
-    this.sidebarImportComponent.getDataFromFile();
-    console.log(this.sidebarImportComponent.data);
+      this.sidebarImportComponent.getDataFromFile();
   }
+
+  tester () {
+    console.log(this.sidebarImportComponent.testLog());
+    this.tableComponent.data = this.sidebarImportComponent.testLog();
+    this.tableComponent.hot.loadData(this.tableComponent.data);
+  }
+
   
 }

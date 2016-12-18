@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  private data:any;
-  private data2:any;
-  private hot:any;
+  data:any;
+  data2:any;
+  hot:any;
 
   constructor() {
     this.data = [
