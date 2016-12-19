@@ -25,10 +25,10 @@ export class AppComponent {
       this.sidebarImportComponent.getDataFromFile();
   }
 
-  tester () {
-    console.log(this.sidebarImportComponent.testLog());
-    this.tableComponent.data = this.sidebarImportComponent.testLog();
-    this.tableComponent.hot.loadData(this.tableComponent.data);
+    getDataParsed () {
+      console.log(this.sidebarImportComponent.getData());
+      this.tableComponent.data = this.sidebarImportComponent.getData();
+      this.tableComponent.hot.loadData(this.tableComponent.data);
   }
 
   

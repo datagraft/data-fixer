@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class TableComponent implements OnInit {
 
   data:any;
-  data2:any;
   hot:any;
 
   constructor() {
@@ -25,14 +24,10 @@ export class TableComponent implements OnInit {
       ["-", "-", "-", "-", "-"],
       ["-", "-", "-", "-", "-"]
       ];
-    this.data2 = [
-      ["", "Ford", "Volvo", "Toyota", "Honda"],
-      ["2016", 10, 11, 12, 13]
-      ];
   }
 
   ngOnInit() {
-    var container = document.getElementById('example');
+    var container = document.getElementById('datatable');
     this.hot = new Handsontable(container, {
     data: this.data,
     rowHeaders: true,
@@ -45,9 +40,4 @@ export class TableComponent implements OnInit {
     });
   }
 
-  change() {
-    this.data = this.data2;
-    this.hot.loadData(this.data);
-    console.log(this.data);
-    }
-  }
+}

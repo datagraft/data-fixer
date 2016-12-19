@@ -5,7 +5,9 @@ import * as datalib from 'datalib';
 @Injectable()
 export class SidebarImportService {
 
-  data:any;
+  data: any;
+  headers: any;
+  columnsTypesInferred: any;
 
   constructor() { }
 
@@ -14,7 +16,10 @@ export class SidebarImportService {
     const promise = new Promise (
         (resolve, reject) => { 
             const data = this.getFile(selectFile);
-            console.log('Promise: getFile()');
+            this.headers = data.columns;
+            this.columnsTypesInferred = data.__types__;
+            console.log(this.headers);
+            console.log(this.columnsTypesInferred);            
             resolve(data);
         }
     );

@@ -10,7 +10,6 @@ import { SidebarImportService } from './sidebar.import.service';
 
 export class SidebarImportComponent {
 
-  // data:any;
   selectFile:any;
   required = false;
   hasError = false;
@@ -22,7 +21,7 @@ export class SidebarImportComponent {
     this.sidebarImportService.getDataParsed(this.selectFile);
   }
 
-  testLog () {
+  getData () {
     return this.sidebarImportService.data;
   }
 
