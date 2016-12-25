@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <div class="datatable">
   <datatable></datatable>    
@@ -7,10 +8,17 @@
   <sidebarImport></sidebarImport>    
 </div>
 
-<div class="sidebarImportButton">
+<div id="container">
+  <div class="sidebarImportButton">
     <button type="button" nglButton="brand" (click)="getDataRaw()">Import file</button>    
 </div>
 
 <div class="sidebarImportButton">
     <button type="button" nglButton="brand" (click)="getDataParsed()">Initialize table</button>    
+</div>
+</div>
+
+
+<div class="chart">
+  <chart></chart>    
 </div>

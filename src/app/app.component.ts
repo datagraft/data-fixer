@@ -26,9 +26,11 @@ export class AppComponent {
   }
 
     getDataParsed () {
-      console.log(this.sidebarImportComponent.getData());
+      // console.log(this.sidebarImportComponent.getData());
       this.tableComponent.data = this.sidebarImportComponent.getData();
+      this.dataParsed = this.tableComponent.data;
       this.tableComponent.hot.loadData(this.tableComponent.data);
+      console.log(this.dataParsed);
   }
 
   
