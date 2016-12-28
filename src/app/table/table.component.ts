@@ -7,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  data:any;
-  hot:any;
+  public data: any;
+  public hot: any;
+  public selected: any;
 
   constructor() {
     this.data = [
@@ -37,7 +38,27 @@ export class TableComponent implements OnInit {
     stretchH: 'all',
     columnSorting: true,
     className: 'htCenter htMiddle',
+    afterSelection: function (r, c, r2, c2) {
+      this.selected = this.getSelected();
+      console.log(this.selected);
+      
+    }
     });
   }
+
+  test() {
+    this.hot.updateSettings({
+    contextMenu: {
+      callback: function (key, options) {
+        if (key === 'about') {
+          // return console.log(this.getSelected());
+        }
+      },
+      items: {
+        "about": {name: 'About this menu'}
+      }
+    }
+  })
+  };
 
 }

@@ -18,8 +18,8 @@ export class SidebarImportService {
             const data = this.getFile(selectFile);
             this.headers = data.columns;
             this.columnsTypesInferred = data.__types__;
-            console.log(this.headers);
-            console.log(this.columnsTypesInferred);            
+            // console.log(this.headers);
+            // console.log(this.columnsTypesInferred);            
             resolve(data);
         }
     );
