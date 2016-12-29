@@ -10,7 +10,7 @@ import { SidebarImportService } from './sidebar.import.service';
 
 export class SidebarImportComponent {
 
-  selectFile:any;
+  selectFile: any;
   required = false;
   hasError = false;
   error = 'The input has an error!';

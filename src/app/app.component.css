@@ -20,6 +20,16 @@ div.sidebarImport {
   float: left;
   padding: 10px;
   padding-bottom: 10px;
+  padding-right: 40px;  
+}
+
+div.sidebar {
+  width: 25%;
+  float: left;
+  padding: 10px;
+  padding-top: 20px;  
+  padding-bottom: 10px;
+  padding-right: 40px;    
 }
 
 div.container {

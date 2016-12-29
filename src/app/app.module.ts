@@ -9,17 +9,19 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
+import { ChartComponent } from './chart/chart.component';
 import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 import { SharedService } from './shared.service';
-import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
     SidebarImportComponent,
-    ChartComponent
+    ChartComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
