@@ -58,7 +58,7 @@ export class SidebarImportService {
       filePath = '../data/flights-3m.csv';
     }
     else if (selectFile == 'Statsbygg state of estate') {
-      filePath = '../data/state-of-estate.csv';
+      filePath = '../data/SoE.csv';
     }
       this.data = datalib.csv({url: filePath});
       return this.data;

@@ -41,9 +41,11 @@ export class TableComponent implements OnInit {
     afterSelection: function (r, c, r2, c2) {
       this.selected = this.getSelected();
       console.log(this.selected);
-      
     }
     });
+
+    this.test();
+
   }
 
   test() {
@@ -51,7 +53,7 @@ export class TableComponent implements OnInit {
     contextMenu: {
       callback: function (key, options) {
         if (key === 'about') {
-          // return console.log(this.getSelected());
+          return console.log(this.getSelected());
         }
       },
       items: {
@@ -60,5 +62,5 @@ export class TableComponent implements OnInit {
     }
   })
   };
-
+  
 }
