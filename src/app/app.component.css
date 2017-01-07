@@ -9,12 +9,6 @@ div.datatable {
   padding: 10px;
 }
 
-div.chart {
-  width: 75%;
-  float: right;
-  padding: 10px;
-}
-
 div.sidebarImport {
   width: 25%;
   float: left;

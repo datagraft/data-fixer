@@ -1,18 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'datatable',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.css'],
+  providers: [ChartComponent]
 })
+
 export class TableComponent implements OnInit {
 
+  // table
   public data: any;
   public hot: any;
   public selected: any;
+  public headers: any;
 
-  constructor() {
+  // chart
+  public barChartData: any;
+  public barChartLabels: any;  
+
+  constructor(private chartComponent: ChartComponent) {
     this.data = [
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
+      ["-", "-", "-", "-", "-"],
       ["-", "-", "-", "-", "-"],
       ["-", "-", "-", "-", "-"],
       ["-", "-", "-", "-", "-"],
@@ -28,39 +41,46 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
-    var container = document.getElementById('datatable');
-    this.hot = new Handsontable(container, {
+
+    let container = document.getElementById('datatable');
+    
+    let settings = {
     data: this.data,
     rowHeaders: true,
     colHeaders: true,
-    contextMenu: true,
-    height: 300,
-    stretchH: 'all',
-    columnSorting: true,
-    className: 'htCenter htMiddle',
-    afterSelection: function (r, c, r2, c2) {
-      this.selected = this.getSelected();
-      console.log(this.selected);
-    }
-    });
-
-    this.test();
-
-  }
-
-  test() {
-    this.hot.updateSettings({
     contextMenu: {
-      callback: function (key, options) {
-        if (key === 'about') {
-          return console.log(this.getSelected());
+      callback: (key, options) => {
+        if (key === 'refresh') {
+          this.barChartData = this.refreshChartData();
         }
       },
       items: {
-        "about": {name: 'About this menu'}
+        "refresh": {name: 'Refresh chart data'}
       }
+    },
+    height: 400,
+    stretchH: 'all',
+    columnSorting: true,
+    className: 'htCenter htMiddle',
+    afterSelection: (r, c, r2, c2) => {
+      this.selected = this.hot.getSelected();
+      console.log(this.selected);
     }
-  })
+    };
+    this.hot = new Handsontable(container, settings);
+  }
+
+  refreshChartData() {
+    // console.log('All OK');
+    return [
+    {data: [22, 22, 22, 22, 22, 22, 90], label: 'Series B'}
+  ]
   };
+
+  headersUpdate() {
+    this.hot.updateSettings({
+      colHeaders: this.headers
+    })
+  }
   
 }

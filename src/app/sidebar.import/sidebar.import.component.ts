@@ -11,6 +11,7 @@ import { SidebarImportService } from './sidebar.import.service';
 export class SidebarImportComponent {
 
   selectFile: any;
+  headers: any;
   required = false;
   hasError = false;
   error = 'The input has an error!';
@@ -22,6 +23,7 @@ export class SidebarImportComponent {
   }
 
   getData () {
+    this.headers = this.sidebarImportService.headers;
     return this.sidebarImportService.data;
   }
 

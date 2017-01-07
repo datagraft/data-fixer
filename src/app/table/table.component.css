@@ -1,10 +1,10 @@
-.hot-table {
+
+#datatable {
   font-family: 'Roboto', sans-serif;  
   color: black;
   font-weight: normal;
 }
 
-.button {
-    padding-top: 30px;
-    padding-left: 30px;
+.chart {
+    padding-top: 20px;
 }
