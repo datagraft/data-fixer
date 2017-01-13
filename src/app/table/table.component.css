@@ -6,12 +6,12 @@
 }
 
 .chart {
-    width: 20%;
-    float: left;
-    padding-top: 20px;
-    /* border-style: solid;
+    display: inline-block;
+    padding-top: 0px;
+    /*
+    border-style: solid;
     border-width: thin;
     border-radius: 3px;
-    border-color: darkgrey; 
-    */
+    border-color: darkgrey;
+    */ 
 }

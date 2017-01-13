@@ -7,7 +7,6 @@ import { ChartComponent } from './chart/chart.component';
 import {SharedService} from './shared.service';
 import {SidebarImportService} from './sidebar.import/sidebar.import.service';
 import {SidebarService} from './sidebar/sidebar.service';
-import {ChartService} from './chart/chart.service';
 import {ProfilingService} from './table/profiling.service';
 
 
@@ -15,12 +14,12 @@ import {ProfilingService} from './table/profiling.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SharedService, SidebarImportService, SidebarService, ChartService, ProfilingService, TableComponent, ChartComponent, SidebarImportComponent, SidebarComponent]
+  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TableComponent, ChartComponent, SidebarImportComponent, SidebarComponent]
 })
 
 export class AppComponent {
 
-  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService, private chartService: ChartService) { }  
+  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService) { }  
 
   @ViewChild(SidebarImportComponent) sidebarImportComponent: SidebarImportComponent;
   @ViewChild(SidebarComponent) sidebarComponent: SidebarComponent;    

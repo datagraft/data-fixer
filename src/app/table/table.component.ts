@@ -19,8 +19,10 @@ export class TableComponent implements OnInit {
   public headers: any;
 
   // chart
-  public chartData: any;
-  public chartLabels: any;  
+  public chartData01: any;
+  public chartLabels01: any;  
+  public chartData02: any;
+  public chartLabels02: any;  
 
   constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService) {
     this.data = [
@@ -82,8 +84,10 @@ export class TableComponent implements OnInit {
   refreshChartData() {
    this.profilingService.getProfile();
    setTimeout(() => { 
-      this.chartData = this.profilingService.profile[2];
-      this.chartLabels = this.profilingService.profile[3];
+      this.chartData01 = this.profilingService.profile[2];
+      this.chartLabels01 = this.profilingService.profile[3];
+      this.chartData02 = this.profilingService.profile[4];
+      this.chartLabels02 = this.profilingService.profile[5];
     }, 
     300);
   };

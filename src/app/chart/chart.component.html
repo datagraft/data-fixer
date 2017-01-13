@@ -1,13 +1,27 @@
-<h4>Distinct values</h4>
 
-<div class="chart">
-  <div style="display: block">
+    <div class="chart">
+  <h4>Value Counts</h4>
   <canvas baseChart
-              [data]="chartData"
-              [labels]="chartLabels"
-              [legend]="chartLegend"
+              [data]="chartData01"
+              [labels]="chartLabels01"
+              [legend]="chartLegend01"
+              [colors]="chartColors01"  
               [chartType]="chartType"
               (chartHover)="chartHovered($event)"
               (chartClick)="chartClicked($event)"></canvas>
 </div>
+
+
+<div class="chart">
+  <h4>Data Quality</h4>  
+  <canvas baseChart
+              [data]="chartData02"
+              [labels]="chartLabels02"
+              [colors]="chartColors02"
+              [legend]="chartLegend02"
+              [chartType]="chartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
 </div>
+
+
