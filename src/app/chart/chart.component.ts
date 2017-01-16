@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'chart',
@@ -7,7 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ChartComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    this.profileSubset = new Object();
+    this.profileSubset.selection = 0;
+    this.profileSubset.chart = 0;
+    this.profileSubsetEmitter = new EventEmitter<number>();
+   }
+
+  @Input() profileSubset: any;
+  @Output() profileSubsetEmitter: EventEmitter<number>;
   
   @Input() public chartData01: number[];
   @Input() public chartLabels01: string[];
@@ -39,23 +47,37 @@ export class ChartComponent implements OnInit {
       ]
    }];
 
-
-  // events
-  public chartClicked(e:any):void {
-    // console.log(e);
-  }
-
-  public chartHovered(e:any):void {
-    // console.log(e);
-  }
-
-
-   ngOnInit() {
+  ngOnInit() {
     this.chartData01 = [1];
     this.chartLabels01 = ['Init'];
     this.chartData02 = [1];
     this.chartLabels02 = ['Init'];
    }
+
+  chartSubsetEmit() {
+    this.profileSubsetEmitter.emit(this.profileSubset);
+  }
+
+  // events chart01
+  public chart01Clicked(e:any):void {
+    this.profileSubset.selection = e.active["0"]._index;
+    this.profileSubset.chart = 1;   
+    this.chartSubsetEmit();
+  }
+
+  public chart01Hovered(e:any):void {    
+      }
+
+  // events chart02
+  public chart02Clicked(e:any):void {
+    this.profileSubset.selection = e.active["0"]._index;
+    this.profileSubset.chart = 1;   
+    this.chartSubsetEmit();
+  }
+
+  public chart02Hovered(e:any):void {    
+      }
+
 
 }
 

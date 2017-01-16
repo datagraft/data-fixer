@@ -1,5 +1,5 @@
 
-    <div class="chart">
+<div class="chart01">
   <h4>Value Counts</h4>
   <canvas baseChart
               [data]="chartData01"
@@ -7,12 +7,12 @@
               [legend]="chartLegend01"
               [colors]="chartColors01"  
               [chartType]="chartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+              (chartHover)="chart01Hovered($event)"
+              (chartClick)="chart01Clicked($event)"></canvas>
 </div>
 
 
-<div class="chart">
+<div class="chart02">
   <h4>Data Quality</h4>  
   <canvas baseChart
               [data]="chartData02"
@@ -20,8 +20,8 @@
               [colors]="chartColors02"
               [legend]="chartLegend02"
               [chartType]="chartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+              (chartHover)="chart02Hovered($event)"
+              (chartClick)="chart02Clicked($event)"></canvas>
 </div>
 
 

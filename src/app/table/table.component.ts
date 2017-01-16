@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ChartComponent } from '../chart/chart.component';
 
 import {ProfilingService} from './profiling.service';
@@ -17,6 +17,9 @@ export class TableComponent implements OnInit {
   public hot: any;
   public selected: any;
   public headers: any;
+
+  @Input() profileSubset: any;
+  @Output() profileSubsetEmitter: EventEmitter<number>;
 
   // chart
   public chartData01: any;
@@ -45,6 +48,16 @@ export class TableComponent implements OnInit {
       ["-", "-", "-", "-", "-"],
       ["-", "-", "-", "-", "-"]
       ];
+
+    this.profileSubset = new Object();
+    this.profileSubset.selection = 0;
+    this.profileSubset.chart = 0;
+    this.profileSubsetEmitter = new EventEmitter<number>();
+  }
+
+  onProfileSubsetEmitted(value: any) {
+    this.profileSubset = value;
+    this.profileSubsetEmitter.emit(this.profileSubset);
   }
 
   ngOnInit() {

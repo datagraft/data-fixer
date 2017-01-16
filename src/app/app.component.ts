@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { TableComponent } from './table/table.component';
 import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -19,13 +19,25 @@ import {ProfilingService} from './table/profiling.service';
 
 export class AppComponent {
 
-  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService) { }  
+  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService) {
+    //this.profileSubset = 'init';
+    this.profileSubset = new Object();
+    this.profileSubset.selection = 0;
+    this.profileSubset.chart = 0; 
+  }  
 
   @ViewChild(SidebarImportComponent) sidebarImportComponent: SidebarImportComponent;
   @ViewChild(SidebarComponent) sidebarComponent: SidebarComponent;    
   @ViewChild(TableComponent) tableComponent: TableComponent;
+
+  @Input() profileSubset: any;
   
   dataParsed: any;
+
+  onProfileSubsetEmitted(value: any) {
+      this.profileSubset = value;
+      console.log(this.profileSubset);
+  }
 
   getDataRaw () {
       this.sidebarImportComponent.getDataFromFile();
