@@ -5,19 +5,19 @@
 h4 {
     text-align: center;
     line-height: 1.5;
-    padding-bottom: 20px;
+    padding-bottom: 12px;
 }
 
 .chart01 {
     display: inline-block;
-    padding-top: 20px;
+    padding-top: 0px;
     padding-right: 60px;
-    width: 300px;
+    width: 250px;
 }
 
 .chart02 {
     display: inline-block;
-    padding-top: 20px;
+    padding-top: 0px;
     padding-right: 60px;
-    width: 300px;
+    width: 250px;
 }

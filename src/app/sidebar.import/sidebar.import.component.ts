@@ -12,6 +12,7 @@ export class SidebarImportComponent {
 
   selectFile: any;
   headers: any;
+  types: any;
   required = false;
   hasError = false;
   error = 'The input has an error!';
@@ -24,7 +25,8 @@ export class SidebarImportComponent {
 
   getData () {
     this.headers = this.sidebarImportService.headers;
+    this.types = this.sidebarImportService.types;
     return this.sidebarImportService.data;
   }
-
+  
 }

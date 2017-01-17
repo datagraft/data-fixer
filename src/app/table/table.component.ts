@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ChartComponent } from '../chart/chart.component';
 
-import {ProfilingService} from './profiling.service';
+import { ProfilingService } from './profiling.service';
+import { TransformationsService } from './transformations.service';
 
 @Component({
   selector: 'datatable',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  providers: [ChartComponent, ProfilingService]
+  providers: [ChartComponent, ProfilingService, TransformationsService]
 })
 
 export class TableComponent implements OnInit {
@@ -27,7 +28,7 @@ export class TableComponent implements OnInit {
   public chartData02: any;
   public chartLabels02: any;  
 
-  constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService) {
+  constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
     this.data = [
       ["-", "-", "-", "-", "-"],
       ["-", "-", "-", "-", "-"],
@@ -70,28 +71,40 @@ export class TableComponent implements OnInit {
     colHeaders: true,
     contextMenu: {
       callback: (key, options) => {
-        if (key === 'refresh') {
-       
+        if (key === 'remove_row') {
+          this.refresh();
+          console.log('Column headers: ', this.hot.getColHeader());
         }
       },
       items: {
-        "refresh": {name: 'Get profile'}
-      }
+        "row_above": {},
+        "row_below": {},        
+        "remove_col": {},
+        "remove_row": {},
+        "col_left": {},                
+        "col_right": {},
+        "undo": {},                
+        "redo": {}         
+      },
     },
     height: 460,
     stretchH: 'all',
     columnSorting: true,
     className: 'htCenter htMiddle',
     afterSelection: (r, c, r2, c2) => {
-      this.profilingService.data = this.data;
-      this.selected = this.hot.getSelected();
-      this.profilingService.columnSelected = this.selected[1];
-      this.refreshChartData();      
+      this.refresh();
       // console.log(this.profilingService.columnSelected);
       // console.log(this.selected);
     }
     };
     this.hot = new Handsontable(container, settings);
+  }
+
+  refresh() {
+      this.profilingService.data = this.data;
+      this.selected = this.hot.getSelected();
+      this.profilingService.columnSelected = this.selected[1];
+      this.refreshChartData();     
   }
 
   refreshChartData() {
@@ -109,6 +122,13 @@ export class TableComponent implements OnInit {
     this.hot.updateSettings({
       colHeaders: this.headers
     })
+  }
+
+  emptyToZero(getTypeInference) {
+    this.transformationsService.emptyToZero(this.data, this.selected[1]);
+    this.refreshChartData();          
+    console.log('Selected column: ', this.selected[1])
+    console.log(this.data);
   }
   
 }

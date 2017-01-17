@@ -1,8 +1,9 @@
 <div class="sidebar">
-  <ngl-form-element label="Select transformation" [error]="hasError ? error : null" class="slds-m-top--small">
-  <select nglFormControl class="slds-select" [required]="required" [(ngModel)]="selectFile">
-    <option>Headers</option>
-    <option>Test sidebar 2</option>
-  </select>
-</ngl-form-element>
+
+<table ngl-datatable [data]="data" trackByKey="rank" [bordered]="bordered" [striped]="striped" (onRowClick)="onRowClick($event)" class="slds-max-medium-table--stacked-horizontal">
+  <ngl-datatable-column heading="Select transformation" key="transformation">
+    <template nglDatatableHeading><strong>Select transformation</strong></template>
+  </ngl-datatable-column>
+</table>
+
 </div>

@@ -8,6 +8,7 @@ export class SidebarImportService {
   data: any;
   headers: any;
   columnsTypesInferred: any;
+  types: any;
 
   constructor() { }
 
@@ -19,12 +20,14 @@ export class SidebarImportService {
             this.headers = data.columns;
             this.columnsTypesInferred = data.__types__;
             // console.log(this.headers);
-            // console.log(this.columnsTypesInferred);            
+            // console.log('Type inference: ', this.columnsTypesInferred);            
             resolve(data);
         }
     );
 
-    const dataParsed = function (data) {
+    const dataParsed = (data) => {
+
+        this.types = this.getTypesInferred();
 
         let arrayParsed = [];
 
@@ -42,6 +45,20 @@ export class SidebarImportService {
       promise
           .then(dataParsed)
           .then(fulfilled => {this.data = fulfilled});
+  }
+
+  getTypesInferred() {
+    let types = [];
+    let tempArray = [];
+    for (let i = 0; i < this.headers.length; i++) {
+        tempArray.push(i);
+        tempArray.push(this.headers[i]);
+        tempArray.push(this.columnsTypesInferred[this.headers[i]]);        
+        types.push(tempArray);
+        tempArray = [];
+    }
+        console.log(types);
+        return types;    
   }
 
   getFile (selectFile) { 

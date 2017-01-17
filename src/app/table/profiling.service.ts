@@ -11,6 +11,7 @@ export class ProfilingService {
   columnData = [];
   profile: any;
   columnSelected: any;
+  typesInferred: any;
 
   // returns data profile of selected column
   getProfile() {
@@ -39,6 +40,8 @@ export class ProfilingService {
       let histogram_chartData = [];
       let histogram_chartLabels = [];
 
+      console.log('Histogram selected column: ', histogram);
+
       for (let i = 0; i < histogram.length; i++) {    
           for (let key in histogram[i]) {
             if (key == 'count') {
@@ -64,7 +67,7 @@ export class ProfilingService {
       profile.push(validity_chartData);
       profile.push(validity_chartLabels);
       
-      console.log(profile);   
+      console.log('Data profile selected column: ', profile);   
 
       return Promise.resolve(profile);
     };
@@ -101,6 +104,9 @@ export class ProfilingService {
 
   // returns table values of selected column
   getColumnData () {
+
+    this.typesInferred = datalib.type.inferAll(this.data);
+    console.log('Inferred types: ', this.typesInferred);
 
     for (let i = 0; i < this.data.length; i++) {
       this.columnData.push(this.data[i][this.columnSelected]);
