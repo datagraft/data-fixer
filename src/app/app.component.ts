@@ -64,7 +64,7 @@ export class AppComponent {
       }
 
       else if (this.sidebarComponent.transformationSelected == 2) {
-          // this.tableComponent.emptyToZero(getTypeInference);
+          this.tableComponent.emptyToZero();
           console.log(this.sidebarImportComponent.types);                
       }
     }

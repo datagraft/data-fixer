@@ -72,9 +72,9 @@ export class TableComponent implements OnInit {
     colHeaders: true,
     contextMenu: {
       callback: (key, options) => {
-        if (key === 'remove_row') {
+        if (key === 'remove_row' || 'remove_col') {
           this.refresh();
-          console.log('Column headers: ', this.hot.getColHeader());
+          // console.log('Column headers: ', this.hot.getColHeader());
         }
       },
       items: {
@@ -126,7 +126,7 @@ export class TableComponent implements OnInit {
     })
   }
 
-  emptyToZero(getTypeInference) {
+  emptyToZero() {
     this.transformationsService.emptyToZero(this.data, this.selected[1]);
     this.refreshChartData();          
     console.log('Selected column: ', this.selected[1])

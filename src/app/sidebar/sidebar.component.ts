@@ -13,10 +13,10 @@ export class SidebarComponent implements OnInit {
 
   public transformations = [
     { id: 1, transformation: 'Set first row as header' },
-    { id: 2, transformation: 'Set empty cells to value zero' },
-    { id: 3, transformation: 'Pad digits' },
+    { id: 2, transformation: 'Map column: Set empty cells to zero' },
+    { id: 3, transformation: 'Map column: Pad' },
     { id: 4, transformation: '-' },
-    { id: 5, transformation: '-' },
+    { id: 5, transformation: '-' }
   ];
 
   data = this.transformations;

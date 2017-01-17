@@ -7,3 +7,36 @@
 </table>
 
 </div>
+
+<div id="container">
+
+  <div class="dropdown">
+    <ngl-form-element label="Column" [error]="hasError ? error : null" class="slds-m-top--small">
+      <select nglFormControl class="slds-select" [required]="required">
+      <option>-</option>
+      <option>Column Two</option>
+      <option>Column Three</option>
+  </select>
+</ngl-form-element>
+  </div>
+
+    <div class="dropdown">
+    <ngl-form-element label="Function" [error]="hasError ? error : null" class="slds-m-top--small">
+      <select nglFormControl class="slds-select" [required]="required">
+      <option>-</option>
+      <option>Function Two</option>
+      <option>Function Three</option>
+  </select>
+</ngl-form-element>
+  </div>
+
+<div class="inputform">
+    <ngl-form-element label="Input Parameter" [error]="hasError ? error : null" class="slds-m-top--small">
+    <input nglFormControl type="text" placeholder="Input" [required]="required">
+  </ngl-form-element>
+</div>
+
+
+</div>
+
+

@@ -57,6 +57,13 @@ export class ChartComponent implements OnInit {
         '#F4A261',        
         '#9BC1BC',                        
         '#00A8E8',
+        '#F4F1BB',
+        '#003459',        
+        '#00171F',
+        '#007EA7',
+        '#F4A261',        
+        '#9BC1BC',                        
+        '#00A8E8',
         '#F4F1BB'              
       ]
    }];
@@ -64,7 +71,7 @@ export class ChartComponent implements OnInit {
   public chartColors02: Array<any> = [
     {
       backgroundColor: [
-        '#02C39A',
+        '#00A896',
         '#FF1654'
       ]
    }];

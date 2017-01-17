@@ -10,10 +10,9 @@ export class StepsComponent implements OnInit {
 
   public transformations = [
     { id: 1, transformation: 'Step 1' },
-    { id: 2, transformation: 'Step 2' },
-    { id: 3, transformation: 'Step 3' },
-    { id: 4, transformation: 'Step 4' },
-    { id: 5, transformation: 'Step 5' },
+    { id: 2, transformation: '-' },
+    { id: 3, transformation: '-' },
+    { id: 4, transformation: '-' }
   ];
 
   data = this.transformations;

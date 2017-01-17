@@ -42,7 +42,7 @@ export class ProfilingService {
       let mean = datalib.mean(data);
       let stdev = datalib.stdev(data);                  
 
-      let outliers = stats.indexOfOutliers(data, 100);
+      // let outliers = stats.indexOfOutliers(data, 100);
 
       let histogram_chartData = [];
       let histogram_chartLabels = [];
@@ -67,7 +67,13 @@ export class ProfilingService {
       let validity_chartLabels = ['Valid', 'Missing'];
 
       let tempArray = [];
-      tempArray.push(outliers.length);
+      if (missing > 0) {
+        tempArray.push(5);
+      }
+      else {
+        tempArray.push(stats.indexOfOutliers(data, 100).length);
+      }
+
       tempArray.push(min);    
       tempArray.push(max);      
       tempArray.push(mean);      
