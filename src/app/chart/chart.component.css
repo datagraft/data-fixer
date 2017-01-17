@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-h4 {
+h5 {
     text-align: center;
     line-height: 1.5;
     padding-bottom: 12px;
@@ -10,14 +10,22 @@ h4 {
 
 .chart01 {
     display: inline-block;
-    padding-top: 0px;
-    padding-right: 60px;
-    width: 250px;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-bottom: 15px;        
+    width: 280px;
 }
 
 .chart02 {
     display: inline-block;
-    padding-top: 0px;
-    padding-right: 60px;
-    width: 250px;
+    padding-right: 40px;
+    padding-left: 40px;  
+    width: 280px;
+}
+
+.chart03 {
+    display: inline-block;
+    padding-right: 40px;
+    padding-left: 40px;      
+    width: 450px;
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import * as datalib from 'datalib';
+import * as stats from 'stats-analysis';
 
 @Injectable()
 export class ProfilingService {
@@ -36,6 +37,12 @@ export class ProfilingService {
       let histogram = datalib.histogram(data);
       let valid = datalib.count.valid(data);
       let missing = datalib.count.missing(data);
+      let min = datalib.min(data);
+      let max = datalib.max(data);
+      let mean = datalib.mean(data);
+      let stdev = datalib.stdev(data);                  
+
+      let outliers = stats.indexOfOutliers(data, 100);
 
       let histogram_chartData = [];
       let histogram_chartLabels = [];
@@ -55,10 +62,21 @@ export class ProfilingService {
 
       let validity_chartData = [];
       validity_chartData.push(valid);
-      // validity_chartData.push(countTotal - valid);
       validity_chartData.push(missing);            
       
       let validity_chartLabels = ['Valid', 'Missing'];
+
+      let tempArray = [];
+      tempArray.push(outliers.length);
+      tempArray.push(min);    
+      tempArray.push(max);      
+      tempArray.push(mean);      
+      tempArray.push(stdev);
+
+      let obj = {data: []};
+      obj.data = tempArray;
+      let chartData_03 = [];
+      chartData_03.push(obj);      
 
       profile.push(countTotal);
       profile.push(distinct);      
@@ -66,6 +84,7 @@ export class ProfilingService {
       profile.push(histogram_chartLabels);
       profile.push(validity_chartData);
       profile.push(validity_chartLabels);
+      profile.push(chartData_03);      
       
       console.log('Data profile selected column: ', profile);   
 

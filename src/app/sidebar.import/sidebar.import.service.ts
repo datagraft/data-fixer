@@ -77,6 +77,9 @@ export class SidebarImportService {
     else if (selectFile == 'Statsbygg state of estate') {
       filePath = '../data/SoE.csv';
     }
+    else if (selectFile == 'Weather') {
+      filePath = '../data/seattle.csv';
+    }
       this.data = datalib.csv({url: filePath});
       return this.data;
   }

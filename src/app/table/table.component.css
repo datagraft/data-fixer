@@ -9,9 +9,6 @@
     display: inline-block;
     padding-top: 0px;
     /*
-    border-style: solid;
-    border-width: thin;
-    border-radius: 3px;
-    border-color: darkgrey;
-    */ 
+    border: 1px solid lightgray;
+    */
 }

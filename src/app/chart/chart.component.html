@@ -1,27 +1,39 @@
 
 <div class="chart01">
-  <h4>Value Counts</h4>
+  <h5>CLUSTERING</h5>
   <canvas baseChart
               [data]="chartData01"
               [labels]="chartLabels01"
               [legend]="chartLegend01"
               [colors]="chartColors01"  
-              [chartType]="chartType"
+              [chartType]="chartType02"
               (chartHover)="chart01Hovered($event)"
               (chartClick)="chart01Clicked($event)"></canvas>
 </div>
 
 
 <div class="chart02">
-  <h4>Data Quality</h4>  
+  <h5>DATA QUALITY</h5>  
   <canvas baseChart
               [data]="chartData02"
               [labels]="chartLabels02"
               [colors]="chartColors02"
               [legend]="chartLegend02"
-              [chartType]="chartType"
+              [chartType]="chartType02"
               (chartHover)="chart02Hovered($event)"
               (chartClick)="chart02Clicked($event)"></canvas>
 </div>
 
+<div class="chart03">
+  <h5>SUMMARY STATISTICS</h5>    
+    <canvas baseChart
+            [datasets]="chartData03"
+            [labels]="chartLabels03"
+            [options]="chartOptions03"
+            [legend]="chartLegend03"
+            [colors]="chartColors03"
+            [chartType]="chartType03"
+            (chartHover)="chart03Hovered($event)"
+            (chartClick)="chart03Clicked($event)"></canvas>
+</div>
 

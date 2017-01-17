@@ -21,10 +21,32 @@ export class ChartComponent implements OnInit {
   @Input() public chartLabels01: string[];
   @Input() public chartData02: number[];
   @Input() public chartLabels02: string[];
+  @Input() public chartData03: any;
+  @Input() public chartLabels03: any;
   
-  public chartType: string = 'doughnut';
+  public chartType01: string = 'doughnut';
+  public chartType02: string = 'doughnut';
+  public chartType03: string = 'horizontalBar';      
   public chartLegend01: boolean = false;
   public chartLegend02: boolean = false;
+  public chartLegend03: boolean = false;
+
+  public chartOptions03:any = {
+    scaleShowVerticalLines: false,
+    responsive: true,
+    scales: {
+      xAxes: [{
+          gridLines: {
+            display: false
+          }
+            }],
+      yAxes: [{
+          gridLines: {
+            display: false
+          }
+            }]
+    }
+  };  
 
   public chartColors01: Array<any> = [
     {
@@ -47,11 +69,25 @@ export class ChartComponent implements OnInit {
       ]
    }];
 
+  public chartColors03: Array<any> = [
+    {
+      backgroundColor: [
+        '#FF1654',
+        '#46494C',
+        '#8D99AE',
+        '#00A896',
+        '#247BA0'
+        
+      ]
+   }];
+
   ngOnInit() {
     this.chartData01 = [1];
     this.chartLabels01 = ['Init'];
     this.chartData02 = [1];
     this.chartLabels02 = ['Init'];
+    this.chartData03 = [{data: [10, 30, 50, 70, 100]}];
+    this.chartLabels03 = ['Outliers', 'Min', 'Max', 'Average', 'Standard deviation'];
    }
 
   chartSubsetEmit() {
@@ -78,6 +114,15 @@ export class ChartComponent implements OnInit {
   public chart02Hovered(e:any):void {    
       }
 
+  // events chart03
+  public chart03Clicked(e:any):void {
+    this.profileSubset.selection = e.active["0"]._index;
+    this.profileSubset.chart = 1;   
+    this.chartSubsetEmit();
+  }
+
+  public chart03Hovered(e:any):void {    
+      }
 
 }
 

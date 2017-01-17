@@ -12,6 +12,7 @@ import { TableComponent } from './table/table.component';
 import { ChartComponent } from './chart/chart.component';
 import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { StepsComponent } from './steps/steps.component';
 
 import { SharedService } from './shared.service';
 
@@ -21,7 +22,8 @@ import { SharedService } from './shared.service';
     TableComponent,
     SidebarImportComponent,
     ChartComponent,
-    SidebarComponent
+    SidebarComponent,
+    StepsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarService } from './sidebar.service';
 import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightning';
 
 @Component({
-  selector: 'sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css'],
-  providers: [SidebarService]
+  selector: 'steps',
+  templateUrl: './steps.component.html',
+  styleUrls: ['./steps.component.css']
 })
-
-export class SidebarComponent implements OnInit {
+export class StepsComponent implements OnInit {
 
   public transformations = [
-    { id: 1, transformation: 'Set first row as header' },
-    { id: 2, transformation: 'Set empty cells to value zero' },
-    { id: 3, transformation: 'Pad digits' },
-    { id: 4, transformation: '-' },
-    { id: 5, transformation: '-' },
+    { id: 1, transformation: 'Step 1' },
+    { id: 2, transformation: 'Step 2' },
+    { id: 3, transformation: 'Step 3' },
+    { id: 4, transformation: 'Step 4' },
+    { id: 5, transformation: 'Step 5' },
   ];
 
   data = this.transformations;
@@ -25,7 +22,7 @@ export class SidebarComponent implements OnInit {
   private bordered: boolean = false;
   public transformationSelected: number;
 
-  constructor(private sidebarService: SidebarService) { }
+  constructor() { }
 
   ngOnInit() { }
 

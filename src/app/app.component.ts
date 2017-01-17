@@ -3,6 +3,7 @@ import { TableComponent } from './table/table.component';
 import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChartComponent } from './chart/chart.component';
+import { StepsComponent } from './steps/steps.component';
 
 import { SharedService } from './shared.service';
 import { SidebarImportService } from './sidebar.import/sidebar.import.service';
@@ -15,7 +16,7 @@ import { TransformationsService } from './table/transformations.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, TableComponent, ChartComponent, SidebarImportComponent, SidebarComponent]
+  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, TableComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
 })
 
 export class AppComponent {
@@ -29,6 +30,7 @@ export class AppComponent {
   @ViewChild(SidebarImportComponent) sidebarImportComponent: SidebarImportComponent;
   @ViewChild(SidebarComponent) sidebarComponent: SidebarComponent;    
   @ViewChild(TableComponent) tableComponent: TableComponent;
+  @ViewChild(StepsComponent) stepsComponent: StepsComponent;  
 
   @Input() profileSubset: any;
   
