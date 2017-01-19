@@ -37,7 +37,14 @@ div.steps {
   padding-right: 40px;  
 }
 
-div.container {
+div.fileSelection {
+  width: 300px;
+  padding: 10px;
+  padding-bottom: 5px;
+  display: inline-block;
+}
+
+div.containerApplyTransformationButton {
   padding: 10px;
   padding-bottom: 5px;
 }

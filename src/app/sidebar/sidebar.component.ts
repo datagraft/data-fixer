@@ -14,12 +14,15 @@ export class SidebarComponent implements OnInit {
   public transformations = [
     { id: 1, transformation: 'Set first row as header' },
     { id: 2, transformation: 'Map column: Set empty cells to zero' },
-    { id: 3, transformation: 'Map column: Pad' },
-    { id: 4, transformation: '-' },
-    { id: 5, transformation: '-' }
+    { id: 3, transformation: 'Transform text: set string to uppercase letters' },
+    { id: 4, transformation: 'Pad digits 0 to 4' },
+    { id: 5, transformation: '(Statsbygg) Convert text to standard format' },
+    { id: 6, transformation: '(Statsbygg) Reformat dates' },
+    { id: 7, transformation: '(Statsbygg) Concatenate to string - sep. by (/)' },
   ];
 
   data = this.transformations;
+  inputParameter: any;
 
   private striped: boolean = false;
   private bordered: boolean = false;
@@ -42,6 +45,18 @@ export class SidebarComponent implements OnInit {
     }
     else if ($event.data.id == 3) {
       this.transformationSelected = 3;
+    }
+    else if ($event.data.id == 4) {
+      this.transformationSelected = 4;
+    }
+    else if ($event.data.id == 5) {
+      this.transformationSelected = 5;
+    }
+    else if ($event.data.id == 6) {
+      this.transformationSelected = 6;
+    }
+    else if ($event.data.id == 7) {
+      this.transformationSelected = 7;
     }
   }
 

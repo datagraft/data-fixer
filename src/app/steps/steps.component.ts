@@ -11,8 +11,7 @@ export class StepsComponent implements OnInit {
   public steps = [
     { id: 1, steps: 'Step 1' },
     { id: 2, steps: '-' },
-    { id: 3, steps: '-' },
-    { id: 4, steps: '-' }
+    { id: 3, steps: '-' }
   ];
 
   data = this.steps;

@@ -27,29 +27,19 @@ export class TableComponent implements OnInit {
   public chartLabels01: any;  
   public chartData02: any;
   public chartLabels02: any;
-  public chartData03: any;    
+  public chartData03: any;
+
+  // transformations
+  padParam: number = 4;
+  columns: any = [11, 12, 13, 14, 15];
+  separation: string = "/";    
 
   constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
-    this.data = [
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"],
-      ["-", "-", "-", "-", "-"]
-      ];
+    let tempArray = [];
+    for (let i = 0; i <= 18; i++) {
+      tempArray.push(["-", "-", "-", "-", "-"]);
+    }
+    this.data = tempArray;
 
     this.profileSubset = new Object();
     this.profileSubset.selection = 0;
@@ -70,6 +60,7 @@ export class TableComponent implements OnInit {
     data: this.data,
     rowHeaders: true,
     colHeaders: true,
+    viewportColumnRenderingOffset: 40,
     contextMenu: {
       callback: (key, options) => {
         if (key === 'remove_row' || 'remove_col') {
@@ -94,8 +85,7 @@ export class TableComponent implements OnInit {
     className: 'htCenter htMiddle',
     afterSelection: (r, c, r2, c2) => {
       this.refresh();
-      // console.log(this.profilingService.columnSelected);
-      // console.log(this.selected);
+      console.log('Selected column: ', this.selected[1]);
     }
     };
     this.hot = new Handsontable(container, settings);
@@ -123,14 +113,44 @@ export class TableComponent implements OnInit {
   headersUpdate() {
     this.hot.updateSettings({
       colHeaders: this.headers
-    })
+    });
+    this.hot.render();
   }
 
   emptyToZero() {
     this.transformationsService.emptyToZero(this.data, this.selected[1]);
     this.refreshChartData();          
     console.log('Selected column: ', this.selected[1])
-    console.log(this.data);
+    // console.log(this.data);
   }
-  
+
+  upperCase() {
+    this.transformationsService.upperCase(this.data, this.selected[1]);
+    this.refreshChartData();
+  }
+
+  pad() {
+    this.transformationsService.pad(this.data, this.selected[1], this.padParam);
+    this.refreshChartData();
+  }
+
+  convertToStandardFormat() {
+    this.transformationsService.convertToStandardFormat(this.data, this.selected[1]);
+    this.refreshChartData();
+  }
+
+  reformatDates() {
+    this.transformationsService.reformatDates(this.data, this.selected[1]);
+    this.refreshChartData();
+    console.log(this.headers);    
+  }
+
+  concatenateToString() {
+    this.transformationsService.concatenateToString(this.data, this.columns, this.separation);
+    this.refreshChartData();
+    this.headers.splice(16, 0, "cad-ref");
+    this.headersUpdate();
+    // console.log(this.data);
+  }
 }
+

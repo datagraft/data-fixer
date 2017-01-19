@@ -4,26 +4,20 @@
   <datatable [profileSubset]="profileSubset" (profileSubsetEmitter)="onProfileSubsetEmitted($event)"></datatable>    
 </div>
 
-<div class="sidebarImport">
-  <sidebarImport></sidebarImport>    
-</div>
-
-<div id="container">
+<div id="sidebarImport">
   <div class="sidebarImportButton">
     <button type="button" nglButton="brand" (click)="getDataRaw()">Import file</button>    
 </div>
-<!--
-<div class="sidebarImportButton">
-    <button type="button" nglButton="brand" (click)="getDataParsed()">Initialize table</button>    
-</div>
--->
+  <div class="fileSelection">
+    <sidebarImport></sidebarImport>    
+  </div>
 </div>
 
 <div class="sidebar">
   <sidebar></sidebar>
 </div>
 
-<div id="container">
+<div id="containerApplyTransformationButton">
   <div class="sidebarImportButton">
     <button type="button" nglButton="brand" (click)="runTransformation()">Apply transformation</button>    
 </div>

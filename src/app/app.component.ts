@@ -67,10 +67,24 @@ export class AppComponent {
       if (this.sidebarComponent.transformationSelected == 1) {
           this.tableComponent.headersUpdate();                
       }
-
       else if (this.sidebarComponent.transformationSelected == 2) {
           this.tableComponent.emptyToZero();
-          console.log(this.sidebarImportComponent.types);                
+          // console.log(this.sidebarImportComponent.types);                
+      }
+      else if (this.sidebarComponent.transformationSelected == 3) {
+          this.tableComponent.upperCase();
+      }
+      else if (this.sidebarComponent.transformationSelected == 4) {
+          this.tableComponent.pad();
+      }
+      else if (this.sidebarComponent.transformationSelected == 5) {
+          this.tableComponent.convertToStandardFormat();
+      }
+      else if (this.sidebarComponent.transformationSelected == 6) {
+          this.tableComponent.reformatDates();
+      }
+      else if (this.sidebarComponent.transformationSelected == 7) {
+          this.tableComponent.concatenateToString();
       }
     }
 
