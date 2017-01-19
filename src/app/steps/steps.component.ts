@@ -8,14 +8,14 @@ import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightnin
 })
 export class StepsComponent implements OnInit {
 
-  public transformations = [
-    { id: 1, transformation: 'Step 1' },
-    { id: 2, transformation: '-' },
-    { id: 3, transformation: '-' },
-    { id: 4, transformation: '-' }
+  public steps = [
+    { id: 1, steps: 'Step 1' },
+    { id: 2, steps: '-' },
+    { id: 3, steps: '-' },
+    { id: 4, steps: '-' }
   ];
 
-  data = this.transformations;
+  data = this.steps;
 
   private striped: boolean = false;
   private bordered: boolean = false;

@@ -34,6 +34,7 @@ export class AppComponent {
 
   @Input() profileSubset: any;
   
+  data: any;
   dataParsed: any;
 
   getTypeInference = () => {
@@ -46,8 +47,12 @@ export class AppComponent {
   }
 
   getDataRaw () {
-      this.sidebarImportComponent.getDataFromFile();
-  }
+    this.sidebarImportComponent.getDataFromFile();
+        setTimeout(() => { 
+            this.getDataParsed();            
+            }, 
+        500);
+    };
 
   getDataParsed () {
       this.tableComponent.data = this.sidebarImportComponent.getData();

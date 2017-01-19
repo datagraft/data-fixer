@@ -1,8 +1,8 @@
 <div class="steps">
 
 <table ngl-datatable [data]="data" trackByKey="rank" [bordered]="bordered" [striped]="striped" (onRowClick)="onRowClick($event)" class="slds-max-medium-table--stacked-horizontal">
-  <ngl-datatable-column heading="Select transformation" key="transformation">
-    <template nglDatatableHeading><div style="font-size: 130%; border-bottom: 1px solid lightgray; padding-bottom: 8px;"><strong>Pipeline steps</strong></div></template>
+  <ngl-datatable-column heading="Steps" key="steps">
+    <template nglDatatableHeading><div style="font-size: 130%; border-bottom: 1px solid lightgray; padding-bottom: 8px;"><strong>Steps</strong></div></template>
   </ngl-datatable-column>
 </table>
 

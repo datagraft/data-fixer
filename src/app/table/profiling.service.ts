@@ -71,7 +71,7 @@ export class ProfilingService {
         tempArray.push(5);
       }
       else {
-        tempArray.push(stats.indexOfOutliers(data, 100).length);
+        tempArray.push(stats.indexOfOutliers(data).length);
       }
 
       tempArray.push(min);    
