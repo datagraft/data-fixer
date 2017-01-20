@@ -62,7 +62,7 @@ export class TransformationsService {
       for (let j = 0; j < columns.length - 1; j++) { 
         concatenated = concatenated.concat(data[i][columns[j]]).concat(separation);
       }
-      console.log(concatenated);
+      // console.log(concatenated);
       data[i].splice(16, 0, concatenated.concat(data[i][columns[columns.length - 1]]));
     }
   }

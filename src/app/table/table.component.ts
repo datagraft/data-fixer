@@ -63,10 +63,13 @@ export class TableComponent implements OnInit {
     viewportColumnRenderingOffset: 40,
     contextMenu: {
       callback: (key, options) => {
-        if (key === 'remove_row' || 'remove_col') {
+        if (key === 'row_above' || 'row_below' || 'remove_col' || 'remove_row' || 'col_left' || 'col_right' || 'undo' || 'redo') {
           this.refresh();
-          // console.log('Column headers: ', this.hot.getColHeader());
-        }
+          this.hot.render();
+        };
+        if (key === "zero") {
+          this.emptyToZero();
+        };
       },
       items: {
         "row_above": {},
@@ -75,6 +78,7 @@ export class TableComponent implements OnInit {
         "remove_row": {},
         "col_left": {},                
         "col_right": {},
+        "zero": {name: 'Empty cells to zero'},
         "undo": {},                
         "redo": {}         
       },
@@ -88,6 +92,7 @@ export class TableComponent implements OnInit {
       console.log('Selected column: ', this.selected[1]);
     }
     };
+
     this.hot = new Handsontable(container, settings);
   }
 
@@ -110,9 +115,9 @@ export class TableComponent implements OnInit {
     300);
   };
 
-  headersUpdate() {
+  headersUpdate(headers) {
     this.hot.updateSettings({
-      colHeaders: this.headers
+      colHeaders: headers
     });
     this.hot.render();
   }
@@ -120,8 +125,6 @@ export class TableComponent implements OnInit {
   emptyToZero() {
     this.transformationsService.emptyToZero(this.data, this.selected[1]);
     this.refreshChartData();          
-    console.log('Selected column: ', this.selected[1])
-    // console.log(this.data);
   }
 
   upperCase() {
@@ -142,7 +145,6 @@ export class TableComponent implements OnInit {
   reformatDates() {
     this.transformationsService.reformatDates(this.data, this.selected[1]);
     this.refreshChartData();
-    console.log(this.headers);    
   }
 
   concatenateToString() {
@@ -150,7 +152,6 @@ export class TableComponent implements OnInit {
     this.refreshChartData();
     this.headers.splice(16, 0, "cad-ref");
     this.headersUpdate();
-    // console.log(this.data);
   }
 }
 

@@ -17,7 +17,8 @@ export class SidebarImportComponent {
   hasError = false;
   error = 'The input has an error!';
 
-  constructor(private sidebarImportService: SidebarImportService) { }
+  constructor(private sidebarImportService: SidebarImportService) {
+   }
 
   getDataFromFile () {
     this.sidebarImportService.getDataParsed(this.selectFile);

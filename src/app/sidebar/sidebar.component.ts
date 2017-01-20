@@ -34,7 +34,7 @@ export class SidebarComponent implements OnInit {
 
   onRowClick($event: INglDatatableRowClick) {
     this.transformationSelected = $event.data.transformation;
-    console.log('Selected transformation: ', $event.data);
+    // console.log('Selected transformation: ', $event.data);
     console.log('Selected transformation id: ', $event.data.id);
 
     if ($event.data.id == 1) {

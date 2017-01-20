@@ -24,7 +24,8 @@ export class AppComponent {
   constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService) {
     this.profileSubset = new Object();
     this.profileSubset.selection = 0;
-    this.profileSubset.chart = 0; 
+    this.profileSubset.chart = 0;
+    this.stepSequence = this.sharedService.initialiseStepSequence();
   }  
 
   @ViewChild(SidebarImportComponent) sidebarImportComponent: SidebarImportComponent;
@@ -33,9 +34,10 @@ export class AppComponent {
   @ViewChild(StepsComponent) stepsComponent: StepsComponent;  
 
   @Input() profileSubset: any;
+  @Input() stepSequence: any;
   
-  data: any;
   dataParsed: any;
+  dataParsedRaw: any;
 
   getTypeInference = () => {
       return this.sidebarImportService.columnsTypesInferred;
@@ -44,6 +46,13 @@ export class AppComponent {
   onProfileSubsetEmitted(value: any) {
       this.profileSubset = value;
       console.log('Chart subset: ', this.profileSubset);
+  }
+
+  onStepsEmitted(value: any) {
+      this.stepSequence = value;
+      this.applyTransformation(true, this.stepsComponent.stepSelected)
+      console.log('Step sequence from app component: ', this.stepSequence);
+      // console.log('onStepsEmitted: ', this.dataParsedRaw);
   }
 
   getDataRaw () {
@@ -55,37 +64,71 @@ export class AppComponent {
     };
 
   getDataParsed () {
-      this.tableComponent.data = this.sidebarImportComponent.getData();
+      this.dataParsed = this.sidebarImportComponent.getData();
+      this.tableComponent.data = this.dataParsed;
       this.tableComponent.headers = this.sidebarImportComponent.headers;
-      this.dataParsed = this.tableComponent.data;
       this.tableComponent.hot.loadData(this.tableComponent.data);
-      // console.log(this.dataParsed);
-      // console.log(this.tableComponent.headers);
+      this.tableComponent.headersUpdate(this.tableComponent.headers);
+      this.stepSequence = this.sharedService.initialiseStepSequence();
+      this.stepsComponent.stepsCounter = 1;    
+      // deep copy of dataParsed to keep original dataset in dataParsedRaw
+      this.dataParsedRaw = [];
+      for (let i = 0; i < this.dataParsed.length; i++) {
+        this.dataParsedRaw.push(this.dataParsed[i].slice(0));
+      }
   }
 
-  runTransformation () {
-      if (this.sidebarComponent.transformationSelected == 1) {
-          this.tableComponent.headersUpdate();                
+  applyTransformation(recreateSteps?: boolean, stepsIndex?: number) {
+      if (recreateSteps) {
+            this.tableComponent.hot.loadData(this.stepSequence[stepsIndex - 1].data);
+            this.tableComponent.hot.render();
+            this.tableComponent.headersUpdate(this.stepSequence[stepsIndex - 1].headers);
+            this.stepsComponent.stepsCounter = stepsIndex + 1;
+            for (let i = stepsIndex; i < this.stepSequence.length; i++) {
+                this.stepSequence[i] = { transformation: 0, step: 0, title: '-', data: [] };
+                i++;
+            }           
+              }
+      else {
+          this.transformations(this.sidebarComponent.transformationSelected);
+      }             
+  }
+
+  datasetDeepCopy() {
+    let deepCopy = [];
+      for (let i = 0; i < this.dataParsed.length; i++) {
+        deepCopy.push(this.dataParsed[i].slice(0));
       }
-      else if (this.sidebarComponent.transformationSelected == 2) {
-          this.tableComponent.emptyToZero();
-          // console.log(this.sidebarImportComponent.types);                
+    return deepCopy;
+  }
+
+  transformations(id) {
+      if (id == 1) {
+          this.tableComponent.headersUpdate(this.tableComponent.headers);
       }
-      else if (this.sidebarComponent.transformationSelected == 3) {
-          this.tableComponent.upperCase();
+      else if (id == 2) {
+          this.tableComponent.emptyToZero();          
       }
-      else if (this.sidebarComponent.transformationSelected == 4) {
-          this.tableComponent.pad();
+      else if (id == 3) {
+          this.tableComponent.upperCase();          
       }
-      else if (this.sidebarComponent.transformationSelected == 5) {
-          this.tableComponent.convertToStandardFormat();
+      else if (id == 4) {
+          this.tableComponent.pad();          
       }
-      else if (this.sidebarComponent.transformationSelected == 6) {
-          this.tableComponent.reformatDates();
+      else if (id == 5) {
+          this.tableComponent.convertToStandardFormat();          
       }
-      else if (this.sidebarComponent.transformationSelected == 7) {
-          this.tableComponent.concatenateToString();
+      else if (id == 6) {
+          this.tableComponent.reformatDates();          
       }
+      else if (id == 7) {
+          this.tableComponent.concatenateToString();          
+      }
+      this.generateTransformationSteps();  
+  }
+
+    generateTransformationSteps() {
+        this.stepsComponent.generateStepsArray(this.sidebarComponent.transformationSelected, this.datasetDeepCopy(), this.tableComponent.hot.getColHeader());
     }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightning';
 
 @Component({
@@ -8,36 +8,60 @@ import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightnin
 })
 export class StepsComponent implements OnInit {
 
-  public steps = [
-    { id: 1, steps: 'Step 1' },
-    { id: 2, steps: '-' },
-    { id: 3, steps: '-' }
-  ];
+  constructor() {
+    this.stepSequence = this.fillArray();
+    this.stepsEmitter = new EventEmitter<any>();
+   }
 
-  data = this.steps;
+  ngOnInit() { }
+
+  @Output() stepsEmitter: EventEmitter<any>;
+
+  @Input() stepSequence = [];
 
   private striped: boolean = false;
   private bordered: boolean = false;
   public transformationSelected: number;
+  public stepSelected: number;
+  public stepsCounter = 1;
 
-  constructor() { }
+  init() {
+    this.stepsCounter = 1;
+    this.stepSelected = 0;
+    this.transformationSelected = 0;
+    this.stepSequence = this.fillArray();
+  }
 
-  ngOnInit() { }
+  fillArray() {
+    return [
+    { transformation: 0, step: 0, title: '-', data: [] },
+    { transformation: 0, step: 0, title: '-', data: [] },
+    { transformation: 0, step: 0, title: '-', data: [] }
+  ];
+  }
+
+  chartSubsetEmit() {
+    this.stepsEmitter.emit(this.stepSequence);
+  }
 
   onRowClick($event: INglDatatableRowClick) {
+    this.stepSelected = $event.data.step;
     this.transformationSelected = $event.data.transformation;
-    console.log('Selected transformation: ', $event.data);
-    console.log('Selected transformation id: ', $event.data.id);
+    console.log('Selected step transformation: ', this.transformationSelected);
+    console.log('Selected step id: ', this.stepSelected);
+    this.stepsEmitter.emit(this.stepSequence);    
+  }
 
-    if ($event.data.id == 1) {
-      this.transformationSelected = 1;
-    }
-    else if ($event.data.id == 2) {
-      this.transformationSelected = 2;
-    }
-    else if ($event.data.id == 3) {
-      this.transformationSelected = 3;
-    }
+  generateStepsArray(transformationSelected, dataset, headers) {
+    let obj: any = {};
+    obj.transformation = transformationSelected;
+    obj.step = this.stepsCounter;
+    obj.title = 'Step ' + this.stepsCounter;
+    obj.headers = headers;
+    obj.data = dataset;
+    this.stepSequence[this.stepsCounter - 1] = obj;    
+    this.stepsCounter++;
+    console.log(this.stepSequence);
   }
 
 }

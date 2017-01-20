@@ -57,7 +57,7 @@ export class SidebarImportService {
         types.push(tempArray);
         tempArray = [];
     }
-        console.log(types);
+        // console.log(types);
         return types;    
   }
 

@@ -19,10 +19,10 @@
 
 <div id="containerApplyTransformationButton">
   <div class="sidebarImportButton">
-    <button type="button" nglButton="brand" (click)="runTransformation()">Apply transformation</button>    
+    <button type="button" nglButton="brand" (click)="applyTransformation()">Apply transformation</button>    
 </div>
 </div>
 
 <div class="steps">
-  <steps></steps>
+  <steps [stepSequence]="stepSequence" (stepsEmitter)="onStepsEmitted($event)"></steps>
 </div>
