@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import * as datalib from 'datalib';
-import * as stats from 'stats-analysis';
 
 @Injectable()
 export class ProfilingService {
@@ -28,7 +27,7 @@ export class ProfilingService {
     );
 
     // generates data profile: count, distinct, histogram, valid, invalid and empty
-    const profileSummary = function (data) {
+    const profileSummary = (data) => {
 
       let profile = [];
 
@@ -67,13 +66,8 @@ export class ProfilingService {
       let validity_chartLabels = ['Valid', 'Missing'];
 
       let tempArray = [];
-      if (missing > 0) {
-        tempArray.push(5);
-      }
-      else {
-        tempArray.push(stats.indexOfOutliers(data).length);
-      }
 
+      tempArray.push(5);
       tempArray.push(min);    
       tempArray.push(max);      
       tempArray.push(mean);      
@@ -92,7 +86,8 @@ export class ProfilingService {
       profile.push(validity_chartLabels);
       profile.push(chartData_03);      
       
-      // console.log('Data profile selected column: ', profile);   
+      console.log('Data profile selected column: ', profile);
+      console.log('Types: ', this.typesInferred);   
 
       return Promise.resolve(profile);
     };

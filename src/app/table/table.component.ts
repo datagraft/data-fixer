@@ -151,7 +151,7 @@ export class TableComponent implements OnInit {
     this.transformationsService.concatenateToString(this.data, this.columns, this.separation);
     this.refreshChartData();
     this.headers.splice(16, 0, "cad-ref");
-    this.headersUpdate();
+    this.headersUpdate(this.headers);
   }
 }
 

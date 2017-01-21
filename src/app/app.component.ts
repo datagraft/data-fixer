@@ -52,7 +52,7 @@ export class AppComponent {
       this.stepSequence = value;
       this.applyTransformation(true, this.stepsComponent.stepSelected)
       console.log('Step sequence from app component: ', this.stepSequence);
-      // console.log('onStepsEmitted: ', this.dataParsedRaw);
+      console.log('onStepsEmitted: ', this.stepsComponent.stepSelected);
   }
 
   getDataRaw () {
@@ -80,13 +80,17 @@ export class AppComponent {
 
   applyTransformation(recreateSteps?: boolean, stepsIndex?: number) {
       if (recreateSteps) {
+          console.log('Counter: ', this.stepsComponent.stepsCounter);
+          //console.log();
+          
             this.tableComponent.hot.loadData(this.stepSequence[stepsIndex - 1].data);
+            this.tableComponent.data = this.stepSequence[stepsIndex - 1].data;
             this.tableComponent.hot.render();
             this.tableComponent.headersUpdate(this.stepSequence[stepsIndex - 1].headers);
             this.stepsComponent.stepsCounter = stepsIndex + 1;
-            for (let i = stepsIndex; i < this.stepSequence.length; i++) {
-                this.stepSequence[i] = { transformation: 0, step: 0, title: '-', data: [] };
-                i++;
+            this.stepSequence = this.stepSequence.slice(0, stepsIndex);
+            for (let i = stepsIndex; i < 3; i++) {
+                this.stepSequence.push({ transformation: 0, step: 0, title: '-', data: [] });
             }           
               }
       else {

@@ -34,9 +34,9 @@ export class StepsComponent implements OnInit {
 
   fillArray() {
     return [
-    { transformation: 0, step: 0, title: '-', data: [] },
-    { transformation: 0, step: 0, title: '-', data: [] },
-    { transformation: 0, step: 0, title: '-', data: [] }
+    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+    { transformation: 0, step: 0, title: '-', headers: [], data: [] }
   ];
   }
 
