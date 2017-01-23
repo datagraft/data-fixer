@@ -28,11 +28,12 @@ export class TableComponent implements OnInit {
   public chartData02: any;
   public chartLabels02: any;
   public chartData03: any;
+  public inferredType: boolean;
 
   // transformations
   padParam: number = 4;
   columns: any = [11, 12, 13, 14, 15];
-  separation: string = "/";    
+  separation: string = "/";
 
   constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
     let tempArray = [];
@@ -44,6 +45,7 @@ export class TableComponent implements OnInit {
     this.profileSubset = new Object();
     this.profileSubset.selection = 0;
     this.profileSubset.chart = 0;
+    this.inferredType = true;
     this.profileSubsetEmitter = new EventEmitter<number>();
   }
 
@@ -65,6 +67,7 @@ export class TableComponent implements OnInit {
       callback: (key, options) => {
         if (key === 'row_above' || 'row_below' || 'remove_col' || 'remove_row' || 'col_left' || 'col_right' || 'undo' || 'redo') {
           this.refresh();
+          console.log(this.hot.getDataAtCol(19));
           this.hot.render();
         };
         if (key === "zero") {
@@ -110,7 +113,14 @@ export class TableComponent implements OnInit {
       this.chartLabels01 = this.profilingService.profile[3];
       this.chartData02 = this.profilingService.profile[4];
       this.chartLabels02 = this.profilingService.profile[5];
-      this.chartData03 = this.profilingService.profile[6];      
+      console.log(this.profilingService.typeInferred);
+      if (this.profilingService.typeInferred == "string" || this.profilingService.typeInferred == "date" || this.profilingService.stdev == 0) {
+        this.inferredType = false;
+      }
+      else {
+        this.inferredType = true;        
+        this.chartData03 = this.profilingService.profile[6];              
+      }
     }, 
     300);
   };

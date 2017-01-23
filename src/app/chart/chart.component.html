@@ -1,6 +1,6 @@
 
 <div class="chart01">
-  <h5>CLUSTERING</h5>
+  <h5>CLUSTER ANALYSIS</h5>
   <canvas baseChart
               [data]="chartData01"
               [labels]="chartLabels01"
@@ -13,7 +13,7 @@
 
 
 <div class="chart02">
-  <h5>DATA QUALITY</h5>  
+  <h5>DATA VALIDATION</h5>  
   <canvas baseChart
               [data]="chartData02"
               [labels]="chartLabels02"
@@ -23,9 +23,9 @@
               (chartHover)="chart02Hovered($event)"
               (chartClick)="chart02Clicked($event)"></canvas>
 </div>
-
-<div class="chart03">
-  <h5>SUMMARY STATISTICS</h5>    
+            
+<div *ngIf="inferredType" class="chart03">
+  <h5>DATA DISTRIBUTION</h5>    
     <canvas baseChart
             [datasets]="chartData03"
             [labels]="chartLabels03"

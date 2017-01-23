@@ -1,6 +1,6 @@
 <div class="sidebar">
 
-<table ngl-datatable [data]="data" trackByKey="rank" [bordered]="bordered" [striped]="striped" (onRowClick)="onRowClick($event)" style="height: 200px;" class="slds-max-medium-table--stacked-horizontal">
+<table ngl-datatable [data]="data" trackByKey="rank" [bordered]="bordered" [striped]="striped" (onRowClick)="onRowClick($event)" class="slds-max-medium-table--stacked-horizontal">
   <ngl-datatable-column heading="Transformation" key="transformation">
     <template nglDatatableHeading><div style="font-size: 130%;"><strong>Transformations</strong></div></template>
   </ngl-datatable-column>
@@ -8,7 +8,7 @@
 
 </div>
 
-<div id="container">
+<div id="container" *ngIf="display">
 
   <div class="dropdown">
     <ngl-form-element label="Column" [error]="hasError ? error : null" class="slds-m-top--small">

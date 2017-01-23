@@ -24,6 +24,8 @@ export class SidebarComponent implements OnInit {
   data = this.transformations;
   inputParameter: any;
 
+  display: false;
+
   private striped: boolean = false;
   private bordered: boolean = false;
   public transformationSelected: number;

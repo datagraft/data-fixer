@@ -23,6 +23,7 @@ export class ChartComponent implements OnInit {
   @Input() public chartLabels02: string[];
   @Input() public chartData03: any;
   @Input() public chartLabels03: any;
+  @Input() public inferredType: boolean;
   
   public chartType01: string = 'doughnut';
   public chartType02: string = 'doughnut';
@@ -72,17 +73,17 @@ export class ChartComponent implements OnInit {
     {
       backgroundColor: [
         '#00A896',
-        '#FF1654'
+        '#FF1654',
+        '#F9BE02'
       ]
    }];
 
   public chartColors03: Array<any> = [
     {
       backgroundColor: [
-        '#FF1654',
+        '#003459',
         '#46494C',
         '#8D99AE',
-        '#00A896',
         '#247BA0'
         
       ]
@@ -93,8 +94,8 @@ export class ChartComponent implements OnInit {
     this.chartLabels01 = ['Init'];
     this.chartData02 = [1];
     this.chartLabels02 = ['Init'];
-    this.chartData03 = [{data: [10, 30, 50, 70, 100]}];
-    this.chartLabels03 = ['Outliers', 'Min', 'Max', 'Average', 'Standard deviation'];
+    this.chartData03 = [{data: [1.5, 2, 3, 4]}];
+    this.chartLabels03 = ['First Quartile', 'Median', 'Third Quartile', 'Standard deviation'];
    }
 
   chartSubsetEmit() {
