@@ -32,7 +32,9 @@ export class TableComponent implements OnInit {
 
   // transformations
   padParam: number = 4;
-  columns: any = [11, 12, 13, 14, 15];
+  columns01: any = [11, 12, 13, 14, 15];
+  columns02: any = [11, 12, 13, 14, 15];
+  columns03: any = [11, 12, 13, 14, 15];      
   separation: string = "/";
 
   constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
@@ -52,6 +54,7 @@ export class TableComponent implements OnInit {
   onProfileSubsetEmitted(value: any) {
     this.profileSubset = value;
     this.profileSubsetEmitter.emit(this.profileSubset);
+    this.selectCell();
   }
 
   ngOnInit() {
@@ -62,13 +65,13 @@ export class TableComponent implements OnInit {
     data: this.data,
     rowHeaders: true,
     colHeaders: true,
+    columnSorting: false,
+    visibleRows: 18,
     viewportColumnRenderingOffset: 40,
     contextMenu: {
       callback: (key, options) => {
-        if (key === 'row_above' || 'row_below' || 'remove_col' || 'remove_row' || 'col_left' || 'col_right' || 'undo' || 'redo') {
+        if (key === 'row_above' || 'row_below' || 'remove_col' || 'remove_row' || 'col_left' || 'col_right' || 'undo' || 'redo' || 'zero') {
           this.refresh();
-          console.log(this.hot.getDataAtCol(19));
-          this.hot.render();
         };
         if (key === "zero") {
           this.emptyToZero();
@@ -88,11 +91,9 @@ export class TableComponent implements OnInit {
     },
     height: 460,
     stretchH: 'all',
-    columnSorting: true,
     className: 'htCenter htMiddle',
     afterSelection: (r, c, r2, c2) => {
       this.refresh();
-      console.log('Selected column: ', this.selected[1]);
     }
     };
 
@@ -129,7 +130,12 @@ export class TableComponent implements OnInit {
     this.hot.updateSettings({
       colHeaders: headers
     });
+    this.data.shift();
     this.hot.render();
+  }
+
+  replaceChar() {
+    this.transformationsService.replaceChar(this.data, this.selected[1]);
   }
 
   emptyToZero() {
@@ -157,11 +163,56 @@ export class TableComponent implements OnInit {
     this.refreshChartData();
   }
 
-  concatenateToString() {
-    this.transformationsService.concatenateToString(this.data, this.columns, this.separation);
+  concatenateCadRef() {
+    this.transformationsService.concatenateCadRef(this.data, this.columns01, this.separation);
     this.refreshChartData();
-    this.headers.splice(16, 0, "cad-ref");
+    // this.headers.pop();
+    this.headers.push("cad-ref");
     this.headersUpdate(this.headers);
+  }
+
+  concatenateCadRefId() {
+    this.transformationsService.concatenateCadRefId(this.data, this.columns01);
+    this.refreshChartData();
+    this.headers.push("cad-ref-id");
+    this.headersUpdate(this.headers);
+  }
+
+  concatenateRrId() {
+    this.transformationsService.concatenateCadRefId(this.data, this.columns02);
+    this.refreshChartData();
+    this.headers.push("cad-ref-id");
+    this.headersUpdate(this.headers);
+  }
+
+  concatenateRrIdB() {
+    this.transformationsService.concatenateCadRefId(this.data, this.columns03);
+    this.refreshChartData();
+    this.headers.push("cad-ref-id");
+    this.headersUpdate(this.headers);
+  }
+
+  selectChartLabels(chartID) {
+    let chartLabels: any;
+    if (chartID == 1) {
+      chartLabels = this.chartLabels01;
+    }
+    else if (chartID == 2) {
+      chartLabels = this.chartLabels02;
+    }
+    return chartLabels;
+  }
+
+  selectCell() {
+    let rowStartEnd = this.profilingService.getRowStartEnd(this.data, this.profileSubset.chart, this.profileSubset.selection, this.selectChartLabels(this.profileSubset.chart));
+    this.hot.selectCell(rowStartEnd[0], this.selected[1], rowStartEnd[1], this.selected[1]);
+    // console.log('Data: ', this.data);
+    console.log('this.profileSubset.chart: ', this.profileSubset.chart);    
+    // console.log('this.profileSubset.selection: ', this.profileSubset.selection);
+    // console.log('this.selectChartLabels(this.profileSubset.chart): ', this.selectChartLabels(this.profileSubset.chart));
+    // console.log('rowStartEnd[0]: ', rowStartEnd[0]);
+    // console.log('this.selected[1]: ', this.selected[1]);
+    // console.log('rowStartEnd[1] ', rowStartEnd[1]);
   }
 }
 

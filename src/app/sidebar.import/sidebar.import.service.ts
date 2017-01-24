@@ -30,15 +30,17 @@ export class SidebarImportService {
         this.types = this.getTypesInferred();
 
         let arrayParsed = [];
+        arrayParsed.push(this.headers);
 
-        for (let i = 0; i < data.length; i++) {      
+        for (let i = 0; i < data.length; i++) {
           let tempArray = [];
-            for (let key in data[i]) {        
+            for (let key in data[i]) {
               tempArray.push(data[i][key]);
               }
               arrayParsed.push(tempArray);
               tempArray = [];
-              } 
+              }
+
             return Promise.resolve(arrayParsed);
         };
       

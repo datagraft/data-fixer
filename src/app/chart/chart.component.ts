@@ -115,7 +115,7 @@ export class ChartComponent implements OnInit {
   // events chart02
   public chart02Clicked(e:any):void {
     this.profileSubset.selection = e.active["0"]._index;
-    this.profileSubset.chart = 1;   
+    this.profileSubset.chart = 2;   
     this.chartSubsetEmit();
   }
 
@@ -125,7 +125,7 @@ export class ChartComponent implements OnInit {
   // events chart03
   public chart03Clicked(e:any):void {
     this.profileSubset.selection = e.active["0"]._index;
-    this.profileSubset.chart = 1;   
+    this.profileSubset.chart = 3;   
     this.chartSubsetEmit();
   }
 

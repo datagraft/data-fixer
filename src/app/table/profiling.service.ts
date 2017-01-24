@@ -14,6 +14,7 @@ export class ProfilingService {
   typesInferred: any;
   typeInferred: any;
   stdev: number;
+  outlierExample: any;
 
   // returns data profile of selected column
   getProfile() {
@@ -43,7 +44,7 @@ export class ProfilingService {
       // let max = datalib.max(data);
       let mean = datalib.mean(data);
       this.stdev = datalib.stdev(data);
-      let quartiles = datalib.quartile(data);                  
+      let quartiles = datalib.quartile(data);                        
 
       let histogram_chartData = [];
       let histogram_chartLabels = [];
@@ -54,12 +55,13 @@ export class ProfilingService {
       let median = quartiles[1];
       let third_quartile = quartiles[2];
       let IQR_below = first_quartile - (1.5 * (third_quartile - first_quartile));
-      console.log('IQR below: ', IQR_below);
+      // console.log('IQR below: ', IQR_below);
       let IQR_above = third_quartile + (1.5 * (third_quartile - first_quartile));
-      console.log('IQR above: ', IQR_above);            
+      // console.log('IQR above: ', IQR_above);            
 
       for (let i = 0; i < data.length; i++) {
         if (data[i] < IQR_below || data[i] > IQR_above && data[i] != null) {
+          this.outlierExample = data[i];
           outliers++;
           valid--;
         }
@@ -75,7 +77,7 @@ export class ProfilingService {
       }
       else if (distinct > 13) {
       let histogram = datalib.histogram(data);
-      console.log('Histogram: ', histogram);      
+      // console.log('Histogram: ', histogram);      
       for (let i = 0; i < histogram.length; i++) {    
           for (let key in histogram[i]) {
             if (key == 'count') {
@@ -109,23 +111,24 @@ export class ProfilingService {
       chartData_03.push(obj);      
 
       profile.push(countTotal);
-      console.log('Count: ', countTotal);      
+      // console.log('Count: ', countTotal);      
       profile.push(distinct);
-      console.log('Distinct: ', distinct);
+      // console.log('Distinct: ', distinct);
       profile.push(histogram_chartData);
-      console.log('Histogram data: ', histogram_chartData);  
+      // console.log('Histogram data: ', histogram_chartData);  
       profile.push(histogram_chartLabels);
-      console.log('Histogram labels: ', histogram_chartLabels);
+      // console.log('Histogram labels: ', histogram_chartLabels);
       profile.push(validity_chartData);
-      console.log('Validity data: ', validity_chartData);
+      // console.log('Validity data: ', validity_chartData);
       profile.push(validity_chartLabels);
-      console.log('Validity labels: ', validity_chartLabels);
+      // console.log('Validity labels: ', validity_chartLabels);
       profile.push(chartData_03);  
-      console.log('Stats numeric values: ', tempArray);
-      console.log('Quartiles: ', quartiles);                                  
+      // console.log('Stats numeric values: ', tempArray);
+      // console.log('Quartiles: ', quartiles);                                  
       
       // console.log('Data profile selected column: ', profile);
-      console.log('Types: ', this.typesInferred);   
+      // console.log('Types: ', this.typesInferred);   
+      console.log(profile);
 
       return Promise.resolve(profile);
     };
@@ -171,6 +174,49 @@ export class ProfilingService {
     }
     return this.columnData;
 
+  }
+
+  getRowStartEnd (data, chartType, chartSelection, chartLabels) {
+    let rowStart = 0;
+    let rowEnd = 0;
+    let check = true;
+    let chartSubset: any;
+    
+    if (chartType == 1) {
+      chartSubset = chartLabels[chartSelection];
+    }
+    else if (chartType == 2) {
+      if (chartSelection == 0) {
+        chartSubset = "-";
+        console.log('Not implemented yet');
+      }
+      else if (chartSelection == 1) {
+        chartSubset = null;        
+      }
+      else if (chartSelection == 2) {
+        chartSubset = this.outlierExample;
+      }
+    }
+
+    for (let i = 0; i < data.length; i++) {
+      if (check) {
+        if (data[i][this.columnSelected] == chartSubset) {
+            rowStart = i;
+            rowEnd = i;
+            check = false;
+          }
+      }
+    }
+    for (let i = rowEnd; i < data.length; i++) {
+      if (data[i][this.columnSelected] == chartSubset) {
+        rowEnd += 1;
+      }
+    }
+
+    let tempArray = [];
+    tempArray.push(rowStart, rowEnd - 1);
+    console.log('Selected column: ', this.columnSelected);
+    return tempArray;
   }
 
 

@@ -55,26 +55,34 @@ export class TransformationsService {
     }
   }
 
-  concatenateToString(data, columns, separation) {
-    console.log(columns);
+  concatenateCadRef(data, columns, separation) {
     for (let i = 0; i < data.length; i++) {
       let concatenated = "";
       for (let j = 0; j < columns.length - 1; j++) { 
         concatenated = concatenated.concat(data[i][columns[j]]).concat(separation);
       }
-      // console.log(concatenated);
-      data[i].splice(16, 0, concatenated.concat(data[i][columns[columns.length - 1]]));
+      data[i].push(concatenated.concat(data[i][columns[columns.length - 1]]));
+    }
+  }
+
+  concatenateCadRefId(data, columns) {
+    for (let i = 0; i < data.length; i++) {
+      let concatenated = "";
+      for (let j = 0; j < columns.length - 1; j++) { 
+        concatenated = concatenated.concat(data[i][columns[j]]);
+      }
+      data[i].push(concatenated.concat(data[i][columns[columns.length - 1]]));      
     }
   }
 
   replaceChar(data, selectedColumn) {
     for (let i = 0; i < data.length; i++) {
+      //let str = data[i][selectedColumn].toString();
       if (data[i][selectedColumn].toString().includes(",")) {
-        parseFloat(data[i][selectedColumn].replace(",", "."));
+        console.log('Replaced: ', data[i][selectedColumn]);
+        data[i][selectedColumn] = parseFloat(data[i][selectedColumn].replace(",", "."));
       }
     }
   }
-
-  
 
 }

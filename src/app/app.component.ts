@@ -53,6 +53,7 @@ export class AppComponent {
       this.applyTransformation(true, this.stepsComponent.stepSelected)
       console.log('Step sequence from app component: ', this.stepSequence);
       console.log('onStepsEmitted: ', this.stepsComponent.stepSelected);
+      console.log(this.tableComponent.hot.selectCell(77, 14, 99, 14));
   }
 
   getDataRaw () {
@@ -68,7 +69,7 @@ export class AppComponent {
       this.tableComponent.data = this.dataParsed;
       this.tableComponent.headers = this.sidebarImportComponent.headers;
       this.tableComponent.hot.loadData(this.tableComponent.data);
-      this.tableComponent.headersUpdate(this.tableComponent.headers);
+      // this.tableComponent.headersUpdate(this.tableComponent.headers);
       this.stepSequence = this.sharedService.initialiseStepSequence();
       this.stepsComponent.stepsCounter = 1;    
       // deep copy of dataParsed to keep original dataset in dataParsedRaw
@@ -79,17 +80,14 @@ export class AppComponent {
   }
 
   applyTransformation(recreateSteps?: boolean, stepsIndex?: number) {
-      if (recreateSteps) {
-          console.log('Counter: ', this.stepsComponent.stepsCounter);
-          //console.log();
-          
+      if (recreateSteps) {          
             this.tableComponent.hot.loadData(this.stepSequence[stepsIndex - 1].data);
             this.tableComponent.data = this.stepSequence[stepsIndex - 1].data;
             this.tableComponent.hot.render();
             this.tableComponent.headersUpdate(this.stepSequence[stepsIndex - 1].headers);
             this.stepsComponent.stepsCounter = stepsIndex + 1;
             this.stepSequence = this.stepSequence.slice(0, stepsIndex);
-            for (let i = stepsIndex; i < 3; i++) {
+            for (let i = stepsIndex; i < 5; i++) {
                 this.stepSequence.push({ transformation: 0, step: 0, title: '-', data: [] });
             }           
               }
@@ -107,26 +105,35 @@ export class AppComponent {
   }
 
   transformations(id) {
-      if (id == 1) {
+
+      switch (id) {
+          case 0:
+          this.tableComponent.replaceChar();
+          break;
+          case 1:
           this.tableComponent.headersUpdate(this.tableComponent.headers);
-      }
-      else if (id == 2) {
-          this.tableComponent.emptyToZero();          
-      }
-      else if (id == 3) {
-          this.tableComponent.upperCase();          
-      }
-      else if (id == 4) {
-          this.tableComponent.pad();          
-      }
-      else if (id == 5) {
-          this.tableComponent.convertToStandardFormat();          
-      }
-      else if (id == 6) {
-          this.tableComponent.reformatDates();          
-      }
-      else if (id == 7) {
-          this.tableComponent.concatenateToString();          
+          break;
+          case 2:
+          this.tableComponent.emptyToZero();
+          break;
+          case 3:
+          this.tableComponent.upperCase();
+          break;
+          case 4:
+          this.tableComponent.pad();
+          break;
+          case 5:
+          this.tableComponent.convertToStandardFormat();
+          break;
+          case 6:
+          this.tableComponent.reformatDates();
+          break;
+          case 7:
+          this.tableComponent.concatenateCadRef();
+          break;
+          case 8:
+          this.tableComponent.concatenateCadRefId();
+          break;
       }
       this.generateTransformationSteps();  
   }
