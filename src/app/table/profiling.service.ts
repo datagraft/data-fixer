@@ -167,7 +167,6 @@ export class ProfilingService {
   getColumnData () {
 
     this.typesInferred = datalib.type.inferAll(this.data);
-    // console.log('Inferred types: ', this.typesInferred);
 
     for (let i = 0; i < this.data.length; i++) {
       this.columnData.push(this.data[i][this.columnSelected]);
@@ -215,9 +214,7 @@ export class ProfilingService {
 
     let tempArray = [];
     tempArray.push(rowStart, rowEnd - 1);
-    console.log('Selected column: ', this.columnSelected);
     return tempArray;
   }
-
 
 }

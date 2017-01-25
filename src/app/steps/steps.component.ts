@@ -65,7 +65,6 @@ export class StepsComponent implements OnInit {
     obj.data = dataset;
     this.stepSequence[this.stepsCounter - 1] = obj;    
     this.stepsCounter++;
-    // console.log(this.stepSequence);
   }
 
 }

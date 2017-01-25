@@ -35,14 +35,14 @@ export class ChartComponent implements OnInit {
   public chartOptions01:any = {
     responsive: true,
     layout: {
-      padding: {left: 35, right: 35, top: 5, bottom: 5}
+      padding: {left: 35, right: 35}
     }
   };
 
   public chartOptions02:any = {
     responsive: true,
     layout: {
-      padding: {left: 35, right: 35, top: 5, bottom: 5}
+      padding: {left: 35, right: 35}
     }
   };    
 
@@ -82,9 +82,24 @@ export class ChartComponent implements OnInit {
         '#F4A261',        
         '#9BC1BC',                        
         '#00A8E8',
-        '#F4F1BB'              
+        '#F4F1BB',
+        '#003459',        
+        '#00171F',
+        '#007EA7',
+        '#F4A261',        
+        '#9BC1BC',                        
+        '#00A8E8',
+        '#F4F1BB',
+        '#003459',        
+        '#00171F',
+        '#007EA7',
+        '#F4A261',        
+        '#9BC1BC',                        
+        '#00A8E8',
+        '#F4F1BB'                
       ]
-   }];
+   }
+   ];
 
   public chartColors02: Array<any> = [
     {
@@ -93,7 +108,8 @@ export class ChartComponent implements OnInit {
         '#FF1654',
         '#F9BE02'
       ]
-   }];
+   }
+   ];
 
   public chartColors03: Array<any> = [
     {
@@ -104,14 +120,15 @@ export class ChartComponent implements OnInit {
         '#247BA0'
         
       ]
-   }];
+   }
+   ];
 
   ngOnInit() {
     this.chartData01 = [1];
     this.chartLabels01 = ['Init'];
     this.chartData02 = [1];
     this.chartLabels02 = ['Init'];
-    this.chartData03 = [{data: [1.5, 2, 3, 4]}];
+    this.chartData03 = [ {data: [1.5, 2, 3, 4]} ];
     this.chartLabels03 = ['First Quartile', 'Median', 'Third Quartile', 'Standard deviation'];
    }
 
@@ -126,9 +143,6 @@ export class ChartComponent implements OnInit {
     this.chartSubsetEmit();
   }
 
-  public chart01Hovered(e:any):void {    
-      }
-
   // events chart02
   public chart02Clicked(e:any):void {
     this.profileSubset.selection = e.active["0"]._index;
@@ -136,17 +150,11 @@ export class ChartComponent implements OnInit {
     this.chartSubsetEmit();
   }
 
-  public chart02Hovered(e:any):void {    
-      }
-
   // events chart03
   public chart03Clicked(e:any):void {
     this.profileSubset.selection = e.active["0"]._index;
     this.profileSubset.chart = 3;   
     this.chartSubsetEmit();
   }
-
-  public chart03Hovered(e:any):void {    
-      }
 
 }

@@ -19,8 +19,7 @@ export class SidebarImportService {
             const data = this.getFile(selectFile);
             this.headers = data.columns;
             this.columnsTypesInferred = data.__types__;
-            // console.log(this.headers);
-            // console.log('Type inference: ', this.columnsTypesInferred);            
+
             resolve(data);
         }
     );
@@ -59,7 +58,6 @@ export class SidebarImportService {
         types.push(tempArray);
         tempArray = [];
     }
-        // console.log(types);
         return types;    
   }
 

@@ -168,7 +168,6 @@ export class TableComponent implements OnInit {
   concatenateCadRef() {
     this.transformationsService.concatenateCadRef(this.data, this.columns01, this.separation);
     this.refreshChartData();
-    // this.headers.pop();
     this.headers.push("cad-ref");
     this.headersUpdate(this.headers);
   }

@@ -40,13 +40,5 @@ export class SidebarComponent implements OnInit {
    }
 
   ngOnInit() { }
-  
-/*
-  onRowClick($event: INglDatatableRowClick) {
-    // console.log('Selected transformation: ', $event.data.transformation);
-    this.transformationSelected = $event.data.value;    
-    console.log('Selected transformation id: ', $event.data.value);
-  }
-  */
 
 }

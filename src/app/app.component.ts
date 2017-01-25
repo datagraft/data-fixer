@@ -45,15 +45,11 @@ export class AppComponent {
 
   onProfileSubsetEmitted(value: any) {
       this.profileSubset = value;
-      console.log('Chart subset: ', this.profileSubset);
   }
 
   onStepsEmitted(value: any) {
       this.stepSequence = value;
       this.applyTransformation(true, this.stepsComponent.stepSelected)
-      console.log('Step sequence from app component: ', this.stepSequence);
-      console.log('onStepsEmitted: ', this.stepsComponent.stepSelected);
-      console.log(this.tableComponent.hot.selectCell(77, 14, 99, 14));
   }
 
   getDataRaw () {
@@ -69,7 +65,6 @@ export class AppComponent {
       this.tableComponent.data = this.dataParsed;
       this.tableComponent.headers = this.sidebarImportComponent.headers;
       this.tableComponent.hot.loadData(this.tableComponent.data);
-      // this.tableComponent.headersUpdate(this.tableComponent.headers);
       this.stepSequence = this.sharedService.initialiseStepSequence();
       this.stepsComponent.stepsCounter = 1;    
       // deep copy of dataParsed to keep original dataset in dataParsedRaw

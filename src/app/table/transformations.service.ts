@@ -77,7 +77,6 @@ export class TransformationsService {
 
   replaceChar(data, selectedColumn) {
     for (let i = 0; i < data.length; i++) {
-      //let str = data[i][selectedColumn].toString();
       if (data[i][selectedColumn].toString().includes(",")) {
         console.log('Replaced: ', data[i][selectedColumn]);
         data[i][selectedColumn] = parseFloat(data[i][selectedColumn].replace(",", "."));
