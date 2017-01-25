@@ -93,7 +93,8 @@ export class AppComponent {
               }
       else {
           this.transformations(this.sidebarComponent.transformationSelected);
-      }             
+      }
+      this.sidebarComponent.transformationSelected = null;             
   }
 
   datasetDeepCopy() {
@@ -139,7 +140,8 @@ export class AppComponent {
   }
 
     generateTransformationSteps() {
+        if (this.stepsComponent.stepsCounter < 7) {
         this.stepsComponent.generateStepsArray(this.sidebarComponent.transformationSelected, this.datasetDeepCopy(), this.tableComponent.hot.getColHeader());
+        }
     }
-
 }

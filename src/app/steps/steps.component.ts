@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { SelectItem } from 'primeng/primeng';
 import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightning';
 
 @Component({
@@ -38,7 +39,8 @@ export class StepsComponent implements OnInit {
     { transformation: 0, step: 0, title: '-', headers: [], data: [] },
     { transformation: 0, step: 0, title: '-', headers: [], data: [] },
     { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] }
+    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+    { transformation: 0, step: 0, title: '-', headers: [], data: [] }    
   ];
   }
 
@@ -63,7 +65,7 @@ export class StepsComponent implements OnInit {
     obj.data = dataset;
     this.stepSequence[this.stepsCounter - 1] = obj;    
     this.stepsCounter++;
-    console.log(this.stepSequence);
+    // console.log(this.stepSequence);
   }
 
 }

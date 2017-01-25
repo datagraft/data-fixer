@@ -32,9 +32,26 @@ export class ChartComponent implements OnInit {
   public chartLegend02: boolean = false;
   public chartLegend03: boolean = false;
 
+  public chartOptions01:any = {
+    responsive: true,
+    layout: {
+      padding: {left: 35, right: 35, top: 5, bottom: 5}
+    }
+  };
+
+  public chartOptions02:any = {
+    responsive: true,
+    layout: {
+      padding: {left: 35, right: 35, top: 5, bottom: 5}
+    }
+  };    
+
   public chartOptions03:any = {
     scaleShowVerticalLines: false,
     responsive: true,
+    layout: {
+      padding: {left: 40, top: 40}
+    },
     scales: {
       xAxes: [{
           gridLines: {

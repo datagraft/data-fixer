@@ -1,10 +1,16 @@
-<div class="sidebar">
 
+<strong>TRANSFORMATIONS</strong>
+
+<div class="sidebar">
+<!--
 <table ngl-datatable [data]="data" trackByKey="rank" [bordered]="bordered" [striped]="striped" (onRowClick)="onRowClick($event)" class="slds-max-medium-table--stacked-horizontal">
   <ngl-datatable-column heading="Transformation" key="transformation">
     <template nglDatatableHeading><div style="font-size: 130%;"><strong>Transformations</strong></div></template>
   </ngl-datatable-column>
 </table>
+-->
+
+<p-listbox [options]="transformations" [(ngModel)]="transformationSelected" [style]="{'width':'330px','max-height':'230px'}"></p-listbox>
 
 </div>
 

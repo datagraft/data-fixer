@@ -109,6 +109,7 @@ export class TableComponent implements OnInit {
 
   refreshChartData() {
    this.profilingService.getProfile();
+   this.hot.render();                                   
    setTimeout(() => { 
       this.chartData01 = this.profilingService.profile[2];
       this.chartLabels01 = this.profilingService.profile[3];
@@ -136,11 +137,12 @@ export class TableComponent implements OnInit {
 
   replaceChar() {
     this.transformationsService.replaceChar(this.data, this.selected[1]);
+    this.refreshChartData();    
   }
 
   emptyToZero() {
     this.transformationsService.emptyToZero(this.data, this.selected[1]);
-    this.refreshChartData();          
+    this.refreshChartData();
   }
 
   upperCase() {

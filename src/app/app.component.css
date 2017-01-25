@@ -6,7 +6,7 @@
 div.datatable {
   width: 75%;
   float: right;
-  padding-top: 10px;
+  padding-top: 40px;
   padding-left: 10px;
   padding-right: 30px;
 }
@@ -14,7 +14,7 @@ div.datatable {
 div.sidebarImport {
   width: 25%;
   float: left;
-  padding: 10px;
+  padding-left: 10px;
   padding-bottom: 10px;
   padding-right: 40px;  
 }
@@ -23,7 +23,7 @@ div.sidebar {
   width: 25%;
   float: left;
   padding: 10px;
-  padding-top: 30px;  
+  padding-top: 50px;  
   padding-bottom: 10px;
   padding-right: 40px;  
 }
@@ -32,7 +32,7 @@ div.steps {
   width: 25%;
   float: left;
   padding: 10px;
-  padding-top: 30px;  
+  padding-top: 50px;  
   padding-bottom: 10px;
   padding-right: 40px;  
 }
