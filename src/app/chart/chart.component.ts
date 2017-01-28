@@ -24,7 +24,7 @@ export class ChartComponent implements OnInit {
   @Input() public chartData03: any;
   @Input() public chartLabels03: any;
   @Input() public inferredType: boolean;
-  
+
   public chartType01: string = 'doughnut';
   public chartType02: string = 'doughnut';
   public chartType03: string = 'horizontalBar';      
@@ -150,11 +150,13 @@ export class ChartComponent implements OnInit {
     this.chartSubsetEmit();
   }
 
+/*
   // events chart03
   public chart03Clicked(e:any):void {
     this.profileSubset.selection = e.active["0"]._index;
     this.profileSubset.chart = 3;   
     this.chartSubsetEmit();
   }
+  */
 
 }

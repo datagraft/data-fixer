@@ -1,6 +1,6 @@
 
 <div class="chart01">
-  <h5>CLUSTER ANALYSIS</h5>
+  <h5>CLUSTERING</h5>
   <canvas baseChart
               [data]="chartData01"
               [labels]="chartLabels01"
@@ -8,7 +8,6 @@
               [legend]="chartLegend01"
               [colors]="chartColors01"  
               [chartType]="chartType02"
-              (chartHover)="chart01Hovered($event)"
               (chartClick)="chart01Clicked($event)"></canvas>
 </div>
 
@@ -22,7 +21,6 @@
               [colors]="chartColors02"
               [legend]="chartLegend02"
               [chartType]="chartType02"
-              (chartHover)="chart02Hovered($event)"
               (chartClick)="chart02Clicked($event)"></canvas>
 </div>
             
@@ -34,8 +32,6 @@
             [options]="chartOptions03"
             [legend]="chartLegend03"
             [colors]="chartColors03"
-            [chartType]="chartType03"
-            (chartHover)="chart03Hovered($event)"
-            (chartClick)="chart03Clicked($event)"></canvas>
+            [chartType]="chartType03"></canvas>
 </div>
 
