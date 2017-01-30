@@ -121,7 +121,10 @@ export class TableComponent implements OnInit {
       }
       else {
         this.inferredType = true;        
-        this.chartData03 = this.profilingService.profile[6];              
+        // this.chartData03 = this.profilingService.profile[6];
+        // this.chartData03 = this.profilingService.columnData;
+        this.chartComponent.chartData03 = this.profilingService.columnData;
+        this.chartComponent.refresh();                                    
       }
     }, 
     300);

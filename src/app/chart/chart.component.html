@@ -1,6 +1,10 @@
 
-<div class="chart01">
-  <h5>CLUSTERING</h5>
+<div fxLayout='column' class="container">
+
+  <div fxFlex="100%" [fxLayout]="direction" class="innerContainer">
+
+    <div fxFlex="33%" class="chart01">
+        <h5>CLUSTERING</h5>
   <canvas baseChart
               [data]="chartData01"
               [labels]="chartLabels01"
@@ -9,11 +13,9 @@
               [colors]="chartColors01"  
               [chartType]="chartType02"
               (chartClick)="chart01Clicked($event)"></canvas>
-</div>
-
-
-<div class="chart02">
-  <h5>DATA VALIDATION</h5>  
+              </div>
+    <div fxFlex="33%" class="chart02">
+        <h5>DATA VALIDATION</h5>  
   <canvas baseChart
               [data]="chartData02"
               [labels]="chartLabels02"
@@ -22,16 +24,12 @@
               [legend]="chartLegend02"
               [chartType]="chartType02"
               (chartClick)="chart02Clicked($event)"></canvas>
-</div>
-            
-<div *ngIf="inferredType" class="chart03">
-  <h5>DATA DISTRIBUTION</h5>    
-    <canvas baseChart
-            [datasets]="chartData03"
-            [labels]="chartLabels03"
-            [options]="chartOptions03"
-            [legend]="chartLegend03"
-            [colors]="chartColors03"
-            [chartType]="chartType03"></canvas>
-</div>
+              </div>
+    <div fxFlex="33%" class="chart03">
+        <h5>OUTLIERS</h5>      
+          <div id="chart03"></div>
+  </div>
 
+  </div>
+
+</div>

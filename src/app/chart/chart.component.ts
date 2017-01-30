@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+declare var Plotly;
+
 @Component({
   selector: 'chart',
   templateUrl: './chart.component.html',
@@ -23,7 +25,7 @@ export class ChartComponent implements OnInit {
   @Input() public chartLabels02: string[];
   @Input() public chartData03: any;
   @Input() public chartLabels03: any;
-  @Input() public inferredType: boolean;
+  @Input() public inferredType: boolean = false;
 
   public chartType01: string = 'doughnut';
   public chartType02: string = 'doughnut';
@@ -31,6 +33,10 @@ export class ChartComponent implements OnInit {
   public chartLegend01: boolean = false;
   public chartLegend02: boolean = false;
   public chartLegend03: boolean = false;
+
+  private outliersTrace: any;
+  private outliersData: any;
+  private outliersLayout: any;
 
   public chartOptions01:any = {
     responsive: true,
@@ -45,26 +51,6 @@ export class ChartComponent implements OnInit {
       padding: {left: 35, right: 35}
     }
   };    
-
-  public chartOptions03:any = {
-    scaleShowVerticalLines: false,
-    responsive: true,
-    layout: {
-      padding: {left: 40, top: 40}
-    },
-    scales: {
-      xAxes: [{
-          gridLines: {
-            display: false
-          }
-            }],
-      yAxes: [{
-          gridLines: {
-            display: false
-          }
-            }]
-    }
-  };  
 
   public chartColors01: Array<any> = [
     {
@@ -128,8 +114,54 @@ export class ChartComponent implements OnInit {
     this.chartLabels01 = ['Init'];
     this.chartData02 = [1];
     this.chartLabels02 = ['Init'];
-    this.chartData03 = [ {data: [1.5, 2, 3, 4]} ];
+    this.chartData03 = [0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5, 7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5, 12, 16, 20.90, 22.3, 23.25];
     this.chartLabels03 = ['First Quartile', 'Median', 'Third Quartile', 'Standard deviation'];
+    
+    this.getChartOptions03();
+    Plotly.newPlot('chart03', this.outliersData, this.outliersLayout, {displayModeBar: false});
+    Plotly.redraw('chart03');
+   }
+
+   refresh() {
+     console.log(this.chartData03);
+     this.getChartOptions03();
+     Plotly.newPlot('chart03', this.outliersData, this.outliersLayout, {displayModeBar: false});
+     Plotly.redraw('chart03');
+   }
+
+   getChartOptions03() {
+      this.outliersTrace = {
+        y: this.chartData03,
+        type: 'box',
+        showlegend: false,
+        hoverinfo: "all",
+        fillcolor: '#2D2F33',
+        jitter: 0.5,
+        marker: {
+          opacity: 1,
+          color: '#2D2F33',
+          outliercolor: '#FF1654',
+          line: {
+            color: '#151313',
+            outliercolor: '#FF1654',
+            outlierwidth: 2
+          }
+        },
+        boxpoints: 'suspectedoutliers'
+      };
+
+      this.outliersData = [this.outliersTrace];
+
+      this.outliersLayout = {
+        margin: {
+          t: 30,
+          b: 0
+        },
+        yaxis: {
+          showgrid: true,
+          zerolinecolor: '#A0A9B2'
+        }
+      };
    }
 
   chartSubsetEmit() {

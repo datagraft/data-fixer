@@ -7,6 +7,7 @@ import { ClarityModule } from 'clarity-angular';
 import { ListboxModule } from 'primeng/primeng';
 import { NglModule } from 'ng-lightning/ng-lightning';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
@@ -34,7 +35,8 @@ import { SharedService } from './shared.service';
     ChartsModule,
     ListboxModule,
     MaterialModule.forRoot(),
-    NglModule.forRoot()
+    NglModule.forRoot(),
+    FlexLayoutModule.forRoot()
   ],
   providers: [SharedService],
   bootstrap: [AppComponent]

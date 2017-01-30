@@ -1,22 +1,17 @@
-* {
-  box-sizing: border-box;
-}
 
 h5 {
     text-align: center;
 }
 
 .chart01 {
-    display: inline-block;
     width: 280px;
 }
 
 .chart02 {
-    display: inline-block;
     width: 280px;
 }
 
-.chart03 {
-    display: inline-block;    
+#chart03 {
     width: 450px;
+    height: 350px;
 }
