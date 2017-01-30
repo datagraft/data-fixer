@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
-import { ClarityModule } from 'clarity-angular';
+// import { ClarityModule } from 'clarity-angular';
 import { ListboxModule } from 'primeng/primeng';
 import { NglModule } from 'ng-lightning/ng-lightning';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -31,7 +31,7 @@ import { SharedService } from './shared.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ClarityModule,
+    // ClarityModule,
     ChartsModule,
     ListboxModule,
     MaterialModule.forRoot(),
