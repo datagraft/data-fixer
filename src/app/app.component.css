@@ -11,46 +11,53 @@ div.datatable {
   padding-right: 30px;
 }
 
-div.sidebarImport {
+div.container {
   width: 25%;
   float: left;
+  padding-top: 20px;
   padding-left: 10px;
-  padding-bottom: 10px;
   padding-right: 40px;  
 }
 
+div.sidebarImport {
+  width: 100%;
+  float: left;  
+  padding-bottom: 20px;
+  padding-right: 10px;  
+}
+
 div.sidebar {
-  width: 25%;
-  float: left;
-  padding: 10px;
-  padding-top: 50px;  
-  padding-bottom: 10px;
+  padding-top: 15px;  
+  padding-bottom: 20px;
   padding-right: 40px;  
 }
 
 div.steps {
-  width: 25%;
-  float: left;
-  padding: 10px;
-  padding-top: 50px;  
+  padding-top: 20px;  
   padding-bottom: 10px;
   padding-right: 40px;  
 }
 
 div.fileSelection {
   width: 245px;
-  padding: 10px;
   padding-bottom: 5px;
   display: inline-block;
 }
 
 div.containerApplyTransformationButton {
-  padding: 10px;
-  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-right: 30px;
+  padding-bottom: 40px;
+  display: inline-block;
+}
+
+.status {
+  padding-left: 30px;
+  display: inline-block;  
 }
 
 div.sidebarImportButton {
-  padding: 10px;
+  padding-right: 20px;  
   padding-bottom: 5px;
   display: inline-block;
 }

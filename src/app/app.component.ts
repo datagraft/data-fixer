@@ -36,8 +36,22 @@ export class AppComponent {
   @Input() profileSubset: any;
   @Input() stepSequence: any;
   
+  open: boolean = true;
+  open1: boolean = true;
+  open2: boolean = false; 
+
+  display: boolean = false; 
+
   dataParsed: any;
   dataParsedRaw: any;
+
+  setDisplay() {
+      this.display = true;
+      setTimeout(() => {
+          this.display = false;
+      },
+      6000);
+  }
 
   getTypeInference = () => {
       return this.sidebarImportService.columnsTypesInferred;
@@ -131,7 +145,8 @@ export class AppComponent {
           this.tableComponent.concatenateCadRefId();
           break;
       }
-      this.generateTransformationSteps();  
+      this.generateTransformationSteps();
+      this.setDisplay();  
   }
 
     generateTransformationSteps() {
