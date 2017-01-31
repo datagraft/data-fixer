@@ -3,30 +3,32 @@
 
   <div fxFlex="100%" [fxLayout]="direction" class="innerContainer">
 
-    <div fxFlex="33%" class="chart01">
-        <h5>CLUSTERING</h5>
-  <canvas baseChart
-              [data]="chartData01"
-              [labels]="chartLabels01"
-              [options]="chartOptions01"              
-              [legend]="chartLegend01"
-              [colors]="chartColors01"  
-              [chartType]="chartType02"
-              (chartClick)="chart01Clicked($event)"></canvas>
-              </div>
-    <div fxFlex="33%" class="chart02">
-        <h5>DATA VALIDATION</h5>  
-  <canvas baseChart
-              [data]="chartData02"
-              [labels]="chartLabels02"
-              [options]="chartOptions02"                            
-              [colors]="chartColors02"
-              [legend]="chartLegend02"
-              [chartType]="chartType02"
-              (chartClick)="chart02Clicked($event)"></canvas>
-              </div>
-    <div fxFlex="33%" class="chart03">
-        <h5>OUTLIERS</h5>      
+    <div fxFlex="30%" class="chart01">
+    <ngx-charts-pie-chart
+      [view]="view2"
+      [scheme]="colorScheme2"
+      [results]="single"
+      [legend]="showLegend"
+      [explodeSlices]="explodeSlices"
+      [labels]="showLabels"
+      [doughnut]="doughnut"
+      [gradient]="gradient"
+      (select)="onSelect($event)">
+    </ngx-charts-pie-chart>
+      </div>
+
+    <div fxFlex="40%" class="chart02">
+    <ngx-charts-advanced-pie-chart
+      [view]="view"
+      [scheme]="colorScheme1"
+      [customColors]="customColors"      
+      [results]="single"
+      [gradient]="gradient"
+      (select)="onSelect($event)">
+    </ngx-charts-advanced-pie-chart>
+      </div>
+
+    <div fxFlex="30%" class="chart03">
           <div id="chart03"></div>
   </div>
 

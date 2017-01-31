@@ -4,14 +4,34 @@ h5 {
 }
 
 .chart01 {
-    width: 280px;
+  font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 2.6rem;
+  letter-spacing: 0.01rem;
+  color: #212121;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .chart02 {
-    width: 280px;
+  font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50%;
+  line-height: 2.6rem;
+  letter-spacing: 0.01rem;
+  color: #212121;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  padding-left: 30px;
 }
 
 #chart03 {
-    width: 450px;
-    height: 350px;
+    width: 350px;
+    height: 400px;
+    padding-left: 30px;
 }

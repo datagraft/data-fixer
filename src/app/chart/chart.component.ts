@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {single, multi} from './data';
 
 declare var Plotly;
 
@@ -14,7 +15,60 @@ export class ChartComponent implements OnInit {
     this.profileSubset.selection = 0;
     this.profileSubset.chart = 0;
     this.profileSubsetEmitter = new EventEmitter<number>();
+    Object.assign(this, {single, multi})   
    }
+
+  single: any[];
+  multi: any[];
+  
+  view: any[] = [700, 400];
+  view2: any[] = [500, 400];
+  
+  // advanced pie chart
+  showLabels = true;
+  explodeSlices = false;
+  doughnut = true;
+
+  colorScheme1 = {
+    domain: ['#00A896', '#FF1654', '#F9BE02']
+  };
+
+  colorScheme2 = {
+    domain: [        
+        '#003459',        
+        '#00171F',
+        '#007EA7',
+        '#F4A261',        
+        '#9BC1BC',                        
+        '#00A8E8',
+        '#F4F1BB',
+        '#003459',        
+        '#00171F',
+        '#007EA7',
+        '#F4A261',        
+        '#9BC1BC',                        
+        '#00A8E8',
+        '#F4F1BB',
+        '#003459',        
+        '#00171F',
+        '#007EA7',
+        '#F4A261',        
+        '#9BC1BC',                        
+        '#00A8E8',
+        '#F4F1BB',
+        '#003459',        
+        '#00171F',
+        '#007EA7',
+        '#F4A261',        
+        '#9BC1BC',                        
+        '#00A8E8',
+        '#F4F1BB'  
+      ]
+  };
+  
+  onSelect(event) {
+    console.log(event);
+  }
 
   @Input() profileSubset: any;
   @Output() profileSubsetEmitter: EventEmitter<number>;
@@ -97,17 +151,6 @@ export class ChartComponent implements OnInit {
    }
    ];
 
-  public chartColors03: Array<any> = [
-    {
-      backgroundColor: [
-        '#003459',
-        '#46494C',
-        '#8D99AE',
-        '#247BA0'
-        
-      ]
-   }
-   ];
 
   ngOnInit() {
     this.chartData01 = [1];
@@ -133,10 +176,11 @@ export class ChartComponent implements OnInit {
       this.outliersTrace = {
         y: this.chartData03,
         type: 'box',
-        showlegend: false,
+        showlegend: true,
         hoverinfo: "all",
         fillcolor: '#2D2F33',
-        jitter: 0.5,
+        jitter: 0.6,
+        whiskerwidth: 0.6,
         marker: {
           opacity: 1,
           color: '#2D2F33',
@@ -159,7 +203,7 @@ export class ChartComponent implements OnInit {
         },
         yaxis: {
           showgrid: true,
-          zerolinecolor: '#A0A9B2'
+          zerolinecolor: '#C4BBB8'
         }
       };
    }

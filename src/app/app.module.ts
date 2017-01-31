@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
-// import { ClarityModule } from 'clarity-angular';
 import { ListboxModule } from 'primeng/primeng';
 import { NglModule } from 'ng-lightning/ng-lightning';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
@@ -31,9 +31,9 @@ import { SharedService } from './shared.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    // ClarityModule,
     ChartsModule,
     ListboxModule,
+    NgxChartsModule,
     MaterialModule.forRoot(),
     NglModule.forRoot(),
     FlexLayoutModule.forRoot()

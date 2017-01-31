@@ -1,15 +1,15 @@
 export var single = [
   {
-    "name": "Germany",
-    "value": 8940000
+    "name": "Valid",
+    "value": 200
   },
   {
-    "name": "USA",
-    "value": 5000000
+    "name": "Invalid",
+    "value": 50
   },
   {
-    "name": "France",
-    "value": 7200000
+    "name": "Outliers",
+    "value": 0
   }
 ];
 
