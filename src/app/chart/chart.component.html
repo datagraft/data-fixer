@@ -7,13 +7,13 @@
     <ngx-charts-pie-chart
       [view]="view2"
       [scheme]="colorScheme2"
-      [results]="single"
+      [results]="chartData01"
       [legend]="showLegend"
       [explodeSlices]="explodeSlices"
       [labels]="showLabels"
       [doughnut]="doughnut"
       [gradient]="gradient"
-      (select)="onSelect($event)">
+      (select)="chart01Clicked($event)">
     </ngx-charts-pie-chart>
       </div>
 
@@ -22,9 +22,9 @@
       [view]="view"
       [scheme]="colorScheme1"
       [customColors]="customColors"      
-      [results]="single"
+      [results]="chartData02"
       [gradient]="gradient"
-      (select)="onSelect($event)">
+      (select)="chart02Clicked($event)">
     </ngx-charts-advanced-pie-chart>
       </div>
 

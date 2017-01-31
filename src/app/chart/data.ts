@@ -1,11 +1,11 @@
-export var single = [
+export var chart01_init = [
   {
     "name": "Valid",
-    "value": 200
+    "value": 100
   },
   {
     "name": "Invalid",
-    "value": 50
+    "value": 0
   },
   {
     "name": "Outliers",
@@ -13,46 +13,10 @@ export var single = [
   }
 ];
 
-export var multi = [
-  {
-    "name": "Germany",
-    "series": [
-      {
-        "name": "2010",
-        "value": 7300000
-      },
-      {
-        "name": "2011",
-        "value": 8940000
-      }
-    ]
-  },
 
+export var chart02_init = [
   {
-    "name": "USA",
-    "series": [
-      {
-        "name": "2010",
-        "value": 7870000
-      },
-      {
-        "name": "2011",
-        "value": 8270000
-      }
-    ]
-  },
-
-  {
-    "name": "France",
-    "series": [
-      {
-        "name": "2010",
-        "value": 5000002
-      },
-      {
-        "name": "2011",
-        "value": 5800000
-      }
-    ]
+    "name": "Clustering",
+    "value": 100
   }
 ];

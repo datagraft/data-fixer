@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {single, multi} from './data';
+import {chart01_init, chart02_init} from './data';
 
 declare var Plotly;
 
@@ -15,11 +15,11 @@ export class ChartComponent implements OnInit {
     this.profileSubset.selection = 0;
     this.profileSubset.chart = 0;
     this.profileSubsetEmitter = new EventEmitter<number>();
-    Object.assign(this, {single, multi})   
+    Object.assign(this, {chart01_init, chart02_init})   
    }
 
-  single: any[];
-  multi: any[];
+  chart01_init: any[];
+  chart02_init: any[];
   
   view: any[] = [700, 400];
   view2: any[] = [500, 400];
@@ -68,104 +68,38 @@ export class ChartComponent implements OnInit {
   
   onSelect(event) {
     console.log(event);
+    console.log(event.index);    
   }
 
   @Input() profileSubset: any;
   @Output() profileSubsetEmitter: EventEmitter<number>;
   
   @Input() public chartData01: number[];
-  @Input() public chartLabels01: string[];
+  // @Input() public chartLabels01: string[];
   @Input() public chartData02: number[];
-  @Input() public chartLabels02: string[];
+  // @Input() public chartLabels02: string[];
   @Input() public chartData03: any;
-  @Input() public chartLabels03: any;
+  // @Input() public chartLabels03: any;
   @Input() public inferredType: boolean = false;
-
-  public chartType01: string = 'doughnut';
-  public chartType02: string = 'doughnut';
-  public chartType03: string = 'horizontalBar';      
-  public chartLegend01: boolean = false;
-  public chartLegend02: boolean = false;
-  public chartLegend03: boolean = false;
 
   private outliersTrace: any;
   private outliersData: any;
   private outliersLayout: any;
 
-  public chartOptions01:any = {
-    responsive: true,
-    layout: {
-      padding: {left: 35, right: 35}
-    }
-  };
-
-  public chartOptions02:any = {
-    responsive: true,
-    layout: {
-      padding: {left: 35, right: 35}
-    }
-  };    
-
-  public chartColors01: Array<any> = [
-    {
-      backgroundColor: [
-        '#003459',        
-        '#00171F',
-        '#007EA7',
-        '#F4A261',        
-        '#9BC1BC',                        
-        '#00A8E8',
-        '#F4F1BB',
-        '#003459',        
-        '#00171F',
-        '#007EA7',
-        '#F4A261',        
-        '#9BC1BC',                        
-        '#00A8E8',
-        '#F4F1BB',
-        '#003459',        
-        '#00171F',
-        '#007EA7',
-        '#F4A261',        
-        '#9BC1BC',                        
-        '#00A8E8',
-        '#F4F1BB',
-        '#003459',        
-        '#00171F',
-        '#007EA7',
-        '#F4A261',        
-        '#9BC1BC',                        
-        '#00A8E8',
-        '#F4F1BB'                
-      ]
-   }
-   ];
-
-  public chartColors02: Array<any> = [
-    {
-      backgroundColor: [
-        '#00A896',
-        '#FF1654',
-        '#F9BE02'
-      ]
-   }
-   ];
-
-
   ngOnInit() {
-    this.chartData01 = [1];
-    this.chartLabels01 = ['Init'];
-    this.chartData02 = [1];
-    this.chartLabels02 = ['Init'];
+    this.chartData01 = this.chart02_init;
+    // this.chartLabels01 = ['Init'];
+    this.chartData02 = this.chart01_init;
+    // this.chartLabels02 = ['Init'];
     this.chartData03 = [0.75, 5.25, 5.5, 6, 6.2, 6.6, 6.80, 7.0, 7.2, 7.5, 7.5, 7.75, 8.15, 8.15, 8.65, 8.93, 9.2, 9.5, 10, 10.25, 11.5, 12, 16, 20.90, 22.3, 23.25];
-    this.chartLabels03 = ['First Quartile', 'Median', 'Third Quartile', 'Standard deviation'];
+    // this.chartLabels03 = ['First Quartile', 'Median', 'Third Quartile', 'Standard deviation'];
     
     this.getChartOptions03();
     Plotly.newPlot('chart03', this.outliersData, this.outliersLayout, {displayModeBar: false});
     Plotly.redraw('chart03');
    }
 
-   refresh() {
+   refreshPlotly() {
      console.log(this.chartData03);
      this.getChartOptions03();
      Plotly.newPlot('chart03', this.outliersData, this.outliersLayout, {displayModeBar: false});
@@ -213,26 +147,26 @@ export class ChartComponent implements OnInit {
   }
 
   // events chart01
-  public chart01Clicked(e:any):void {
-    this.profileSubset.selection = e.active["0"]._index;
+  public chart01Clicked(event):void {
+    this.profileSubset.selection = event.name;
     this.profileSubset.chart = 1;   
     this.chartSubsetEmit();
   }
 
   // events chart02
-  public chart02Clicked(e:any):void {
-    this.profileSubset.selection = e.active["0"]._index;
+  public chart02Clicked(event):void {
+    if (event.name == 'Valid') {
+    this.profileSubset.selection = 0;
+    }
+    else if (event.name == 'Invalid') {
+    this.profileSubset.selection = 1;
+    }
+    else if (event.name == 'Outliers') {
+    this.profileSubset.selection = 2;
+    }
     this.profileSubset.chart = 2;   
     this.chartSubsetEmit();
   }
 
-/*
-  // events chart03
-  public chart03Clicked(e:any):void {
-    this.profileSubset.selection = e.active["0"]._index;
-    this.profileSubset.chart = 3;   
-    this.chartSubsetEmit();
-  }
-  */
 
 }

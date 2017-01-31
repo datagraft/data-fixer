@@ -46,8 +46,8 @@ export class ProfilingService {
       this.stdev = datalib.stdev(data);
       let quartiles = datalib.quartile(data);                        
 
-      let histogram_chartData = [];
-      let histogram_chartLabels = [];
+      let histogram_data = [];
+      let chartLabels01 = [];
 
       // outlier detection
       let outliers = 0;
@@ -69,24 +69,35 @@ export class ProfilingService {
 
       // histogram or distinct map
       if (distinct <= 13) {
-        let distinctMap = datalib.count.map(data);        
+        let distinctMap = datalib.count.map(data);
+        let counter = 0;        
         for (let key in distinctMap) {
-          histogram_chartData.push(distinctMap[key]);
-          histogram_chartLabels.push(key);
+        let obj = {name: "", value: 0, index: 0};          
+          obj.name = key;
+          obj.value = distinctMap[key];
+          obj.index = counter;
+          counter++;
+          chartLabels01.push(key);
+          histogram_data.push(obj);
+          // histogram_chartData.push(distinctMap[key]);
+         // histogram_chartLabels.push(key);
         }
       }
       else if (distinct > 13) {
       let histogram = datalib.histogram(data);
-      // console.log('Histogram: ', histogram);      
-      for (let i = 0; i < histogram.length; i++) {    
+      for (let i = 0; i < histogram.length; i++) {
+        let obj = {name: "", value: 0, index: 0};            
           for (let key in histogram[i]) {
             if (key == 'count') {
-            histogram_chartData.push(histogram[i][key]);
+            obj.value = histogram[i][key];
             }        
             if (key == 'value') {
-            histogram_chartLabels.push(histogram[i][key]);
-            }             
+            obj.name = histogram[i][key];
+            chartLabels01.push(histogram[i][key]);
+            }
+            obj.index = i;             
           }
+          histogram_data.push(obj);
       }  
       }
 
@@ -95,7 +106,16 @@ export class ProfilingService {
       validity_chartData.push(missing);
       validity_chartData.push(outliers);                              
       
-      let validity_chartLabels = ['Valid', 'Invalid', 'Outliers'];
+      let chartLabels02 = ['Valid', 'Invalid', 'Outliers'];
+      
+      let validity_data = [];
+      for (let i = 0; i < 3; i++) {
+        let obj1 = {name: "", value: 0, index: 0};        
+        obj1.name = chartLabels02[i];
+        obj1.value = validity_chartData[i];
+        obj1.index = i;
+        validity_data.push(obj1);
+      }
 
       let tempArray = [];
 
@@ -105,24 +125,26 @@ export class ProfilingService {
       tempArray.push(this.stdev);      
       // tempArray.push(min);    
       // tempArray.push(max);      
-      let obj = {data: []};
-      obj.data = tempArray;
+      let obj2 = {data: []};
+      obj2.data = tempArray;
       let chartData_03 = [];
-      chartData_03.push(obj);      
+      chartData_03.push(obj2);      
 
       profile.push(countTotal);
       // console.log('Count: ', countTotal);      
       profile.push(distinct);
       // console.log('Distinct: ', distinct);
-      profile.push(histogram_chartData);
+      profile.push(histogram_data);
       // console.log('Histogram data: ', histogram_chartData);  
-      profile.push(histogram_chartLabels);
+      // profile.push(histogram_chartLabels);
       // console.log('Histogram labels: ', histogram_chartLabels);
-      profile.push(validity_chartData);
+      profile.push(validity_data);
       // console.log('Validity data: ', validity_chartData);
-      profile.push(validity_chartLabels);
+      // profile.push(validity_chartLabels);
       // console.log('Validity labels: ', validity_chartLabels);
-      profile.push(chartData_03);  
+      profile.push(chartData_03);
+      profile.push(chartLabels01);  
+      profile.push(chartLabels02);    
       // console.log('Stats numeric values: ', tempArray);
       // console.log('Quartiles: ', quartiles);                                  
       
@@ -181,8 +203,8 @@ export class ProfilingService {
     let check = true;
     let chartSubset: any;
     
-    if (chartType == 1) {
-      chartSubset = chartLabels[chartSelection];
+    if (chartType == 1) {    
+      chartSubset = chartSelection;
     }
     else if (chartType == 2) {
       if (chartSelection == 0) {
