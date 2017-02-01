@@ -23,20 +23,31 @@ export class SidebarComponent implements OnInit {
   private bordered: boolean = false;
   public transformationSelected: number;
 
-  public transformations: SelectItem[];
+  public transformationsEnumerated: SelectItem[];
+
+  public transformations: SelectItem[];  
 
   constructor(private sidebarService: SidebarService) {
-  this.transformations = [
-    { value: 1, label: 'First row as header' },    
-    { value: 0, label: 'Replace (,) with (.)' },
-    { value: 3, label: 'To uppercase letters' },
-    { value: 4, label: 'Pad digits 0 to 4' },                
-    { value: 2, label: 'Empty cells to zero' },
-    { value: 5, label: 'Text to standard format' },
-    { value: 6, label: 'Reformat dates' },
-    { value: 7, label: 'Concatenate: cad-ref' },
-    { value: 8, label: 'Concatenate: cad-ref-id' },
+  this.transformationsEnumerated = [
+    { value: 0, label: 'Insert column to the right' },
+    { value: 1, label: 'Insert column to the left' },    
+    { value: 2, label: 'Insert row above' },    
+    { value: 3, label: 'Insert row below' },    
+    { value: 4, label: 'Delete column' },    
+    { value: 5, label: 'Delete row' },    
+    { value: 6, label: 'Replace (,) with (.)' },
+    { value: 7, label: 'Set first row as header' },
+    { value: 8, label: 'Set empty cells to zero' },                
+    { value: 9, label: 'Set text to uppercase' },
+    { value: 10, label: 'Convert to standard format' },
+    { value: 11, label: 'Pad digits 0 to 4' },
+    { value: 12, label: 'Reformat dates' },
+    { value: 13, label: 'Concatenate cells' }
   ];
+
+  this.transformations = [
+    { value: 7, label: 'Set first row as header' }    
+  ]
    }
 
   ngOnInit() { }

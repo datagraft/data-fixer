@@ -100,7 +100,7 @@ export class ChartComponent implements OnInit {
    }
 
    refreshPlotly() {
-     console.log(this.chartData03);
+     // console.log(this.chartData03);
      this.getChartOptions03();
      Plotly.newPlot('chart03', this.outliersData, this.outliersLayout, {displayModeBar: false});
      Plotly.redraw('chart03');

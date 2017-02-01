@@ -21,6 +21,7 @@ export class TableComponent implements OnInit {
 
   @Input() profileSubset: any;
   @Output() profileSubsetEmitter: EventEmitter<number>;
+  @Output() tableSelectedEmitter: EventEmitter<any>;
 
   // chart
   public chartData01: any;
@@ -50,12 +51,17 @@ export class TableComponent implements OnInit {
     this.profileSubset.chart = 0;
     this.inferredType = true;
     this.profileSubsetEmitter = new EventEmitter<number>();
+    this.tableSelectedEmitter = new EventEmitter<any>();    
   }
 
   onProfileSubsetEmitted(value: any) {
     this.profileSubset = value;
     this.profileSubsetEmitter.emit(this.profileSubset);
     this.selectCell();
+  }
+
+  onTableSelectedEmitted() {
+    this.tableSelectedEmitter.emit('Testing OK');
   }
 
   ngOnInit() {
@@ -105,7 +111,7 @@ export class TableComponent implements OnInit {
       this.profilingService.data = this.data;
       this.selected = this.hot.getSelected();
       this.profilingService.columnSelected = this.selected[1];
-      this.refreshChartData();     
+      this.refreshChartData();
   }
 
   refreshChartData() {
@@ -127,6 +133,7 @@ export class TableComponent implements OnInit {
         this.chartComponent.chartData03 = this.profilingService.columnData;
         this.chartComponent.refreshPlotly();                                    
       }
+      this.onTableSelectedEmitted();                 
     }, 
     300);
   };

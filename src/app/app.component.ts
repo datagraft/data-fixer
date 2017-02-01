@@ -64,6 +64,11 @@ export class AppComponent {
       console.log('profile subset emitted');                        
   }
 
+  onTableSelectedEmitted(value: any) {
+      this.getRuleBasedSelectionData();        
+      console.log('APP tableSelected emitted', value);                        
+}
+
   onStepsEmitted(value: any) {
       this.stepSequence = value;
       this.applyTransformation(true, this.stepsComponent.stepSelected)
@@ -118,44 +123,97 @@ export class AppComponent {
   }
 
   getRuleBasedSelectionData() {
-      console.log('Inferred type: ', this.tableComponent.type);
-      console.log('Selection: ', this.tableComponent.selected);
+      let _selected = this.tableComponent.selected;
+      let _type = this.tableComponent.type;                  
+      let type: any;
+      let selected: any;
+      let allowedTransformations = [];
+
+      let matrix = this.sharedService.getRulesMatrix();
+
+      if (_type == 'string') {
+          type = 0
+      }
+      else if (_type == 'number' || 'integer') {
+          type = 1
+      }
+      else if (_type == 'date') {
+          type = 2
+      }
+
+      if (_selected[0] == 0) {
+          selected = 3
+      }
+      else {
+          selected = 4
+      }
+
+      for (let i = 0; i < matrix.length; i++) {
+          if (matrix[i][type] && matrix[i][selected]) {
+              allowedTransformations.push(i);
+          }
+      }
+
+      console.log('Allowed transformations: ', allowedTransformations);
+      let tempArray = [];
+      for (let i = 0; i < allowedTransformations.length; i++) {
+            tempArray.push(this.sidebarComponent.transformationsEnumerated[allowedTransformations[i]]);
+      }
+            this.sidebarComponent.transformations = tempArray;      
+
   }
 
   transformations(id) {
 
       switch (id) {
           case 0:
-          this.tableComponent.replaceChar();
+          console.log('Not yet implemented');
           break;
           case 1:
-          this.tableComponent.headersUpdate(this.tableComponent.headers);
+          console.log('Not yet implemented');
           break;
           case 2:
-          this.tableComponent.emptyToZero();
-          break;
+          console.log('Not yet implemented');
+          break;          
           case 3:
-          this.tableComponent.upperCase();
-          break;
+          console.log('Not yet implemented');
+          break;          
           case 4:
-          this.tableComponent.pad();
-          break;
+          console.log('Not yet implemented');
+          break;          
           case 5:
-          this.tableComponent.convertToStandardFormat();
-          break;
+          console.log('Not yet implemented');
+          break;          
           case 6:
-          this.tableComponent.reformatDates();
+          this.tableComponent.replaceChar();
           break;
           case 7:
-          this.tableComponent.concatenateCadRef();
+          this.tableComponent.headersUpdate(this.tableComponent.headers);
           break;
           case 8:
+          this.tableComponent.emptyToZero();
+          break;
+          case 9:
+          this.tableComponent.upperCase();
+          break;
+          case 10:
+          this.tableComponent.convertToStandardFormat();
+          break;
+          case 11:
+          this.tableComponent.pad();
+          break;
+          case 12:
+          this.tableComponent.reformatDates();
+          break;
+          case 13:
+          this.tableComponent.concatenateCadRef();
+          break;
+          case 14:
           this.tableComponent.concatenateCadRefId();
           break;
       }
       this.generateTransformationSteps();
       this.setDisplay();
-      this.getRuleBasedSelectionData();  
   }
 
     generateTransformationSteps() {
