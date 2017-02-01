@@ -150,7 +150,7 @@ export class ProfilingService {
       
       // console.log('Data profile selected column: ', profile);
       // console.log('Types: ', this.typesInferred);   
-      console.log(profile);
+      console.log('Profile: ', profile);
 
       return Promise.resolve(profile);
     };
@@ -189,6 +189,7 @@ export class ProfilingService {
   getColumnData () {
 
     this.typesInferred = datalib.type.inferAll(this.data);
+    // console.log('Types inferred: ', this.typesInferred);
 
     for (let i = 0; i < this.data.length; i++) {
       this.columnData.push(this.data[i][this.columnSelected]);

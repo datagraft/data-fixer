@@ -45,12 +45,14 @@ export class AppComponent {
   dataParsed: any;
   dataParsedRaw: any;
 
+  ruleBasedSelectionData: any[];
+
   setDisplay() {
       this.display = true;
       setTimeout(() => {
           this.display = false;
       },
-      6000);
+      4000);
   }
 
   getTypeInference = () => {
@@ -59,6 +61,7 @@ export class AppComponent {
 
   onProfileSubsetEmitted(value: any) {
       this.profileSubset = value;
+      console.log('profile subset emitted');                        
   }
 
   onStepsEmitted(value: any) {
@@ -114,6 +117,11 @@ export class AppComponent {
     return deepCopy;
   }
 
+  getRuleBasedSelectionData() {
+      console.log('Inferred type: ', this.tableComponent.type);
+      console.log('Selection: ', this.tableComponent.selected);
+  }
+
   transformations(id) {
 
       switch (id) {
@@ -146,7 +154,8 @@ export class AppComponent {
           break;
       }
       this.generateTransformationSteps();
-      this.setDisplay();  
+      this.setDisplay();
+      this.getRuleBasedSelectionData();  
   }
 
     generateTransformationSteps() {

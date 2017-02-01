@@ -29,6 +29,7 @@ export class TableComponent implements OnInit {
   public chartLabels02: any;
   public chartData03: any;
   public inferredType: boolean;
+  public type: any;
 
   // transformations
   padParam: number = 4;
@@ -115,7 +116,7 @@ export class TableComponent implements OnInit {
       this.chartLabels01 = this.profilingService.profile[3];
       this.chartData02 = this.profilingService.profile[3];
       this.chartLabels02 = this.profilingService.profile[5];
-      console.log(this.profilingService.typeInferred);
+      this.type = this.profilingService.typeInferred;
       if (this.profilingService.typeInferred == "string" || this.profilingService.typeInferred == "date" || this.profilingService.stdev == 0) {
         this.inferredType = false;
       }
@@ -210,13 +211,13 @@ export class TableComponent implements OnInit {
   selectCell() {
     let rowStartEnd = this.profilingService.getRowStartEnd(this.data, this.profileSubset.chart, this.profileSubset.selection, this.selectChartLabels(this.profileSubset.chart));
     this.hot.selectCell(rowStartEnd[0], this.selected[1], rowStartEnd[1], this.selected[1]);
-    console.log('Data: ', this.data);
-    console.log('this.profileSubset.chart: ', this.profileSubset.chart);    
-    console.log('this.profileSubset.selection: ', this.profileSubset.selection);
-    console.log('this.selectChartLabels(this.profileSubset.chart): ', this.selectChartLabels(this.profileSubset.chart));
-    console.log('rowStartEnd[0]: ', rowStartEnd[0]);
-    console.log('this.selected[1]: ', this.selected[1]);
-    console.log('rowStartEnd[1] ', rowStartEnd[1]);
+    // console.log('Data: ', this.data);
+    // console.log('this.profileSubset.chart: ', this.profileSubset.chart);    
+    // console.log('this.profileSubset.selection: ', this.profileSubset.selection);
+    // console.log('this.selectChartLabels(this.profileSubset.chart): ', this.selectChartLabels(this.profileSubset.chart));
+    // console.log('rowStartEnd[0]: ', rowStartEnd[0]);
+    // console.log('this.selected[1]: ', this.selected[1]);
+    // console.log('rowStartEnd[1] ', rowStartEnd[1]);
   }
 }
 
