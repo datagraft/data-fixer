@@ -17,7 +17,7 @@
     </ngx-charts-pie-chart>
       </div>
 
-    <div fxFlex="40%" class="chart02">
+    <div fxFlex="30%" class="chart02">
     <ngx-charts-advanced-pie-chart
       [view]="view"
       [scheme]="colorScheme1"
@@ -28,8 +28,17 @@
     </ngx-charts-advanced-pie-chart>
       </div>
 
-    <div fxFlex="30%" class="chart03">
+    <div fxFlex="20%" class="chart03">
           <div id="chart03"></div>
+  </div>
+
+    <div fxFlex="20%" class="chart04">
+  <table ngl-datatable [data]="statsData" trackByKey="rank" class="slds-max-medium-table--stacked-horizontal">
+  <ngl-datatable-column heading="Function" key="stat"></ngl-datatable-column>
+  <ngl-datatable-column heading="Value" key="value" cellClass="slds-text-align--center">
+    <template nglDatatableCell let-row="row"><b>{{row.value}}</b></template>
+  </ngl-datatable-column>
+  </table>
   </div>
 
   </div>

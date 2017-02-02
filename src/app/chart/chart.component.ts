@@ -17,6 +17,8 @@ export class ChartComponent implements OnInit {
     this.profileSubsetEmitter = new EventEmitter<number>();
     Object.assign(this, {chart01_init, chart02_init})   
    }
+  
+  @Input() statsData = [];
 
   chart01_init: any[];
   chart02_init: any[];
@@ -95,6 +97,7 @@ export class ChartComponent implements OnInit {
     // this.chartLabels03 = ['First Quartile', 'Median', 'Third Quartile', 'Standard deviation'];
     
     this.getChartOptions03();
+    
     Plotly.newPlot('chart03', this.outliersData, this.outliersLayout, {displayModeBar: false});
     Plotly.redraw('chart03');
    }

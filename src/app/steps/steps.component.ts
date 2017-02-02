@@ -51,8 +51,8 @@ export class StepsComponent implements OnInit {
   onRowClick($event: INglDatatableRowClick) {
     this.stepSelected = $event.data.step;
     this.transformationSelected = $event.data.transformation;
-    console.log('Selected step transformation: ', this.transformationSelected);
-    console.log('Selected step id: ', this.stepSelected);
+    // console.log('Selected step transformation: ', this.transformationSelected);
+    // console.log('Selected step id: ', this.stepSelected);
     this.stepsEmitter.emit(this.stepSequence);    
   }
 

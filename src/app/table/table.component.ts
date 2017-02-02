@@ -19,6 +19,8 @@ export class TableComponent implements OnInit {
   public selected: any;
   public headers: any;
 
+  public statsData = [];
+
   @Input() profileSubset: any;
   @Output() profileSubsetEmitter: EventEmitter<number>;
   @Output() tableSelectedEmitter: EventEmitter<any>;
@@ -105,6 +107,22 @@ export class TableComponent implements OnInit {
     };
 
     this.hot = new Handsontable(container, settings);
+
+    this.statsData = this.statsDataInit();
+
+  }
+
+  statsDataInit() {
+    return [
+      { stat: 'Count', value: 0 },
+      { stat: 'Distinct', value: 0 },
+      { stat: 'Quartile 1', value: 0 },
+      { stat: 'Mean', value: 0 },
+      { stat: 'Quartile 3', value: 0 },
+      { stat: 'Std. deviation', value: 0 },
+      { stat: 'Min', value: 0 },
+      { stat: 'Max', value: 0 },
+    ];
   }
 
   refresh() {
@@ -133,10 +151,21 @@ export class TableComponent implements OnInit {
         this.chartComponent.chartData03 = this.profilingService.columnData;
         this.chartComponent.refreshPlotly();                                    
       }
-      this.onTableSelectedEmitted();                 
+      this.onTableSelectedEmitted();
+      // console.log(this.profilingService.statData);
+      this.refreshStats();               
     }, 
     300);
   };
+
+  refreshStats() {
+    this.statsData = this.statsDataInit();
+    setTimeout(() => {
+      this.statsData = this.profilingService.statData;    
+    },
+    10);
+    // console.log('statsdata: ', this.statsData);
+  }
 
   headersUpdate(headers) {
     this.hot.updateSettings({

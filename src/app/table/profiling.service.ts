@@ -5,7 +5,20 @@ import * as datalib from 'datalib';
 @Injectable()
 export class ProfilingService {
 
-  constructor() { }
+  constructor() { 
+    this.statData = [
+      { stat: 'Count', value: 0 },
+      { stat: 'Distinct', value: 0 },
+      { stat: 'Quartile 1', value: 0 },
+      { stat: 'Mean', value: 0 },
+      { stat: 'Quartile 3', value: 0 },
+      { stat: 'Std. deviation', value: 0 },
+      { stat: 'Min', value: 0 },
+      { stat: 'Max', value: 0 },
+    ];
+  }
+
+  statData: any;
 
   data: any;
   columnData = [];
@@ -40,8 +53,8 @@ export class ProfilingService {
       let distinct = datalib.count.distinct(data);
       let valid = datalib.count.valid(data);
       let missing = datalib.count.missing(data);
-      // let min = datalib.min(data);
-      // let max = datalib.max(data);
+      let min = datalib.min(data);
+      let max = datalib.max(data);
       let mean = datalib.mean(data);
       this.stdev = datalib.stdev(data);
       let quartiles = datalib.quartile(data);                        
@@ -128,8 +141,17 @@ export class ProfilingService {
       let obj2 = {data: []};
       obj2.data = tempArray;
       let chartData_03 = [];
-      chartData_03.push(obj2);      
+      chartData_03.push(obj2);
 
+      this.statData[0].value = countTotal;
+      this.statData[1].value = distinct;     
+      this.statData[2].value = Math.round(first_quartile);     
+      this.statData[3].value = Math.round(mean);     
+      this.statData[4].value = Math.round(third_quartile);     
+      this.statData[5].value = Math.round(this.stdev);     
+      this.statData[6].value = Math.round(min);     
+      this.statData[7].value = Math.round(max);     
+     
       profile.push(countTotal);
       // console.log('Count: ', countTotal);      
       profile.push(distinct);
@@ -150,7 +172,7 @@ export class ProfilingService {
       
       // console.log('Data profile selected column: ', profile);
       // console.log('Types: ', this.typesInferred);   
-      console.log('Profile: ', profile);
+      // console.log('Profile: ', profile);
 
       return Promise.resolve(profile);
     };
