@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
-import { SidebarImportService } from './sidebar.import.service';
+import {TestBed, async, inject} from '@angular/core/testing';
+import {SidebarImportService} from './sidebar.import.service';
 
 describe('SidebarImportService', () => {
   beforeEach(() => {

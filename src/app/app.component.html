@@ -1,42 +1,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <div class="datatable">
-  <datatable [profileSubset]="profileSubset" (profileSubsetEmitter)="onProfileSubsetEmitted($event)" (tableSelectedEmitter)="onTableSelectedEmitted($event)"></datatable>    
+  <datatable [profileSubset]="profileSubset" (profileSubsetEmitter)="onProfileSubsetEmitted($event)"
+             (tableSelectedEmitter)="onTableSelectedEmitted($event)"></datatable>
 </div>
 
 <div class="container">
   <ngl-section [(open)]="open" title="FILE IMPORT">
-<div id="sidebarImport">
-  <div class="sidebarImportButton">
-    <button type="button" nglButton="brand" (click)="getDataRaw()">Import file</button>    
-</div>
-  <div class="fileSelection">
-    <sidebarImport></sidebarImport>    
-  </div>
-</div>
-</ngl-section>
+    <div id="sidebarImport">
+      <div class="sidebarImportButton">
+        <button type="button" nglButton="brand" (click)="getDataRaw()">Import file</button>
+      </div>
+      <div class="fileSelection">
+        <sidebarImport></sidebarImport>
+      </div>
+    </div>
+  </ngl-section>
 
-<ngl-section [(open)]="open1" title="SUGGESTED TRANSFORMATIONS">
+  <ngl-section [(open)]="open1" title="SUGGESTED TRANSFORMATIONS">
 
-<div class="sidebar">
-  <sidebar></sidebar>
-</div>
+    <div class="sidebar">
+      <sidebar></sidebar>
+    </div>
 
-<div id="containerApplyTransformationButton">
-  <div class="sidebarImportButton">
-    <button type="button" nglButton="brand" (click)="applyTransformation()">Apply transformation</button>
-  <div *ngIf="display" class="status">
-    <span class="label label-success">SUCCESSFULLY APPLIED</span>        
-  </div>
-</div>
-</div>
+    <div id="containerApplyTransformationButton">
+      <div class="sidebarImportButton">
+        <button type="button" nglButton="brand" (click)="applyTransformation()">Apply transformation</button>
+        <div *ngIf="display" class="status">
+          <span class="label label-success">SUCCESSFULLY APPLIED</span>
+        </div>
+      </div>
+    </div>
 
-</ngl-section>
+  </ngl-section>
 
-<ngl-section [(open)]="open2" title="STEPS">
-<div class="steps">
-  <steps [stepSequence]="stepSequence" (stepsEmitter)="onStepsEmitted($event)"></steps>
-</div>
-</ngl-section>
+  <ngl-section [(open)]="open2" title="STEPS">
+    <div class="steps">
+      <steps [stepSequence]="stepSequence" (stepsEmitter)="onStepsEmitted($event)"></steps>
+    </div>
+  </ngl-section>
 </div>
 

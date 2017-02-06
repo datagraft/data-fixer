@@ -1,20 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import * as datalib from 'datalib';
 
 @Injectable()
 export class ProfilingService {
 
-  constructor() { 
+  constructor() {
     this.statData = [
-      { stat: 'Count', value: 0 },
-      { stat: 'Distinct', value: 0 },
-      { stat: 'Quartile 1', value: 0 },
-      { stat: 'Mean', value: 0 },
-      { stat: 'Quartile 3', value: 0 },
-      { stat: 'Std. deviation', value: 0 },
-      { stat: 'Min', value: 0 },
-      { stat: 'Max', value: 0 },
+      {stat: 'Count', value: 0},
+      {stat: 'Distinct', value: 0},
+      {stat: 'Quartile 1', value: 0},
+      {stat: 'Mean', value: 0},
+      {stat: 'Quartile 3', value: 0},
+      {stat: 'Std. deviation', value: 0},
+      {stat: 'Min', value: 0},
+      {stat: 'Max', value: 0},
     ];
   }
 
@@ -35,10 +35,10 @@ export class ProfilingService {
     this.columnData = [];
 
     // returns table values of selected column
-    const promise = new Promise (
+    const promise = new Promise(
       (resolve, reject) => {
         const data = this.getColumnData();
-        resolve(data);        
+        resolve(data);
       }
     );
 
@@ -57,7 +57,7 @@ export class ProfilingService {
       let max = datalib.max(data);
       let mean = datalib.mean(data);
       this.stdev = datalib.stdev(data);
-      let quartiles = datalib.quartile(data);                        
+      let quartiles = datalib.quartile(data);
 
       let histogram_data = [];
       let chartLabels01 = [];
@@ -70,7 +70,7 @@ export class ProfilingService {
       let IQR_below = first_quartile - (1.5 * (third_quartile - first_quartile));
       // console.log('IQR below: ', IQR_below);
       let IQR_above = third_quartile + (1.5 * (third_quartile - first_quartile));
-      // console.log('IQR above: ', IQR_above);            
+      // console.log('IQR above: ', IQR_above);
 
       for (let i = 0; i < data.length; i++) {
         if (data[i] < IQR_below || data[i] > IQR_above && data[i] != null) {
@@ -78,14 +78,14 @@ export class ProfilingService {
           outliers++;
           valid--;
         }
-      }      
+      }
 
       // histogram or distinct map
       if (distinct <= 13) {
         let distinctMap = datalib.count.map(data);
-        let counter = 0;        
+        let counter = 0;
         for (let key in distinctMap) {
-        let obj = {name: "", value: 0, index: 0};          
+          let obj = {name: "", value: 0, index: 0};
           obj.name = key;
           obj.value = distinctMap[key];
           obj.index = counter;
@@ -93,37 +93,37 @@ export class ProfilingService {
           chartLabels01.push(key);
           histogram_data.push(obj);
           // histogram_chartData.push(distinctMap[key]);
-         // histogram_chartLabels.push(key);
+          // histogram_chartLabels.push(key);
         }
       }
       else if (distinct > 13) {
-      let histogram = datalib.histogram(data);
-      for (let i = 0; i < histogram.length; i++) {
-        let obj = {name: "", value: 0, index: 0};            
+        let histogram = datalib.histogram(data);
+        for (let i = 0; i < histogram.length; i++) {
+          let obj = {name: "", value: 0, index: 0};
           for (let key in histogram[i]) {
             if (key == 'count') {
-            obj.value = histogram[i][key];
-            }        
-            if (key == 'value') {
-            obj.name = histogram[i][key];
-            chartLabels01.push(histogram[i][key]);
+              obj.value = histogram[i][key];
             }
-            obj.index = i;             
+            if (key == 'value') {
+              obj.name = histogram[i][key];
+              chartLabels01.push(histogram[i][key]);
+            }
+            obj.index = i;
           }
           histogram_data.push(obj);
-      }  
+        }
       }
 
       let validity_chartData = [];
       validity_chartData.push(valid);
       validity_chartData.push(missing);
-      validity_chartData.push(outliers);                              
-      
+      validity_chartData.push(outliers);
+
       let chartLabels02 = ['Valid', 'Invalid', 'Outliers'];
-      
+
       let validity_data = [];
       for (let i = 0; i < 3; i++) {
-        let obj1 = {name: "", value: 0, index: 0};        
+        let obj1 = {name: "", value: 0, index: 0};
         obj1.name = chartLabels02[i];
         obj1.value = validity_chartData[i];
         obj1.index = i;
@@ -135,29 +135,29 @@ export class ProfilingService {
       tempArray.push(quartiles[0]);
       tempArray.push(quartiles[1]);
       tempArray.push(quartiles[2]);
-      tempArray.push(this.stdev);      
-      // tempArray.push(min);    
-      // tempArray.push(max);      
+      tempArray.push(this.stdev);
+      // tempArray.push(min);
+      // tempArray.push(max);
       let obj2 = {data: []};
       obj2.data = tempArray;
       let chartData_03 = [];
       chartData_03.push(obj2);
 
       this.statData[0].value = countTotal;
-      this.statData[1].value = distinct;     
-      this.statData[2].value = Math.round(first_quartile);     
-      this.statData[3].value = Math.round(mean);     
-      this.statData[4].value = Math.round(third_quartile);     
-      this.statData[5].value = Math.round(this.stdev);     
-      this.statData[6].value = Math.round(min);     
-      this.statData[7].value = Math.round(max);     
-     
+      this.statData[1].value = distinct;
+      this.statData[2].value = Math.round(first_quartile);
+      this.statData[3].value = Math.round(mean);
+      this.statData[4].value = Math.round(third_quartile);
+      this.statData[5].value = Math.round(this.stdev);
+      this.statData[6].value = Math.round(min);
+      this.statData[7].value = Math.round(max);
+
       profile.push(countTotal);
-      // console.log('Count: ', countTotal);      
+      // console.log('Count: ', countTotal);
       profile.push(distinct);
       // console.log('Distinct: ', distinct);
       profile.push(histogram_data);
-      // console.log('Histogram data: ', histogram_chartData);  
+      // console.log('Histogram data: ', histogram_chartData);
       // profile.push(histogram_chartLabels);
       // console.log('Histogram labels: ', histogram_chartLabels);
       profile.push(validity_data);
@@ -165,50 +165,52 @@ export class ProfilingService {
       // profile.push(validity_chartLabels);
       // console.log('Validity labels: ', validity_chartLabels);
       profile.push(chartData_03);
-      profile.push(chartLabels01);  
-      profile.push(chartLabels02);    
+      profile.push(chartLabels01);
+      profile.push(chartLabels02);
       // console.log('Stats numeric values: ', tempArray);
-      // console.log('Quartiles: ', quartiles);                                  
-      
+      // console.log('Quartiles: ', quartiles);
+
       // console.log('Data profile selected column: ', profile);
-      // console.log('Types: ', this.typesInferred);   
+      // console.log('Types: ', this.typesInferred);
       // console.log('Profile: ', profile);
 
       return Promise.resolve(profile);
     };
 
     promise
-          .then(profileSummary)
-          .then(fulfilled => {this.profile = fulfilled});
-    }
+      .then(profileSummary)
+      .then(fulfilled => {
+        this.profile = fulfilled
+      });
+  }
 
   // returns count
-  getCount (data) {
+  getCount(data) {
     return datalib.count(data);
   }
 
   // returns count of distinct values
-  getDistint () {
+  getDistint() {
     return datalib.distinct();
   }
 
   // returns count of valid values
-  getValid () {
-    
+  getValid() {
+
   }
 
   // returns count of invalid values
-  getInvalid () {
-    
+  getInvalid() {
+
   }
 
   // returns count of empty values
-  getEmpty () {
-    
+  getEmpty() {
+
   }
 
   // returns table values of selected column
-  getColumnData () {
+  getColumnData() {
 
     this.typesInferred = datalib.type.inferAll(this.data);
     // console.log('Types inferred: ', this.typesInferred);
@@ -220,13 +222,13 @@ export class ProfilingService {
 
   }
 
-  getRowStartEnd (data, chartType, chartSelection, chartLabels) {
+  getRowStartEnd(data, chartType, chartSelection, chartLabels) {
     let rowStart = 0;
     let rowEnd = 0;
     let check = true;
     let chartSubset: any;
-    
-    if (chartType == 1) {    
+
+    if (chartType == 1) {
       chartSubset = chartSelection;
     }
     else if (chartType == 2) {
@@ -235,7 +237,7 @@ export class ProfilingService {
         console.log('Not implemented yet');
       }
       else if (chartSelection == 1) {
-        chartSubset = null;        
+        chartSubset = null;
       }
       else if (chartSelection == 2) {
         chartSubset = this.outlierExample;
@@ -245,10 +247,10 @@ export class ProfilingService {
     for (let i = 0; i < data.length; i++) {
       if (check) {
         if (data[i][this.columnSelected] == chartSubset) {
-            rowStart = i;
-            rowEnd = i;
-            check = false;
-          }
+          rowStart = i;
+          rowEnd = i;
+          check = false;
+        }
       }
     }
     for (let i = rowEnd; i < data.length; i++) {

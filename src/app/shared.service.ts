@@ -1,26 +1,27 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class SharedService {
 
-  constructor() { }
+  constructor() {
+  }
 
-  private rulesMatrix: any[];  
+  private rulesMatrix: any[];
 
   initialiseStepSequence() {
     return [
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] }
-  ];
+      {transformation: 0, step: 0, title: '-', headers: [], data: []},
+      {transformation: 0, step: 0, title: '-', headers: [], data: []},
+      {transformation: 0, step: 0, title: '-', headers: [], data: []},
+      {transformation: 0, step: 0, title: '-', headers: [], data: []},
+      {transformation: 0, step: 0, title: '-', headers: [], data: []},
+      {transformation: 0, step: 0, title: '-', headers: [], data: []}
+    ];
   }
 
   getRulesMatrix() {
     return this.rulesMatrix = [
-                                                // ['String', 'Number || Integer', 'Date', 'Column', 'Row'],
+      // ['String', 'Number || Integer', 'Date', 'Column', 'Row'],
       [true, true, true, true, false],          // (0) Insert column right
       [true, true, true, true, false],          // (1) Insert column left
       [true, true, true, false, true],          // (2) Insert row above

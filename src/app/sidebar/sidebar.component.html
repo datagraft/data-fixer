@@ -1,7 +1,7 @@
-
 <div class="sidebar">
 
-<p-listbox [options]="transformations" [(ngModel)]="transformationSelected" [style]="{'width':'360px','height':'300px'}"></p-listbox>
+  <p-listbox [options]="transformations" [(ngModel)]="transformationSelected"
+             [style]="{'width':'360px','height':'300px'}"></p-listbox>
 
 </div>
 
@@ -10,28 +10,28 @@
   <div class="dropdown">
     <ngl-form-element label="Column" [error]="hasError ? error : null" class="slds-m-top--small">
       <select nglFormControl class="slds-select" [required]="required">
-      <option>-</option>
-      <option>Column Two</option>
-      <option>Column Three</option>
-  </select>
-</ngl-form-element>
+        <option>-</option>
+        <option>Column Two</option>
+        <option>Column Three</option>
+      </select>
+    </ngl-form-element>
   </div>
 
-    <div class="dropdown">
+  <div class="dropdown">
     <ngl-form-element label="Function" [error]="hasError ? error : null" class="slds-m-top--small">
       <select nglFormControl class="slds-select" [required]="required">
-      <option>-</option>
-      <option>Function Two</option>
-      <option>Function Three</option>
-  </select>
-</ngl-form-element>
+        <option>-</option>
+        <option>Function Two</option>
+        <option>Function Three</option>
+      </select>
+    </ngl-form-element>
   </div>
 
-<div class="inputform">
-  <ngl-form-element label="Parameter" class="slds-m-top--small">
-    <input nglFormControl type="text" placeholder="Input" [required]="required" [(ngModel)]="inputParameter">
-  </ngl-form-element>
-</div>
+  <div class="inputform">
+    <ngl-form-element label="Parameter" class="slds-m-top--small">
+      <input nglFormControl type="text" placeholder="Input" [required]="required" [(ngModel)]="inputParameter">
+    </ngl-form-element>
+  </div>
 
 </div>
 

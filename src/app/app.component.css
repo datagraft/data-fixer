@@ -16,26 +16,26 @@ div.container {
   float: left;
   padding-top: 20px;
   padding-left: 10px;
-  padding-right: 40px;  
+  padding-right: 40px;
 }
 
 div.sidebarImport {
   width: 100%;
-  float: left;  
+  float: left;
   padding-bottom: 20px;
-  padding-right: 10px;  
+  padding-right: 10px;
 }
 
 div.sidebar {
-  padding-top: 15px;  
+  padding-top: 15px;
   padding-bottom: 20px;
-  padding-right: 40px;  
+  padding-right: 40px;
 }
 
 div.steps {
-  padding-top: 20px;  
+  padding-top: 20px;
   padding-bottom: 10px;
-  padding-right: 40px;  
+  padding-right: 40px;
 }
 
 div.fileSelection {
@@ -53,11 +53,11 @@ div.containerApplyTransformationButton {
 
 .status {
   padding-left: 30px;
-  display: inline-block;  
+  display: inline-block;
 }
 
 div.sidebarImportButton {
-  padding-right: 20px;  
+  padding-right: 20px;
   padding-bottom: 5px;
   display: inline-block;
 }

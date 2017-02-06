@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SelectItem } from 'primeng/primeng';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {SelectItem} from 'primeng/primeng';
 import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightning';
 
 @Component({
@@ -12,9 +12,10 @@ export class StepsComponent implements OnInit {
   constructor() {
     this.stepSequence = this.fillArray();
     this.stepsEmitter = new EventEmitter<any>();
-   }
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   @Output() stepsEmitter: EventEmitter<any>;
 
@@ -35,13 +36,13 @@ export class StepsComponent implements OnInit {
 
   fillArray() {
     return [
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] },
-    { transformation: 0, step: 0, title: '-', headers: [], data: [] }    
-  ];
+      {transformation: 0, step: 0, title: '-', headers: [], data: []},
+      {transformation: 0, step: 0, title: '-', headers: [], data: []},
+      {transformation: 0, step: 0, title: '-', headers: [], data: []},
+      {transformation: 0, step: 0, title: '-', headers: [], data: []},
+      {transformation: 0, step: 0, title: '-', headers: [], data: []},
+      {transformation: 0, step: 0, title: '-', headers: [], data: []}
+    ];
   }
 
   chartSubsetEmit() {
@@ -53,7 +54,7 @@ export class StepsComponent implements OnInit {
     this.transformationSelected = $event.data.transformation;
     // console.log('Selected step transformation: ', this.transformationSelected);
     // console.log('Selected step id: ', this.stepSelected);
-    this.stepsEmitter.emit(this.stepSequence);    
+    this.stepsEmitter.emit(this.stepSequence);
   }
 
   generateStepsArray(transformationSelected, dataset, headers) {
@@ -63,7 +64,7 @@ export class StepsComponent implements OnInit {
     obj.title = 'Step ' + this.stepsCounter;
     obj.headers = headers;
     obj.data = dataset;
-    this.stepSequence[this.stepsCounter - 1] = obj;    
+    this.stepSequence[this.stepsCounter - 1] = obj;
     this.stepsCounter++;
   }
 
