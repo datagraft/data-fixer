@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import * as datalib from 'datalib';
 
@@ -10,58 +10,61 @@ export class SidebarImportService {
   columnsTypesInferred: any;
   types: any;
 
-  constructor() { }
+  constructor() {
+  }
 
-  getDataParsed (selectFile) {
+  getDataParsed(selectFile) {
 
-    const promise = new Promise (
-        (resolve, reject) => { 
-            const data = this.getFile(selectFile);
-            this.headers = data.columns;
-            this.columnsTypesInferred = data.__types__;
+    const promise = new Promise(
+      (resolve, reject) => {
+        const data = this.getFile(selectFile);
+        this.headers = data.columns;
+        this.columnsTypesInferred = data.__types__;
 
-            resolve(data);
-        }
+        resolve(data);
+      }
     );
 
     const dataParsed = (data) => {
 
-        this.types = this.getTypesInferred();
+      this.types = this.getTypesInferred();
 
-        let arrayParsed = [];
-        arrayParsed.push(this.headers);
+      let arrayParsed = [];
+      arrayParsed.push(this.headers);
 
-        for (let i = 0; i < data.length; i++) {
-          let tempArray = [];
-            for (let key in data[i]) {
-              tempArray.push(data[i][key]);
-              }
-              arrayParsed.push(tempArray);
-              tempArray = [];
-              }
+      for (let i = 0; i < data.length; i++) {
+        let tempArray = [];
+        for (let key in data[i]) {
+          tempArray.push(data[i][key]);
+        }
+        arrayParsed.push(tempArray);
+        tempArray = [];
+      }
 
-            return Promise.resolve(arrayParsed);
-        };
-      
-      promise
-          .then(dataParsed)
-          .then(fulfilled => {this.data = fulfilled});
+      return Promise.resolve(arrayParsed);
+    };
+
+    promise
+      .then(dataParsed)
+      .then(fulfilled => {
+        this.data = fulfilled
+      });
   }
 
   getTypesInferred() {
     let types = [];
     let tempArray = [];
     for (let i = 0; i < this.headers.length; i++) {
-        tempArray.push(i);
-        tempArray.push(this.headers[i]);
-        tempArray.push(this.columnsTypesInferred[this.headers[i]]);        
-        types.push(tempArray);
-        tempArray = [];
+      tempArray.push(i);
+      tempArray.push(this.headers[i]);
+      tempArray.push(this.columnsTypesInferred[this.headers[i]]);
+      types.push(tempArray);
+      tempArray = [];
     }
-        return types;    
+    return types;
   }
 
-  getFile (selectFile) { 
+  getFile(selectFile) {
 
     let filePath: String;
 
@@ -80,8 +83,8 @@ export class SidebarImportService {
     else if (selectFile == 'Weather') {
       filePath = '../data/seattle.csv';
     }
-      this.data = datalib.csv({url: filePath});
-      return this.data;
+    this.data = datalib.csv({url: filePath});
+    return this.data;
   }
 
 }

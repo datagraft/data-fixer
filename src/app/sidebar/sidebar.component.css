@@ -9,7 +9,7 @@ body {
 }
 
 #container {
-  padding-top: 0px;
+  padding-top: 0;
 }
 
 .dropdown {
@@ -20,5 +20,5 @@ body {
 
 .inputform {
   width: 80px;
-  display: inline-block;  
+  display: inline-block;
 }

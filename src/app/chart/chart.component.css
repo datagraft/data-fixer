@@ -1,6 +1,6 @@
 
 h5 {
-    text-align: center;
+  text-align: center;
 }
 
 .chart01 {
@@ -27,11 +27,23 @@ h5 {
   color: #212121;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  padding-left: 30px;
+  padding-left: 0;
+}
+
+.chart03 {
+  width: 350px;
+  height: 400px;
 }
 
 #chart03 {
-    width: 350px;
-    height: 400px;
-    padding-left: 30px;
+  width: 350px;
+  height: 400px;
+  padding-left: 75px;
+}
+
+.chart04 {
+  width: 250px;
+  height: 400px;
+  padding-top: 60px;
+  padding-left: 230px;
 }
