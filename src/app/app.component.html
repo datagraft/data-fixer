@@ -1,12 +1,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <div class="datatable">
-  <datatable [profileSubset]="profileSubset" (profileSubsetEmitter)="onProfileSubsetEmitted($event)"
-             (tableSelectedEmitter)="onTableSelectedEmitted($event)"></datatable>
+  <datatable [profileSubset]="profileSubset" (profileSubsetEmitter)="onProfileSubsetEmitted($event)" (tableSelectedEmitter)="onTableSelectedEmitted($event)"></datatable>
 </div>
 
 <div class="container">
-  <ngl-section [(open)]="open" title="FILE IMPORT">
+  <ngl-section [(open)]="open0" title="FILE IMPORT">
     <div id="sidebarImport">
       <div class="sidebarImportButton">
         <button type="button" nglButton="brand" (click)="getDataRaw()">Import file</button>
@@ -40,4 +39,3 @@
     </div>
   </ngl-section>
 </div>
-

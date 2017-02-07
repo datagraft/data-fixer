@@ -1,15 +1,15 @@
-import {Component, ViewChild, Input} from '@angular/core';
-import {TableComponent} from './table/table.component';
-import {SidebarImportComponent} from './sidebar.import/sidebar.import.component';
-import {SidebarComponent} from './sidebar/sidebar.component';
-import {ChartComponent} from './chart/chart.component';
-import {StepsComponent} from './steps/steps.component';
+import { Component, ViewChild, Input } from '@angular/core';
+import { TableComponent } from './table/table.component';
+import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { ChartComponent } from './chart/chart.component';
+import { StepsComponent } from './steps/steps.component';
 
-import {SharedService} from './shared.service';
-import {SidebarImportService} from './sidebar.import/sidebar.import.service';
-import {SidebarService} from './sidebar/sidebar.service';
-import {ProfilingService} from './table/profiling.service';
-import {TransformationsService} from './table/transformations.service';
+import { SharedService } from './shared.service';
+import { SidebarImportService } from './sidebar.import/sidebar.import.service';
+import { SidebarService } from './sidebar/sidebar.service';
+import { ProfilingService } from './table/profiling.service';
+import { TransformationsService } from './table/transformations.service';
 
 
 @Component({
@@ -21,13 +21,6 @@ import {TransformationsService} from './table/transformations.service';
 
 export class AppComponent {
 
-  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService) {
-    this.profileSubset = new Object();
-    this.profileSubset.selection = 0;
-    this.profileSubset.chart = 0;
-    this.stepSequence = this.sharedService.initialiseStepSequence();
-  }
-
   @ViewChild(SidebarImportComponent) sidebarImportComponent: SidebarImportComponent;
   @ViewChild(SidebarComponent) sidebarComponent: SidebarComponent;
   @ViewChild(TableComponent) tableComponent: TableComponent;
@@ -36,22 +29,26 @@ export class AppComponent {
   @Input() profileSubset: any;
   @Input() stepSequence: any;
 
-  open: boolean = true;
-  open1: boolean = true;
-  open2: boolean = false;
+  private open0: boolean = true;
+  private open1: boolean = true;
+  private open2: boolean = false;
+  private display: boolean = false;
+  public dataParsed: any;
+  public dataParsedRaw: any;
+  public ruleBasedSelectionData: any[];
 
-  display: boolean = false;
-
-  dataParsed: any;
-  dataParsedRaw: any;
-
-  ruleBasedSelectionData: any[];
+  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService) {
+    this.profileSubset = new Object();
+    this.profileSubset.selection = 0;
+    this.profileSubset.chart = 0;
+    this.stepSequence = this.sharedService.initialiseStepSequence();
+  }
 
   setDisplay() {
     this.display = true;
     setTimeout(() => {
-        this.display = false;
-      },
+      this.display = false;
+    },
       4000);
   }
 
@@ -61,12 +58,10 @@ export class AppComponent {
 
   onProfileSubsetEmitted(value: any) {
     this.profileSubset = value;
-    console.log('profile subset emitted');
   }
 
   onTableSelectedEmitted(value: any) {
     this.getRuleBasedSelectionData();
-    console.log('APP tableSelected emitted', value);
   }
 
   onStepsEmitted(value: any) {
@@ -77,8 +72,8 @@ export class AppComponent {
   getDataRaw() {
     this.sidebarImportComponent.getDataFromFile();
     setTimeout(() => {
-        this.getDataParsed();
-      },
+      this.getDataParsed();
+    },
       500);
   };
 
@@ -105,7 +100,7 @@ export class AppComponent {
       this.stepsComponent.stepsCounter = stepsIndex + 1;
       this.stepSequence = this.stepSequence.slice(0, stepsIndex);
       for (let i = stepsIndex; i < 5; i++) {
-        this.stepSequence.push({transformation: 0, step: 0, title: '-', data: []});
+        this.stepSequence.push({ transformation: 0, step: 0, title: '-', data: [] });
       }
     }
     else {
@@ -128,7 +123,6 @@ export class AppComponent {
     let type: any;
     let selected: any;
     let allowedTransformations = [];
-
     let matrix = this.sharedService.getRulesMatrix();
 
     if (_type == 'string') {
@@ -154,17 +148,14 @@ export class AppComponent {
       }
     }
 
-    console.log('Allowed transformations: ', allowedTransformations);
     let tempArray = [];
     for (let i = 0; i < allowedTransformations.length; i++) {
       tempArray.push(this.sidebarComponent.transformationsEnumerated[allowedTransformations[i]]);
     }
     this.sidebarComponent.transformations = tempArray;
-
   }
 
   transformations(id) {
-
     switch (id) {
       case 0:
         console.log('Not yet implemented');

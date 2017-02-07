@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class SharedService {
@@ -6,16 +6,16 @@ export class SharedService {
   constructor() {
   }
 
-  private rulesMatrix: any[];
+  public rulesMatrix: any[];
 
   initialiseStepSequence() {
     return [
-      {transformation: 0, step: 0, title: '-', headers: [], data: []},
-      {transformation: 0, step: 0, title: '-', headers: [], data: []},
-      {transformation: 0, step: 0, title: '-', headers: [], data: []},
-      {transformation: 0, step: 0, title: '-', headers: [], data: []},
-      {transformation: 0, step: 0, title: '-', headers: [], data: []},
-      {transformation: 0, step: 0, title: '-', headers: [], data: []}
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] }
     ];
   }
 

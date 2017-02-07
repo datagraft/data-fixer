@@ -1,33 +1,32 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import * as datalib from 'datalib';
 
 @Injectable()
 export class ProfilingService {
 
+  public data: any;
+  public statData: any;
+  public columnData = [];
+  public profile: any;
+  public columnSelected: any;
+  public typesInferred: any;
+  public typeInferred: any;
+  public stdev: number;
+  public outlierExample: any;
+
   constructor() {
     this.statData = [
-      {stat: 'Count', value: 0},
-      {stat: 'Distinct', value: 0},
-      {stat: 'Quartile 1', value: 0},
-      {stat: 'Mean', value: 0},
-      {stat: 'Quartile 3', value: 0},
-      {stat: 'Std. deviation', value: 0},
-      {stat: 'Min', value: 0},
-      {stat: 'Max', value: 0},
+      { stat: 'Count', value: 0 },
+      { stat: 'Distinct', value: 0 },
+      { stat: 'Quartile 1', value: 0 },
+      { stat: 'Mean', value: 0 },
+      { stat: 'Quartile 3', value: 0 },
+      { stat: 'Std. deviation', value: 0 },
+      { stat: 'Min', value: 0 },
+      { stat: 'Max', value: 0 },
     ];
   }
-
-  statData: any;
-
-  data: any;
-  columnData = [];
-  profile: any;
-  columnSelected: any;
-  typesInferred: any;
-  typeInferred: any;
-  stdev: number;
-  outlierExample: any;
 
   // returns data profile of selected column
   getProfile() {
@@ -68,9 +67,7 @@ export class ProfilingService {
       let median = quartiles[1];
       let third_quartile = quartiles[2];
       let IQR_below = first_quartile - (1.5 * (third_quartile - first_quartile));
-      // console.log('IQR below: ', IQR_below);
       let IQR_above = third_quartile + (1.5 * (third_quartile - first_quartile));
-      // console.log('IQR above: ', IQR_above);
 
       for (let i = 0; i < data.length; i++) {
         if (data[i] < IQR_below || data[i] > IQR_above && data[i] != null) {
@@ -85,21 +82,19 @@ export class ProfilingService {
         let distinctMap = datalib.count.map(data);
         let counter = 0;
         for (let key in distinctMap) {
-          let obj = {name: "", value: 0, index: 0};
+          let obj = { name: "", value: 0, index: 0 };
           obj.name = key;
           obj.value = distinctMap[key];
           obj.index = counter;
           counter++;
           chartLabels01.push(key);
           histogram_data.push(obj);
-          // histogram_chartData.push(distinctMap[key]);
-          // histogram_chartLabels.push(key);
         }
       }
       else if (distinct > 13) {
         let histogram = datalib.histogram(data);
         for (let i = 0; i < histogram.length; i++) {
-          let obj = {name: "", value: 0, index: 0};
+          let obj = { name: "", value: 0, index: 0 };
           for (let key in histogram[i]) {
             if (key == 'count') {
               obj.value = histogram[i][key];
@@ -123,7 +118,7 @@ export class ProfilingService {
 
       let validity_data = [];
       for (let i = 0; i < 3; i++) {
-        let obj1 = {name: "", value: 0, index: 0};
+        let obj1 = { name: "", value: 0, index: 0 };
         obj1.name = chartLabels02[i];
         obj1.value = validity_chartData[i];
         obj1.index = i;
@@ -136,9 +131,8 @@ export class ProfilingService {
       tempArray.push(quartiles[1]);
       tempArray.push(quartiles[2]);
       tempArray.push(this.stdev);
-      // tempArray.push(min);
-      // tempArray.push(max);
-      let obj2 = {data: []};
+
+      let obj2 = { data: [] };
       obj2.data = tempArray;
       let chartData_03 = [];
       chartData_03.push(obj2);
@@ -153,26 +147,12 @@ export class ProfilingService {
       this.statData[7].value = Math.round(max);
 
       profile.push(countTotal);
-      // console.log('Count: ', countTotal);
       profile.push(distinct);
-      // console.log('Distinct: ', distinct);
       profile.push(histogram_data);
-      // console.log('Histogram data: ', histogram_chartData);
-      // profile.push(histogram_chartLabels);
-      // console.log('Histogram labels: ', histogram_chartLabels);
       profile.push(validity_data);
-      // console.log('Validity data: ', validity_chartData);
-      // profile.push(validity_chartLabels);
-      // console.log('Validity labels: ', validity_chartLabels);
       profile.push(chartData_03);
       profile.push(chartLabels01);
       profile.push(chartLabels02);
-      // console.log('Stats numeric values: ', tempArray);
-      // console.log('Quartiles: ', quartiles);
-
-      // console.log('Data profile selected column: ', profile);
-      // console.log('Types: ', this.typesInferred);
-      // console.log('Profile: ', profile);
 
       return Promise.resolve(profile);
     };
@@ -213,13 +193,11 @@ export class ProfilingService {
   getColumnData() {
 
     this.typesInferred = datalib.type.inferAll(this.data);
-    // console.log('Types inferred: ', this.typesInferred);
 
     for (let i = 0; i < this.data.length; i++) {
       this.columnData.push(this.data[i][this.columnSelected]);
     }
     return this.columnData;
-
   }
 
   getRowStartEnd(data, chartType, chartSelection, chartLabels) {

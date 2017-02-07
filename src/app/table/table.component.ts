@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
-import {ChartComponent} from '../chart/chart.component';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { ChartComponent } from '../chart/chart.component';
 
-import {ProfilingService} from './profiling.service';
-import {TransformationsService} from './transformations.service';
+import { ProfilingService } from './profiling.service';
+import { TransformationsService } from './transformations.service';
 
 @Component({
   selector: 'datatable',
@@ -13,17 +13,16 @@ import {TransformationsService} from './transformations.service';
 
 export class TableComponent implements OnInit {
 
+  @Input() profileSubset: any;
+  @Output() profileSubsetEmitter: EventEmitter<number>;
+  @Output() tableSelectedEmitter: EventEmitter<any>;
+
   // table
   public data: any;
   public hot: any;
   public selected: any;
   public headers: any;
-
   public statsData = [];
-
-  @Input() profileSubset: any;
-  @Output() profileSubsetEmitter: EventEmitter<number>;
-  @Output() tableSelectedEmitter: EventEmitter<any>;
 
   // chart
   public chartData01: any;
@@ -35,13 +34,14 @@ export class TableComponent implements OnInit {
   public type: any;
 
   // transformations
-  padParam: number = 4;
-  columns01: any = [11, 12, 13, 14, 15];
-  columns02: any = [11, 12, 13, 14, 15];
-  columns03: any = [11, 12, 13, 14, 15];
-  separation: string = "/";
+  public padParam: number = 4;
+  public columns01: any = [11, 12, 13, 14, 15];
+  public columns02: any = [11, 12, 13, 14, 15];
+  public columns03: any = [11, 12, 13, 14, 15];
+  public separation: string = "/";
 
   constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
+
     let tempArray = [];
     for (let i = 0; i <= 18; i++) {
       tempArray.push(["-", "-", "-", "-", "-"]);
@@ -56,18 +56,7 @@ export class TableComponent implements OnInit {
     this.tableSelectedEmitter = new EventEmitter<any>();
   }
 
-  onProfileSubsetEmitted(value: any) {
-    this.profileSubset = value;
-    this.profileSubsetEmitter.emit(this.profileSubset);
-    this.selectCell();
-  }
-
-  onTableSelectedEmitted() {
-    this.tableSelectedEmitter.emit('Testing OK');
-  }
-
   ngOnInit() {
-
     let container = document.getElementById('datatable');
 
     let settings = {
@@ -95,7 +84,7 @@ export class TableComponent implements OnInit {
           "remove_row": {},
           "col_left": {},
           "col_right": {},
-          "zero": {name: 'Empty cells to zero'},
+          "zero": { name: 'Empty cells to zero' },
           "undo": {},
           "redo": {}
         },
@@ -107,23 +96,30 @@ export class TableComponent implements OnInit {
         this.refresh();
       }
     };
-
     this.hot = new Handsontable(container, settings);
-
     this.statsData = this.statsDataInit();
+  }
 
+  onProfileSubsetEmitted(value: any) {
+    this.profileSubset = value;
+    this.profileSubsetEmitter.emit(this.profileSubset);
+    this.selectCell();
+  }
+
+  onTableSelectedEmitted() {
+    this.tableSelectedEmitter.emit('Testing OK');
   }
 
   statsDataInit() {
     return [
-      {stat: 'Count', value: 0},
-      {stat: 'Distinct', value: 0},
-      {stat: 'Quartile 1', value: 0},
-      {stat: 'Mean', value: 0},
-      {stat: 'Quartile 3', value: 0},
-      {stat: 'Std. deviation', value: 0},
-      {stat: 'Min', value: 0},
-      {stat: 'Max', value: 0},
+      { stat: 'Count', value: 0 },
+      { stat: 'Distinct', value: 0 },
+      { stat: 'Quartile 1', value: 0 },
+      { stat: 'Mean', value: 0 },
+      { stat: 'Quartile 3', value: 0 },
+      { stat: 'Std. deviation', value: 0 },
+      { stat: 'Min', value: 0 },
+      { stat: 'Max', value: 0 },
     ];
   }
 
@@ -138,35 +134,31 @@ export class TableComponent implements OnInit {
     this.profilingService.getProfile();
     this.hot.render();
     setTimeout(() => {
-        this.chartData01 = this.profilingService.profile[2];
-        this.chartLabels01 = this.profilingService.profile[3];
-        this.chartData02 = this.profilingService.profile[3];
-        this.chartLabels02 = this.profilingService.profile[5];
-        this.type = this.profilingService.typeInferred;
-        if (this.profilingService.typeInferred == "string" || this.profilingService.typeInferred == "date" || this.profilingService.stdev == 0) {
-          this.inferredType = false;
-        }
-        else {
-          this.inferredType = true;
-          // this.chartData03 = this.profilingService.profile[6];
-          // this.chartData03 = this.profilingService.columnData;
-          this.chartComponent.chartData03 = this.profilingService.columnData;
-          this.chartComponent.refreshPlotly();
-        }
-        this.onTableSelectedEmitted();
-        // console.log(this.profilingService.statData);
-        this.refreshStats();
-      },
+      this.chartData01 = this.profilingService.profile[2];
+      this.chartLabels01 = this.profilingService.profile[3];
+      this.chartData02 = this.profilingService.profile[3];
+      this.chartLabels02 = this.profilingService.profile[5];
+      this.type = this.profilingService.typeInferred;
+      if (this.profilingService.typeInferred == "string" || this.profilingService.typeInferred == "date" || this.profilingService.stdev == 0) {
+        this.inferredType = false;
+      }
+      else {
+        this.inferredType = true;
+        this.chartComponent.chartData03 = this.profilingService.columnData;
+        this.chartComponent.refreshPlotly();
+      }
+      this.onTableSelectedEmitted();
+      this.refreshStats();
+    },
       300);
   };
 
   refreshStats() {
     this.statsData = this.statsDataInit();
     setTimeout(() => {
-        this.statsData = this.profilingService.statData;
-      },
+      this.statsData = this.profilingService.statData;
+    },
       10);
-    // console.log('statsdata: ', this.statsData);
   }
 
   headersUpdate(headers) {
@@ -249,13 +241,6 @@ export class TableComponent implements OnInit {
   selectCell() {
     let rowStartEnd = this.profilingService.getRowStartEnd(this.data, this.profileSubset.chart, this.profileSubset.selection, this.selectChartLabels(this.profileSubset.chart));
     this.hot.selectCell(rowStartEnd[0], this.selected[1], rowStartEnd[1], this.selected[1]);
-    // console.log('Data: ', this.data);
-    // console.log('this.profileSubset.chart: ', this.profileSubset.chart);
-    // console.log('this.profileSubset.selection: ', this.profileSubset.selection);
-    // console.log('this.selectChartLabels(this.profileSubset.chart): ', this.selectChartLabels(this.profileSubset.chart));
-    // console.log('rowStartEnd[0]: ', rowStartEnd[0]);
-    // console.log('this.selected[1]: ', this.selected[1]);
-    // console.log('rowStartEnd[1] ', rowStartEnd[1]);
   }
 }
 

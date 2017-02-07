@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import * as datalib from 'datalib';
 
 @Injectable()
 export class SidebarImportService {
 
-  data: any;
-  headers: any;
-  columnsTypesInferred: any;
-  types: any;
+  public data: any;
+  public headers: any;
+  public columnsTypesInferred: any;
+  public types: any;
 
   constructor() {
   }
@@ -83,7 +83,7 @@ export class SidebarImportService {
     else if (selectFile == 'Weather') {
       filePath = '../data/seattle.csv';
     }
-    this.data = datalib.csv({url: filePath});
+    this.data = datalib.csv({ url: filePath });
     return this.data;
   }
 

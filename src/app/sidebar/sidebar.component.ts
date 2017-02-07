@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {SidebarService} from './sidebar.service';
-import {SelectItem} from 'primeng/primeng';
-import {ListboxModule} from 'primeng/primeng';
+import { Component, OnInit } from '@angular/core';
+import { SidebarService } from './sidebar.service';
+import { SelectItem } from 'primeng/primeng';
+import { ListboxModule } from 'primeng/primeng';
 
-import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightning';
+import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 
 @Component({
   selector: 'sidebar',
@@ -12,12 +12,12 @@ import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightnin
   providers: [SidebarService]
 })
 
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
-  data = this.transformations;
-  inputParameter: any;
+  public data = this.transformations;
+  private inputParameter: any;
 
-  display: boolean = false;
+  private display: boolean = false;
 
   private striped: boolean = false;
   private bordered: boolean = false;
@@ -29,28 +29,25 @@ export class SidebarComponent implements OnInit {
 
   constructor(private sidebarService: SidebarService) {
     this.transformationsEnumerated = [
-      {value: 0, label: 'Insert column to the right'},
-      {value: 1, label: 'Insert column to the left'},
-      {value: 2, label: 'Insert row above'},
-      {value: 3, label: 'Insert row below'},
-      {value: 4, label: 'Delete column'},
-      {value: 5, label: 'Delete row'},
-      {value: 6, label: 'Replace (,) with (.)'},
-      {value: 7, label: 'Set first row as header'},
-      {value: 8, label: 'Set empty cells to zero'},
-      {value: 9, label: 'Set text to uppercase'},
-      {value: 10, label: 'Convert to standard format'},
-      {value: 11, label: 'Pad digits 0 to 4'},
-      {value: 12, label: 'Reformat dates'},
-      {value: 13, label: 'Concatenate cells'}
+      { value: 0, label: 'Insert column to the right' },
+      { value: 1, label: 'Insert column to the left' },
+      { value: 2, label: 'Insert row above' },
+      { value: 3, label: 'Insert row below' },
+      { value: 4, label: 'Delete column' },
+      { value: 5, label: 'Delete row' },
+      { value: 6, label: 'Replace (,) with (.)' },
+      { value: 7, label: 'Set first row as header' },
+      { value: 8, label: 'Set empty cells to zero' },
+      { value: 9, label: 'Set text to uppercase' },
+      { value: 10, label: 'Convert to standard format' },
+      { value: 11, label: 'Pad digits 0 to 4' },
+      { value: 12, label: 'Reformat dates' },
+      { value: 13, label: 'Concatenate cells' }
     ];
 
     this.transformations = [
-      {value: 7, label: 'Set first row as header'}
+      { value: 7, label: 'Set first row as header' }
     ]
-  }
-
-  ngOnInit() {
   }
 
 }

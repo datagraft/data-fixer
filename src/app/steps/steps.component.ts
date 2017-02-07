@@ -1,31 +1,27 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {SelectItem} from 'primeng/primeng';
-import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightning';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { SelectItem } from 'primeng/primeng';
+import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightning';
 
 @Component({
   selector: 'steps',
   templateUrl: './steps.component.html',
   styleUrls: ['./steps.component.css']
 })
-export class StepsComponent implements OnInit {
-
-  constructor() {
-    this.stepSequence = this.fillArray();
-    this.stepsEmitter = new EventEmitter<any>();
-  }
-
-  ngOnInit() {
-  }
-
-  @Output() stepsEmitter: EventEmitter<any>;
+export class StepsComponent {
 
   @Input() stepSequence = [];
+  @Output() stepsEmitter: EventEmitter<any>;
 
   private striped: boolean = false;
   private bordered: boolean = false;
   public transformationSelected: number;
   public stepSelected: number;
   public stepsCounter = 1;
+
+  constructor() {
+    this.stepSequence = this.fillArray();
+    this.stepsEmitter = new EventEmitter<any>();
+  }
 
   init() {
     this.stepsCounter = 1;
@@ -36,12 +32,12 @@ export class StepsComponent implements OnInit {
 
   fillArray() {
     return [
-      {transformation: 0, step: 0, title: '-', headers: [], data: []},
-      {transformation: 0, step: 0, title: '-', headers: [], data: []},
-      {transformation: 0, step: 0, title: '-', headers: [], data: []},
-      {transformation: 0, step: 0, title: '-', headers: [], data: []},
-      {transformation: 0, step: 0, title: '-', headers: [], data: []},
-      {transformation: 0, step: 0, title: '-', headers: [], data: []}
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] },
+      { transformation: 0, step: 0, title: '-', headers: [], data: [] }
     ];
   }
 
@@ -52,8 +48,6 @@ export class StepsComponent implements OnInit {
   onRowClick($event: INglDatatableRowClick) {
     this.stepSelected = $event.data.step;
     this.transformationSelected = $event.data.transformation;
-    // console.log('Selected step transformation: ', this.transformationSelected);
-    // console.log('Selected step id: ', this.stepSelected);
     this.stepsEmitter.emit(this.stepSequence);
   }
 

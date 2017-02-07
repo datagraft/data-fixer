@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {SidebarImportService} from './sidebar.import.service';
+import { Component } from '@angular/core';
+import { SidebarImportService } from './sidebar.import.service';
 
 @Component({
   selector: 'sidebarImport',
@@ -10,12 +10,12 @@ import {SidebarImportService} from './sidebar.import.service';
 
 export class SidebarImportComponent {
 
-  selectFile: any;
-  headers: any;
-  types: any;
-  required = false;
-  hasError = false;
-  error = 'The input has an error!';
+  private selectFile: any;
+  public headers: any;
+  public types: any;
+  private required = false;
+  private hasError = false;
+  private error = 'The input has an error!';
 
   constructor(private sidebarImportService: SidebarImportService) {
   }
