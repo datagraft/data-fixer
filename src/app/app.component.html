@@ -2,7 +2,7 @@
 
 <div class="main-container">
 
-  <header class="header header-1">
+  <header class="header header-6">
     <div class="branding">
       <a href="" class="nav-link">
         <img src="http://localhost:4200/assets/logo.png" height="48" width="48">
@@ -53,11 +53,11 @@
               <button type="submit" (click)="applyTransformation()" class="btn btn-primary btn-sm">Apply</button>
             </div>
             <div *ngIf="display" class="status">
-              <span class="label label-success">APPLIED</span>
+              <span class="label label-success"> OK </span>
             </div>
           </div>
           <div class="steps">
-            <h4><strong>Steps Pipeline</strong></h4>
+            <h4><strong>Steps</strong></h4>
             <steps [stepSequence]="stepSequence" (stepsEmitter)="onStepsEmitted($event)"></steps>
           </div>
         </clr-tab-content>

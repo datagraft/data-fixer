@@ -3,28 +3,15 @@
   <div fxFlex="100%" [fxLayout]="direction" class="innerContainer">
 
     <div fxFlex="30%" class="chart01">
-      <ngx-charts-pie-chart
-        [view]="view2"
-        [scheme]="colorScheme2"
-        [results]="chartData01"
-        [legend]="showLegend"
-        [explodeSlices]="explodeSlices"
-        [labels]="showLabels"
-        [doughnut]="doughnut"
-        [gradient]="gradient"
-        (select)="chart01Clicked($event)">
-      </ngx-charts-pie-chart>
+      <ngx-charts-pie-chart [view]="view2" [scheme]="colorScheme2" [results]="chartData01" [legend]="showLegend" [explodeSlices]="explodeSlices"
+        [labels]="showLabels" [doughnut]="doughnut" [gradient]="gradient" (select)="chart01Clicked($event)">
+        </ngx-charts-pie-chart>
     </div>
 
     <div fxFlex="30%" class="chart02">
-      <ngx-charts-advanced-pie-chart
-        [view]="view"
-        [scheme]="colorScheme1"
-        [customColors]="customColors"
-        [results]="chartData02"
-        [gradient]="gradient"
-        (select)="chart02Clicked($event)">
-      </ngx-charts-advanced-pie-chart>
+      <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme1" [customColors]="customColors" [results]="chartData02"
+        [gradient]="gradient" (select)="chart02Clicked($event)">
+        </ngx-charts-advanced-pie-chart>
     </div>
 
     <div fxFlex="20%" class="chart03">
@@ -32,12 +19,13 @@
     </div>
 
     <div fxFlex="20%" class="chart04">
-      <table ngl-datatable [data]="statsData" trackByKey="rank" class="slds-max-medium-table--stacked-horizontal">
+      <table ngl-datatable [data]="statsData" [striped]="striped" [bordered]="bordered" style="background-color:rgb(250, 250, 250); border: 1px solid lightgray; width: 220px;"
+        trackByKey="rank" class="slds-max-medium-table--stacked-horizontal">
         <ngl-datatable-column heading="Function" key="stat"></ngl-datatable-column>
         <ngl-datatable-column heading="Value" key="value" cellClass="slds-text-align--center">
           <template nglDatatableCell let-row="row"><b>{{row.value}}</b></template>
         </ngl-datatable-column>
-      </table>
+        </table>
     </div>
 
   </div>

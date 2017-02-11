@@ -35,6 +35,10 @@ export class ChartComponent implements OnInit {
   private outliersData: any;
   private outliersLayout: any;
 
+  // chart 04
+  private bordered = true;
+  private striped = false;
+
   private colorScheme1 = {
     domain: ['#00A896', '#FF1654', '#F9BE02']
   };
@@ -123,6 +127,8 @@ export class ChartComponent implements OnInit {
     };
     this.outliersData = [this.outliersTrace];
     this.outliersLayout = {
+      paper_bgcolor: 'rgb(250,250,250)',
+      plot_bgcolor: 'rgb(250,250,250)',
       margin: {
         t: 30,
         b: 0
