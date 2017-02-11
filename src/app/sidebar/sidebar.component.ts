@@ -17,8 +17,6 @@ export class SidebarComponent {
   public data = this.transformations;
   private inputParameter: any;
 
-  private display: boolean = false;
-
   private striped: boolean = false;
   private bordered: boolean = false;
   public transformationSelected: number;
