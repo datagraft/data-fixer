@@ -5,10 +5,10 @@ export class TransformationsService {
 
   constructor() { }
 
-  emptyToZero(data, selectedColumn) {
+  emptyToZero(data, selectedColumn, param_1) {
     for (let i = 0; i < data.length; i++) {
       if (data[i][selectedColumn] == null) {
-        data[i][selectedColumn] = 0;
+        data[i][selectedColumn] = param_1;
       }
     }
   }
@@ -19,13 +19,13 @@ export class TransformationsService {
     }
   }
 
-  pad(data, selectedColumn, padParam) {
+  pad(data, selectedColumn, param_1, param_2) {
     for (let i = 0; i < data.length; i++) {
       let temp1 = data[i][selectedColumn].toString();
       let temp2 = "";
-      if (temp1.length < padParam) {
-        for (let j = temp1.length; j < padParam; j++) {
-          temp2 = temp1.concat("0");
+      if (temp1.length < param_2) {
+        for (let j = temp1.length; j < param_2; j++) {
+          temp2 = temp1.concat(param_1.toString());
         }
         data[i][selectedColumn] = parseFloat(temp2);
       }

@@ -7,6 +7,7 @@ import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightn
   templateUrl: './steps.component.html',
   styleUrls: ['./steps.component.css']
 })
+
 export class StepsComponent {
 
   @Input() stepSequence = [];
@@ -17,6 +18,7 @@ export class StepsComponent {
   public transformationSelected: number;
   public stepSelected: number;
   public stepsCounter = 1;
+  public transformationTitle: any;
 
   constructor() {
     this.stepSequence = this.fillArray();
@@ -55,11 +57,12 @@ export class StepsComponent {
     let obj: any = {};
     obj.transformation = transformationSelected;
     obj.step = this.stepsCounter;
-    obj.title = 'Step ' + this.stepsCounter;
+    obj.title = this.transformationTitle;
     obj.headers = headers;
     obj.data = dataset;
     this.stepSequence[this.stepsCounter - 1] = obj;
     this.stepsCounter++;
+    console.log(obj);
   }
 
 }

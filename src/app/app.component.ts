@@ -107,6 +107,8 @@ export class AppComponent {
       this.transformations(this.sidebarComponent.transformationSelected);
     }
     this.sidebarComponent.transformationSelected = null;
+    console.log(this.sidebarComponent.input_1);
+    console.log(this.sidebarComponent.input_2);
   }
 
   datasetDeepCopy() {
@@ -177,34 +179,45 @@ export class AppComponent {
         break;
       case 6:
         this.tableComponent.replaceChar();
+        this.stepsComponent.transformationTitle = 'Characters replaced';
         break;
       case 7:
         this.tableComponent.headersUpdate(this.tableComponent.headers);
+        this.stepsComponent.transformationTitle = 'First row set as header';
         break;
       case 8:
-        this.tableComponent.emptyToZero();
+        this.tableComponent.emptyToZero(this.sidebarComponent.input_1);
+        this.stepsComponent.transformationTitle = 'Empty cells filled';
         break;
       case 9:
         this.tableComponent.upperCase();
+        this.stepsComponent.transformationTitle = 'Text set to uppercase';
         break;
       case 10:
         this.tableComponent.convertToStandardFormat();
+        this.stepsComponent.transformationTitle = 'Converted to standard format';
         break;
       case 11:
-        this.tableComponent.pad();
+        this.tableComponent.pad(this.sidebarComponent.input_1, this.sidebarComponent.input_2);
+        this.stepsComponent.transformationTitle = 'Trailing digits padded to value';
         break;
       case 12:
         this.tableComponent.reformatDates();
+        this.stepsComponent.transformationTitle = 'Dates reformatted';
         break;
       case 13:
         this.tableComponent.concatenateCadRef();
+        this.stepsComponent.transformationTitle = 'Cells concatenated';
         break;
       case 14:
         this.tableComponent.concatenateCadRefId();
+        this.stepsComponent.transformationTitle = 'Cells concatenated';
         break;
     }
     this.generateTransformationSteps();
     this.setDisplay();
+    this.sidebarComponent.input_1 = '';
+    this.sidebarComponent.input_2 = '';
   }
 
   generateTransformationSteps() {

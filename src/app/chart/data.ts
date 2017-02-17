@@ -13,10 +13,9 @@ export var chart01_init = [
   }
 ];
 
-
 export var chart02_init = [
   {
-    "name": "Clustering",
+    "name": "Subsets",
     "value": 100
   }
 ];

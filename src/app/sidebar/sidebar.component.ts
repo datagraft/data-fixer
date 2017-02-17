@@ -21,6 +21,9 @@ export class SidebarComponent {
   private bordered: boolean = false;
   public transformationSelected: number;
 
+  public input_1: any;
+  public input_2: any;
+
   public transformationsEnumerated: SelectItem[];
 
   public transformations: SelectItem[];
@@ -33,12 +36,12 @@ export class SidebarComponent {
       { value: 3, label: 'Insert row below' },
       { value: 4, label: 'Delete column' },
       { value: 5, label: 'Delete row' },
-      { value: 6, label: 'Replace (,) with (.)' },
+      { value: 6, label: 'Replace (p1) with (p2)' },
       { value: 7, label: 'Set first row as header' },
-      { value: 8, label: 'Set empty cells to zero' },
+      { value: 8, label: 'Set empty cells to value (p1)' },
       { value: 9, label: 'Set text to uppercase' },
       { value: 10, label: 'Convert to standard format' },
-      { value: 11, label: 'Pad digits 0 to 4' },
+      { value: 11, label: 'Pad trailing (p1) to value of length (p2)' },
       { value: 12, label: 'Reformat dates' },
       { value: 13, label: 'Concatenate cells' }
     ];

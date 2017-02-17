@@ -34,7 +34,6 @@ export class TableComponent implements OnInit {
   public type: any;
 
   // transformations
-  public padParam: number = 4;
   public columns01: any = [11, 12, 13, 14, 15];
   public columns02: any = [11, 12, 13, 14, 15];
   public columns03: any = [11, 12, 13, 14, 15];
@@ -73,7 +72,7 @@ export class TableComponent implements OnInit {
           }
           ;
           if (key === "zero") {
-            this.emptyToZero();
+            this.emptyToZero(0);
           }
           ;
         },
@@ -174,8 +173,8 @@ export class TableComponent implements OnInit {
     this.refreshChartData();
   }
 
-  emptyToZero() {
-    this.transformationsService.emptyToZero(this.data, this.selected[1]);
+  emptyToZero(param_1) {
+    this.transformationsService.emptyToZero(this.data, this.selected[1], param_1);
     this.refreshChartData();
   }
 
@@ -184,8 +183,8 @@ export class TableComponent implements OnInit {
     this.refreshChartData();
   }
 
-  pad() {
-    this.transformationsService.pad(this.data, this.selected[1], this.padParam);
+  pad(param_1, param_2) {
+    this.transformationsService.pad(this.data, this.selected[1], param_1, param_2);
     this.refreshChartData();
   }
 
