@@ -18,6 +18,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { StepsComponent } from './steps/steps.component';
 
 import { SharedService } from './shared.service';
+import { RdfComponent } from './rdf/rdf.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SharedService } from './shared.service';
     SidebarImportComponent,
     ChartComponent,
     SidebarComponent,
-    StepsComponent
+    StepsComponent,
+    RdfComponent
   ],
   imports: [
     BrowserModule,

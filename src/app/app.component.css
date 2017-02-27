@@ -9,6 +9,10 @@
   size: 120%;
 }
 
+.header-nav {
+  padding-left: 30px;
+}
+
 .datatable {
   padding-left: 10px;
   padding-right: 10px;

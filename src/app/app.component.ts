@@ -1,4 +1,4 @@
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, ViewChild, Input, OnInit } from '@angular/core';
 import { TableComponent } from './table/table.component';
 import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -6,6 +6,7 @@ import { ChartComponent } from './chart/chart.component';
 import { StepsComponent } from './steps/steps.component';
 
 import { SharedService } from './shared.service';
+import { SharedTableService } from './shared-table.service';
 import { SidebarImportService } from './sidebar.import/sidebar.import.service';
 import { SidebarService } from './sidebar/sidebar.service';
 import { ProfilingService } from './table/profiling.service';
@@ -16,10 +17,10 @@ import { TransformationsService } from './table/transformations.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, TableComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
+  providers: [SharedService, SharedTableService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, TableComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   @ViewChild(SidebarImportComponent) sidebarImportComponent: SidebarImportComponent;
   @ViewChild(SidebarComponent) sidebarComponent: SidebarComponent;
@@ -29,6 +30,13 @@ export class AppComponent {
   @Input() profileSubset: any;
   @Input() stepSequence: any;
 
+  private tabularMode: boolean = true;
+  private rdfMode: boolean = false;
+  private linkTabular: String;
+  private linkRDF: String;
+  private activated = "active nav-link"
+  private deactivated = "nav-link"
+
   private open0: boolean = true;
   private open1: boolean = true;
   private open2: boolean = false;
@@ -37,11 +45,31 @@ export class AppComponent {
   public dataParsedRaw: any;
   public ruleBasedSelectionData: any[];
 
-  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService) {
+  constructor(private sharedService: SharedService, private sharedTableService: SharedTableService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService) {
+
     this.profileSubset = new Object();
     this.profileSubset.selection = 0;
     this.profileSubset.chart = 0;
     this.stepSequence = this.sharedService.initialiseStepSequence();
+  }
+
+  ngOnInit() {
+    this.linkTabular = this.activated;
+    this.linkRDF = this.deactivated;
+  }
+
+  setTabularMode() {
+    this.tabularMode = true;
+    this.rdfMode = false;
+    this.linkTabular = this.activated;
+    this.linkRDF = this.deactivated;
+  }
+
+  setRdfMode() {
+    this.tabularMode = false;
+    this.rdfMode = true;
+    this.linkTabular = this.deactivated;
+    this.linkRDF = this.activated;
   }
 
   setDisplay() {
@@ -107,8 +135,6 @@ export class AppComponent {
       this.transformations(this.sidebarComponent.transformationSelected);
     }
     this.sidebarComponent.transformationSelected = null;
-    console.log(this.sidebarComponent.input_1);
-    console.log(this.sidebarComponent.input_2);
   }
 
   datasetDeepCopy() {

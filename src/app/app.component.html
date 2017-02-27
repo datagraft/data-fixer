@@ -1,13 +1,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <div class="main-container">
-
+  <!-- Header section -->
   <header class="header header-6">
     <div class="branding">
       <a href="" class="nav-link">
         <img src="http://localhost:4200/assets/logo.png" height="48" width="48">
         <span class="title"><strong>Grafterizer Prototype</strong></span>
       </a>
+    </div>
+    <div class="header-nav">
+      <a href="javascript:void(0);" (click)="setTabularMode();" class={{linkTabular}}><span class="nav-text">Tabular Mode</span></a>
+      <a href="javascript:void(0);" (click)="setRdfMode();" class={{linkRDF}}><span class="nav-text">RDF Mode</span></a>
     </div>
     <div class="header-actions">
       <clr-dropdown class="dropdown bottom-right">
@@ -23,19 +27,19 @@
       </clr-dropdown>
     </div>
   </header>
-
-  <div class="content-container">
+  <!-- Tabular mode section -->
+  <div *ngIf="tabularMode" class="content-container">
+    <!-- Main content area -->
     <div class="content-area">
       <div class="datatable">
         <datatable [profileSubset]="profileSubset" (profileSubsetEmitter)="onProfileSubsetEmitted($event)" (tableSelectedEmitter)="onTableSelectedEmitted($event)"></datatable>
       </div>
     </div>
-
+    <!-- Sidebar section -->
     <nav class="sidenav">
       <clr-tabs>
         <clr-tab-link [clrTabLinkId]="'link1'" [clrTabLinkActive]="true">File Import</clr-tab-link>
         <clr-tab-link>Suggested Transformations</clr-tab-link>
-
         <clr-tab-content [clrTabContentId]="'import'" [clrTabContentActive]="true">
           <div class="fileSelection">
             <sidebarImport></sidebarImport>
@@ -63,6 +67,15 @@
         </clr-tab-content>
       </clr-tabs>
     </nav>
-
   </div>
+  <!-- RDF mode section -->
+  <div *ngIf="rdfMode" class="content-container">
+    <!-- Main content area -->
+    <div class="content-area">
+    </div>
+    <!-- Sidebar section -->
+    <nav class="sidenav">
+    </nav>
+  </div>
+
 </div>

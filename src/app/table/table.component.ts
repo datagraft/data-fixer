@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ChartComponent } from '../chart/chart.component';
 
+import { SharedTableService } from '../shared-table.service';
 import { ProfilingService } from './profiling.service';
 import { TransformationsService } from './transformations.service';
 
@@ -8,7 +9,7 @@ import { TransformationsService } from './transformations.service';
   selector: 'datatable',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  providers: [ChartComponent, ProfilingService, TransformationsService]
+  providers: [ChartComponent, SharedTableService, ProfilingService, TransformationsService]
 })
 
 export class TableComponent implements OnInit {
@@ -33,13 +34,7 @@ export class TableComponent implements OnInit {
   public inferredType: boolean;
   public type: any;
 
-  // transformations
-  public columns01: any = [11, 12, 13, 14, 15];
-  public columns02: any = [11, 12, 13, 14, 15];
-  public columns03: any = [11, 12, 13, 14, 15];
-  public separation: string = "/";
-
-  constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
+  constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService, private transformationsService: TransformationsService, private sharedTableService: SharedTableService) {
 
     let tempArray = [];
     for (let i = 0; i <= 18; i++) {
@@ -106,7 +101,7 @@ export class TableComponent implements OnInit {
   }
 
   onTableSelectedEmitted() {
-    this.tableSelectedEmitter.emit('Testing OK');
+    this.tableSelectedEmitter.emit('Table selection emitted to app component');
   }
 
   statsDataInit() {
@@ -199,28 +194,33 @@ export class TableComponent implements OnInit {
   }
 
   concatenateCadRef() {
-    this.transformationsService.concatenateCadRef(this.data, this.columns01, this.separation);
+    let columns01: any = [11, 12, 13, 14, 15];
+    let separation: string = "/";
+    this.transformationsService.concatenateCadRef(this.data, columns01, separation);
     this.refreshChartData();
     this.headers.push("cad-ref");
     this.headersUpdate(this.headers);
   }
 
   concatenateCadRefId() {
-    this.transformationsService.concatenateCadRefId(this.data, this.columns01);
+    let columns01: any = [11, 12, 13, 14, 15];
+    this.transformationsService.concatenateCadRefId(this.data, columns01);
     this.refreshChartData();
     this.headers.push("cad-ref-id");
     this.headersUpdate(this.headers);
   }
 
   concatenateRrId() {
-    this.transformationsService.concatenateCadRefId(this.data, this.columns02);
+    let columns02: any = [11, 12, 13, 14, 15];
+    this.transformationsService.concatenateCadRefId(this.data, columns02);
     this.refreshChartData();
     this.headers.push("cad-ref-id");
     this.headersUpdate(this.headers);
   }
 
   concatenateRrIdB() {
-    this.transformationsService.concatenateCadRefId(this.data, this.columns03);
+    let columns03: any = [11, 12, 13, 14, 15];
+    this.transformationsService.concatenateCadRefId(this.data, columns03);
     this.refreshChartData();
     this.headers.push("cad-ref-id");
     this.headersUpdate(this.headers);
