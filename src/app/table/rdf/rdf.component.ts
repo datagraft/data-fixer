@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedTableService } from '../shared-table.service';
+// import { SharedTableService } from '../shared-table.service';
 
 @Component({
   selector: 'rdf',
   templateUrl: './rdf.component.html',
   styleUrls: ['./rdf.component.css'],
-  providers: [SharedTableService]
+  providers: []
 })
 
 export class RdfComponent implements OnInit {

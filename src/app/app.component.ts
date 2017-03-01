@@ -1,23 +1,23 @@
 import { Component, ViewChild, Input, OnInit } from '@angular/core';
-import { TableComponent } from './table/table.component';
+import { TableComponent } from './table/tabular/table.component';
 import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChartComponent } from './chart/chart.component';
 import { StepsComponent } from './steps/steps.component';
 
 import { SharedService } from './shared.service';
-import { SharedTableService } from './shared-table.service';
 import { SidebarImportService } from './sidebar.import/sidebar.import.service';
 import { SidebarService } from './sidebar/sidebar.service';
-import { ProfilingService } from './table/profiling.service';
-import { TransformationsService } from './table/transformations.service';
+import { ProfilingService } from './table/tabular/profiling.service';
+import { TransformationsService } from './table/tabular/transformations.service';
+import { SharedTableService } from './table/shared.service';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SharedService, SharedTableService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, TableComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
+  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, SharedTableService, TableComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
 })
 
 export class AppComponent implements OnInit {
@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
   public dataParsedRaw: any;
   public ruleBasedSelectionData: any[];
 
-  constructor(private sharedService: SharedService, private sharedTableService: SharedTableService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService) {
+  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService, private sharedTableService: SharedTableService) {
 
     this.profileSubset = new Object();
     this.profileSubset.selection = 0;

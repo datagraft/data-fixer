@@ -11,14 +11,14 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ClarityModule } from 'clarity-angular';
 
 import { AppComponent } from './app.component';
-import { TableComponent } from './table/table.component';
+import { TableComponent } from './table/tabular/table.component';
 import { ChartComponent } from './chart/chart.component';
 import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StepsComponent } from './steps/steps.component';
+import { RdfComponent } from './table/rdf/rdf.component';
 
 import { SharedService } from './shared.service';
-import { RdfComponent } from './rdf/rdf.component';
 
 @NgModule({
   declarations: [

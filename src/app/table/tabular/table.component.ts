@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { ChartComponent } from '../chart/chart.component';
+import { ChartComponent } from '../../chart/chart.component';
 
-import { SharedTableService } from '../shared-table.service';
 import { ProfilingService } from './profiling.service';
 import { TransformationsService } from './transformations.service';
 
@@ -9,7 +8,7 @@ import { TransformationsService } from './transformations.service';
   selector: 'datatable',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  providers: [ChartComponent, SharedTableService, ProfilingService, TransformationsService]
+  providers: [ChartComponent, ProfilingService, TransformationsService]
 })
 
 export class TableComponent implements OnInit {
@@ -34,7 +33,7 @@ export class TableComponent implements OnInit {
   public inferredType: boolean;
   public type: any;
 
-  constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService, private transformationsService: TransformationsService, private sharedTableService: SharedTableService) {
+  constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
 
     let tempArray = [];
     for (let i = 0; i <= 18; i++) {
@@ -102,6 +101,9 @@ export class TableComponent implements OnInit {
 
   onTableSelectedEmitted() {
     this.tableSelectedEmitter.emit('Table selection emitted to app component');
+    console.log(this.data);
+    console.log(this.headers);
+    console.log(this.profilingService.typesInferred);
   }
 
   statsDataInit() {
