@@ -31,8 +31,8 @@
   <div *ngIf="tabularMode" class="content-container">
     <!-- Main content area -->
     <div class="content-area">
-      <div class="datatable">
-        <datatable [profileSubset]="profileSubset" (profileSubsetEmitter)="onProfileSubsetEmitted($event)" (tableSelectedEmitter)="onTableSelectedEmitted($event)"></datatable>
+      <div class="tabular">
+        <tabular [profileSubset]="profileSubset" (profileSubsetEmitter)="onProfileSubsetEmitted($event)" (tableSelectedEmitter)="onTableSelectedEmitted($event)"></tabular>
       </div>
     </div>
     <!-- Sidebar section -->
@@ -72,6 +72,9 @@
   <div *ngIf="rdfMode" class="content-container">
     <!-- Main content area -->
     <div class="content-area">
+      <div class="rdf">
+        <rdf></rdf>
+      </div>
     </div>
     <!-- Sidebar section -->
     <nav class="sidenav">

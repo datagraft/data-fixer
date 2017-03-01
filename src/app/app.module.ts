@@ -11,7 +11,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ClarityModule } from 'clarity-angular';
 
 import { AppComponent } from './app.component';
-import { TableComponent } from './table/tabular/table.component';
+import { TabularComponent } from './table/tabular/tabular.component';
 import { ChartComponent } from './chart/chart.component';
 import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -23,7 +23,7 @@ import { SharedService } from './shared.service';
 @NgModule({
   declarations: [
     AppComponent,
-    TableComponent,
+    TabularComponent,
     SidebarImportComponent,
     ChartComponent,
     SidebarComponent,

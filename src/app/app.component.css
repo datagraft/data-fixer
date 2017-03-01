@@ -13,7 +13,12 @@
   padding-left: 30px;
 }
 
-.datatable {
+.tabular {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.rdf {
   padding-left: 10px;
   padding-right: 10px;
 }

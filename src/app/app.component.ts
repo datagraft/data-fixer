@@ -1,5 +1,6 @@
 import { Component, ViewChild, Input, OnInit } from '@angular/core';
-import { TableComponent } from './table/tabular/table.component';
+import { TabularComponent } from './table/tabular/tabular.component';
+import { RdfComponent } from './table/rdf/rdf.component';
 import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChartComponent } from './chart/chart.component';
@@ -17,18 +18,21 @@ import { SharedTableService } from './table/shared.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, SharedTableService, TableComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
+  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, SharedTableService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
 })
 
 export class AppComponent implements OnInit {
 
   @ViewChild(SidebarImportComponent) sidebarImportComponent: SidebarImportComponent;
   @ViewChild(SidebarComponent) sidebarComponent: SidebarComponent;
-  @ViewChild(TableComponent) tableComponent: TableComponent;
+  @ViewChild(TabularComponent) tabularComponent: TabularComponent;
+  @ViewChild(RdfComponent) rdfComponent: RdfComponent;
   @ViewChild(StepsComponent) stepsComponent: StepsComponent;
 
   @Input() profileSubset: any;
   @Input() stepSequence: any;
+
+  private sharedResources: any;
 
   private tabularMode: boolean = true;
   private rdfMode: boolean = false;
@@ -47,6 +51,11 @@ export class AppComponent implements OnInit {
 
   constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService, private sharedTableService: SharedTableService) {
 
+    this.sharedResources = new Object();
+    this.sharedResources.data = 0;
+    this.sharedResources.headers = 0;
+    this.sharedResources.inferredTypes = 0;
+
     this.profileSubset = new Object();
     this.profileSubset.selection = 0;
     this.profileSubset.chart = 0;
@@ -59,17 +68,33 @@ export class AppComponent implements OnInit {
   }
 
   setTabularMode() {
-    this.tabularMode = true;
-    this.rdfMode = false;
-    this.linkTabular = this.activated;
-    this.linkRDF = this.deactivated;
+    this.setViewMode(true, false, this.activated, this.deactivated);
+    this.syncSharedTableResources();
+    console.log();
   }
 
   setRdfMode() {
-    this.tabularMode = false;
-    this.rdfMode = true;
-    this.linkTabular = this.deactivated;
-    this.linkRDF = this.activated;
+    this.setViewMode(false, true, this.deactivated, this.activated);
+    this.syncSharedTableResources();
+    console.log();
+  }
+
+  setViewMode(tabularMode, rdfMode, tabularStatus, rdfStatus) {
+    this.linkTabular = tabularStatus;
+    this.linkRDF = rdfStatus;
+    this.tabularMode = tabularMode;
+    this.rdfMode = rdfMode;
+  }
+
+  syncSharedTableResources() {
+    this.sharedResources.data = this.tabularComponent.data;
+    this.sharedResources.headers = this.tabularComponent.headers;
+    this.sharedResources.inferredTypes = this.tabularComponent.inferredTypes;
+    setTimeout(() => {
+      this.rdfComponent.data = this.sharedResources.data;
+      this.rdfComponent.hot.loadData(this.sharedResources.data);
+    },
+      500);
   }
 
   setDisplay() {
@@ -107,9 +132,9 @@ export class AppComponent implements OnInit {
 
   getDataParsed() {
     this.dataParsed = this.sidebarImportComponent.getData();
-    this.tableComponent.data = this.dataParsed;
-    this.tableComponent.headers = this.sidebarImportComponent.headers;
-    this.tableComponent.hot.loadData(this.tableComponent.data);
+    this.tabularComponent.data = this.dataParsed;
+    this.tabularComponent.headers = this.sidebarImportComponent.headers;
+    this.tabularComponent.hot.loadData(this.tabularComponent.data);
     this.stepSequence = this.sharedService.initialiseStepSequence();
     this.stepsComponent.stepsCounter = 1;
     // deep copy of dataParsed to keep original dataset in dataParsedRaw
@@ -121,10 +146,10 @@ export class AppComponent implements OnInit {
 
   applyTransformation(recreateSteps?: boolean, stepsIndex?: number) {
     if (recreateSteps) {
-      this.tableComponent.hot.loadData(this.stepSequence[stepsIndex - 1].data);
-      this.tableComponent.data = this.stepSequence[stepsIndex - 1].data;
-      this.tableComponent.hot.render();
-      this.tableComponent.headersUpdate(this.stepSequence[stepsIndex - 1].headers);
+      this.tabularComponent.hot.loadData(this.stepSequence[stepsIndex - 1].data);
+      this.tabularComponent.data = this.stepSequence[stepsIndex - 1].data;
+      this.tabularComponent.hot.render();
+      this.tabularComponent.headersUpdate(this.stepSequence[stepsIndex - 1].headers);
       this.stepsComponent.stepsCounter = stepsIndex + 1;
       this.stepSequence = this.stepSequence.slice(0, stepsIndex);
       for (let i = stepsIndex; i < 5; i++) {
@@ -146,8 +171,8 @@ export class AppComponent implements OnInit {
   }
 
   getRuleBasedSelectionData() {
-    let _selected = this.tableComponent.selected;
-    let _type = this.tableComponent.type;
+    let _selected = this.tabularComponent.selected;
+    let _type = this.tabularComponent.type;
     let type: any;
     let selected: any;
     let allowedTransformations = [];
@@ -204,39 +229,39 @@ export class AppComponent implements OnInit {
         console.log('Not yet implemented');
         break;
       case 6:
-        this.tableComponent.replaceChar();
+        this.tabularComponent.replaceChar();
         this.stepsComponent.transformationTitle = 'Characters replaced';
         break;
       case 7:
-        this.tableComponent.headersUpdate(this.tableComponent.headers);
+        this.tabularComponent.headersUpdate(this.tabularComponent.headers);
         this.stepsComponent.transformationTitle = 'First row set as header';
         break;
       case 8:
-        this.tableComponent.emptyToZero(this.sidebarComponent.input_1);
+        this.tabularComponent.emptyToZero(this.sidebarComponent.input_1);
         this.stepsComponent.transformationTitle = 'Empty cells filled';
         break;
       case 9:
-        this.tableComponent.upperCase();
+        this.tabularComponent.upperCase();
         this.stepsComponent.transformationTitle = 'Text set to uppercase';
         break;
       case 10:
-        this.tableComponent.convertToStandardFormat();
+        this.tabularComponent.convertToStandardFormat();
         this.stepsComponent.transformationTitle = 'Converted to standard format';
         break;
       case 11:
-        this.tableComponent.pad(this.sidebarComponent.input_1, this.sidebarComponent.input_2);
+        this.tabularComponent.pad(this.sidebarComponent.input_1, this.sidebarComponent.input_2);
         this.stepsComponent.transformationTitle = 'Trailing digits padded to value';
         break;
       case 12:
-        this.tableComponent.reformatDates();
+        this.tabularComponent.reformatDates();
         this.stepsComponent.transformationTitle = 'Dates reformatted';
         break;
       case 13:
-        this.tableComponent.concatenateCadRef();
+        this.tabularComponent.concatenateCadRef();
         this.stepsComponent.transformationTitle = 'Cells concatenated';
         break;
       case 14:
-        this.tableComponent.concatenateCadRefId();
+        this.tabularComponent.concatenateCadRefId();
         this.stepsComponent.transformationTitle = 'Cells concatenated';
         break;
     }
@@ -248,7 +273,7 @@ export class AppComponent implements OnInit {
 
   generateTransformationSteps() {
     if (this.stepsComponent.stepsCounter < 7) {
-      this.stepsComponent.generateStepsArray(this.sidebarComponent.transformationSelected, this.datasetDeepCopy(), this.tableComponent.hot.getColHeader());
+      this.stepsComponent.generateStepsArray(this.sidebarComponent.transformationSelected, this.datasetDeepCopy(), this.tabularComponent.hot.getColHeader());
     }
   }
 }

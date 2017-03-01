@@ -1,28 +1,30 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ChartComponent } from '../../chart/chart.component';
 
+import { SharedTableService } from '../shared.service';
 import { ProfilingService } from './profiling.service';
 import { TransformationsService } from './transformations.service';
 
 @Component({
-  selector: 'datatable',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css'],
-  providers: [ChartComponent, ProfilingService, TransformationsService]
+  selector: 'tabular',
+  templateUrl: './tabular.component.html',
+  styleUrls: ['./tabular.component.css'],
+  providers: [ChartComponent, SharedTableService, ProfilingService, TransformationsService]
 })
 
-export class TableComponent implements OnInit {
+export class TabularComponent implements OnInit {
 
   @Input() profileSubset: any;
   @Output() profileSubsetEmitter: EventEmitter<number>;
   @Output() tableSelectedEmitter: EventEmitter<any>;
 
-  // table
+  // shared table resources
   public data: any;
-  public hot: any;
-  public selected: any;
   public headers: any;
-  public statsData = [];
+  public inferredTypes: any;
+
+  // rdf mode, handsontable instance
+  public hot: any;
 
   // chart
   public chartData01: any;
@@ -30,10 +32,12 @@ export class TableComponent implements OnInit {
   public chartData02: any;
   public chartLabels02: any;
   public chartData03: any;
+  public statsData = [];
   public inferredType: boolean;
   public type: any;
+  public selected: any;
 
-  constructor(private chartComponent: ChartComponent, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
+  constructor(private chartComponent: ChartComponent, private sharedTableService: SharedTableService, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
 
     let tempArray = [];
     for (let i = 0; i <= 18; i++) {
@@ -50,7 +54,7 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
-    let container = document.getElementById('datatable');
+    let container = document.getElementById('tabular');
 
     let settings = {
       data: this.data,
@@ -101,9 +105,9 @@ export class TableComponent implements OnInit {
 
   onTableSelectedEmitted() {
     this.tableSelectedEmitter.emit('Table selection emitted to app component');
-    console.log(this.data);
-    console.log(this.headers);
-    console.log(this.profilingService.typesInferred);
+    // console.log(this.data);
+    // console.log(this.headers);
+    // console.log(this.profilingService.typesInferred);
   }
 
   statsDataInit() {

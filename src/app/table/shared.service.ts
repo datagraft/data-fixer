@@ -1,16 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable()
-export class SharedTableService {
+export class SharedTableService implements OnInit {
 
   public sharedResources: any;
 
-  constructor() {
-    this.sharedResources = new Object();
-    this.sharedResources.data = 0;
-    this.sharedResources.headers = 0;
-    this.sharedResources.inferredTypes = 0;
-  }
+  constructor() { }
 
+  ngOnInit() { }
 
 }

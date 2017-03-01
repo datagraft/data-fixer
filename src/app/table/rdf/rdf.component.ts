@@ -1,23 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-// import { SharedTableService } from '../shared-table.service';
+import { SharedTableService } from '../shared.service';
 
 @Component({
   selector: 'rdf',
   templateUrl: './rdf.component.html',
   styleUrls: ['./rdf.component.css'],
-  providers: []
+  providers: [SharedTableService]
 })
 
 export class RdfComponent implements OnInit {
 
+  // shared table resources  
   public data: any;
+  public headers: any;
+  public inferredTypes: any;
+
+  // rdf mode, handsontable instance
   public hot: any;
 
-  constructor() { }
+  constructor(private sharedTableService: SharedTableService) { }
 
   ngOnInit() {
-    let container = document.getElementById('datatable');
-
+    let container = document.getElementById('rdf');
+    console.log('init');
+    // rdf mode, handsontable settings    
     let settings = {
       data: this.data,
       rowHeaders: true,
@@ -56,6 +62,11 @@ export class RdfComponent implements OnInit {
       }
     };
     this.hot = new Handsontable(container, settings);
+  }
+
+  render() {
+    console.log('render', this.data);
+    this.hot.render();
   }
 
 }
