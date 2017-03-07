@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ChartComponent } from '../../chart/chart.component';
+import { RdfComponent } from '../rdf/rdf.component';
 
 import { SharedTableService } from '../shared.service';
 import { ProfilingService } from './profiling.service';
@@ -9,7 +10,7 @@ import { TransformationsService } from './transformations.service';
   selector: 'tabular',
   templateUrl: './tabular.component.html',
   styleUrls: ['./tabular.component.css'],
-  providers: [ChartComponent, SharedTableService, ProfilingService, TransformationsService]
+  providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService]
 })
 
 export class TabularComponent implements OnInit {
@@ -19,14 +20,17 @@ export class TabularComponent implements OnInit {
   @Output() tableSelectedEmitter: EventEmitter<any>;
 
   // shared table resources
-  public data: any;
-  public headers: any;
-  public inferredTypes: any;
+  public data: Array<any>;
+  public headers: Array<string>;
+  public inferredTypes: Object;
+  public settings: any;
 
-  // rdf mode, handsontable instance
+  // handsontable instance
   public hot: any;
+  // tabular mode/ rdf mode
+  public tabularMode: boolean = true;
 
-  // chart
+  // visual profiling properties
   public chartData01: any;
   public chartLabels01: any;
   public chartData02: any;
@@ -37,14 +41,14 @@ export class TabularComponent implements OnInit {
   public type: any;
   public selected: any;
 
-  constructor(private chartComponent: ChartComponent, private sharedTableService: SharedTableService, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
-
-    let tempArray = [];
+  constructor(private chartComponent: ChartComponent, private rdfComponent: RdfComponent, private sharedTableService: SharedTableService, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
+    // init table
+    let initialize = [];
     for (let i = 0; i <= 18; i++) {
-      tempArray.push(["-", "-", "-", "-", "-"]);
+      initialize.push(["-", "-", "-", "-", "-"]);
     }
-    this.data = tempArray;
-
+    this.data = initialize;
+    // init profiling object
     this.profileSubset = new Object();
     this.profileSubset.selection = 0;
     this.profileSubset.chart = 0;
@@ -53,26 +57,48 @@ export class TabularComponent implements OnInit {
     this.tableSelectedEmitter = new EventEmitter<any>();
   }
 
+  getEmittedRDFdata(value) {
+    this.data = value;
+    this.hot.render();
+  }
+
+  tabMode() {
+    this.hot.updateSettings(this.updateSettings(460, this.headers));
+  }
+
+  rdfMode() {
+    this.rdfComponent.hot = this.hot;
+    this.rdfComponent.data = this.data;
+    this.inferredTypes = this.profilingService.inferDataTypes(this.data);
+    this.hot.updateSettings(this.rdfComponent.updateSettings(800));
+    console.log('data: ', this.data);
+    console.log('headers: ', this.headers);
+    console.log('inferredTypes: ', this.inferredTypes);
+  }
+
+  updateSettings(height, headers) {
+    return {
+      height: height,
+      colHeaders: headers
+    }
+  }
+
   ngOnInit() {
     let container = document.getElementById('tabular');
-
-    let settings = {
+    this.settings = {
       data: this.data,
       rowHeaders: true,
       colHeaders: true,
       columnSorting: false,
-      visibleRows: 18,
       viewportColumnRenderingOffset: 40,
       contextMenu: {
         callback: (key, options) => {
           if (key === 'row_above' || 'row_below' || 'remove_col' || 'remove_row' || 'col_left' || 'col_right' || 'undo' || 'redo' || 'zero') {
             this.refresh();
-          }
-          ;
+          };
           if (key === "zero") {
             this.emptyToZero(0);
-          }
-          ;
+          };
         },
         items: {
           "row_above": {},
@@ -93,7 +119,7 @@ export class TabularComponent implements OnInit {
         this.refresh();
       }
     };
-    this.hot = new Handsontable(container, settings);
+    this.hot = new Handsontable(container, this.settings);
     this.statsData = this.statsDataInit();
   }
 
@@ -105,9 +131,6 @@ export class TabularComponent implements OnInit {
 
   onTableSelectedEmitted() {
     this.tableSelectedEmitter.emit('Table selection emitted to app component');
-    // console.log(this.data);
-    // console.log(this.headers);
-    // console.log(this.profilingService.typesInferred);
   }
 
   statsDataInit() {

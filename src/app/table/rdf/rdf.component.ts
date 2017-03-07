@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SharedTableService } from '../shared.service';
 
 @Component({
@@ -11,37 +11,24 @@ import { SharedTableService } from '../shared.service';
 export class RdfComponent implements OnInit {
 
   // shared table resources  
-  public data: any;
-  public headers: any;
-  public inferredTypes: any;
+  @Input() data: Array<any>;
+  @Input() hot: any;
+  @Input() headers: Array<string>;
+  @Input() inferredTypes: Object;
+  @Output() emitter: EventEmitter<any>;
 
-  // rdf mode, handsontable instance
-  public hot: any;
+  // rdf mode settings
+  public settings: any;
 
-  constructor(private sharedTableService: SharedTableService) { }
-
-  ngOnInit() {
-    let container = document.getElementById('rdf');
-    console.log('init');
-    // rdf mode, handsontable settings    
-    let settings = {
-      data: this.data,
+  constructor(private sharedTableService: SharedTableService) {
+    this.emitter = new EventEmitter<any>();
+    this.settings = {
       rowHeaders: true,
       colHeaders: true,
       columnSorting: false,
-      visibleRows: 18,
       viewportColumnRenderingOffset: 40,
       contextMenu: {
-        callback: (key, options) => {
-          if (key === 'row_above' || 'row_below' || 'remove_col' || 'remove_row' || 'col_left' || 'col_right' || 'undo' || 'redo' || 'zero') {
-            // do something
-          }
-          ;
-          if (key === "zero") {
-            // do something
-          }
-          ;
-        },
+        callback: (key, options) => { },
         items: {
           "row_above": {},
           "row_below": {},
@@ -49,24 +36,39 @@ export class RdfComponent implements OnInit {
           "remove_row": {},
           "col_left": {},
           "col_right": {},
-          "zero": { name: 'Empty cells to zero' },
           "undo": {},
           "redo": {}
         },
       },
-      height: 460,
+      height: 800,
       stretchH: 'all',
       className: 'htCenter htMiddle',
-      afterSelection: (r, c, r2, c2) => {
-        // do something
-      }
+      afterSelection: (r, c, r2, c2) => { }
     };
-    this.hot = new Handsontable(container, settings);
   }
 
-  render() {
-    console.log('render', this.data);
-    this.hot.render();
+  dataEmitter() {
+    this.emitter.emit(this.data);
+  }
+
+  test() {
+    this.data[0][1] = 200;
+    this.dataEmitter();
+    this.hot.updateSettings(this.settings);
+  }
+
+  ngOnInit() { }
+
+  updateSettings(height) {
+    return {
+      height: height,
+      colHeaders: (col) => {
+        switch (col) {
+          case 0:
+            return '<b>Bold</b> and <em>Beautiful</em>';
+        }
+      }
+    }
   }
 
 }

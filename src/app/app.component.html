@@ -27,8 +27,8 @@
       </clr-dropdown>
     </div>
   </header>
-  <!-- Tabular mode section -->
-  <div *ngIf="tabularMode" class="content-container">
+  <!-- Tabular/ rdf mode section -->
+  <div class="content-container">
     <!-- Main content area -->
     <div class="content-area">
       <div class="tabular">
@@ -37,7 +37,7 @@
     </div>
     <!-- Sidebar section -->
     <nav class="sidenav">
-      <clr-tabs>
+      <clr-tabs *ngIf="tabularMode">
         <clr-tab-link [clrTabLinkId]="'link1'" [clrTabLinkActive]="true">File Import</clr-tab-link>
         <clr-tab-link>Suggested Transformations</clr-tab-link>
         <clr-tab-content [clrTabContentId]="'import'" [clrTabContentActive]="true">
@@ -66,18 +66,6 @@
           </div>
         </clr-tab-content>
       </clr-tabs>
-    </nav>
-  </div>
-  <!-- RDF mode section -->
-  <div *ngIf="rdfMode" class="content-container">
-    <!-- Main content area -->
-    <div class="content-area">
-      <div class="rdf">
-        <rdf></rdf>
-      </div>
-    </div>
-    <!-- Sidebar section -->
-    <nav class="sidenav">
     </nav>
   </div>
 

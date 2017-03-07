@@ -13,7 +13,6 @@ import { ProfilingService } from './table/tabular/profiling.service';
 import { TransformationsService } from './table/tabular/transformations.service';
 import { SharedTableService } from './table/shared.service';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -49,52 +48,33 @@ export class AppComponent implements OnInit {
   public dataParsedRaw: any;
   public ruleBasedSelectionData: any[];
 
-  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService, private sharedTableService: SharedTableService) {
+  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService, private sharedTableService: SharedTableService) { }
 
-    this.sharedResources = new Object();
-    this.sharedResources.data = 0;
-    this.sharedResources.headers = 0;
-    this.sharedResources.inferredTypes = 0;
-
+  ngOnInit() {
     this.profileSubset = new Object();
     this.profileSubset.selection = 0;
     this.profileSubset.chart = 0;
     this.stepSequence = this.sharedService.initialiseStepSequence();
-  }
-
-  ngOnInit() {
     this.linkTabular = this.activated;
     this.linkRDF = this.deactivated;
   }
 
   setTabularMode() {
-    this.setViewMode(true, false, this.activated, this.deactivated);
-    this.syncSharedTableResources();
-    console.log();
+    this.setViewMode(true, this.activated, this.deactivated);
+    this.tabularComponent.tabularMode = true;
+    this.tabularComponent.tabMode();
   }
 
   setRdfMode() {
-    this.setViewMode(false, true, this.deactivated, this.activated);
-    this.syncSharedTableResources();
-    console.log();
+    this.setViewMode(false, this.deactivated, this.activated);
+    this.tabularComponent.tabularMode = false;
+    this.tabularComponent.rdfMode();
   }
 
-  setViewMode(tabularMode, rdfMode, tabularStatus, rdfStatus) {
+  setViewMode(tabularMode, tabularStatus, rdfStatus) {
     this.linkTabular = tabularStatus;
     this.linkRDF = rdfStatus;
     this.tabularMode = tabularMode;
-    this.rdfMode = rdfMode;
-  }
-
-  syncSharedTableResources() {
-    this.sharedResources.data = this.tabularComponent.data;
-    this.sharedResources.headers = this.tabularComponent.headers;
-    this.sharedResources.inferredTypes = this.tabularComponent.inferredTypes;
-    setTimeout(() => {
-      this.rdfComponent.data = this.sharedResources.data;
-      this.rdfComponent.hot.loadData(this.sharedResources.data);
-    },
-      500);
   }
 
   setDisplay() {

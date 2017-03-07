@@ -28,6 +28,10 @@ export class ProfilingService {
     ];
   }
 
+  inferDataTypes(data) {
+    return datalib.type.inferAll(data);
+  }
+
   // returns data profile of selected column
   getProfile() {
 
