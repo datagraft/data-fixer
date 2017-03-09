@@ -12,12 +12,14 @@ import { SidebarService } from './sidebar/sidebar.service';
 import { ProfilingService } from './table/tabular/profiling.service';
 import { TransformationsService } from './table/tabular/transformations.service';
 import { SharedTableService } from './table/shared.service';
+import { RdfService } from './table/rdf/rdf.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, SharedTableService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
+  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, SharedTableService, RdfService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
 })
 
 export class AppComponent implements OnInit {

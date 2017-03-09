@@ -55,6 +55,9 @@ export class TabularComponent implements OnInit {
     this.inferredType = true;
     this.profileSubsetEmitter = new EventEmitter<number>();
     this.tableSelectedEmitter = new EventEmitter<any>();
+
+    this.inferredTypes = this.profilingService.inferDataTypes(this.data);
+
   }
 
   getEmittedRDFdata(value) {
@@ -63,17 +66,17 @@ export class TabularComponent implements OnInit {
   }
 
   tabMode() {
+    this.hot.alter('remove_row', 0);
     this.hot.updateSettings(this.updateSettings(460, this.headers));
+    this.hot.render();
   }
 
   rdfMode() {
     this.rdfComponent.hot = this.hot;
     this.rdfComponent.data = this.data;
-    this.inferredTypes = this.profilingService.inferDataTypes(this.data);
-    this.hot.updateSettings(this.rdfComponent.updateSettings(800));
-    console.log('data: ', this.data);
-    console.log('headers: ', this.headers);
-    console.log('inferredTypes: ', this.inferredTypes);
+    this.rdfComponent.headers = this.headers;
+    this.rdfComponent.inferredTypes = this.inferredTypes;
+    this.rdfComponent.init();
   }
 
   updateSettings(height, headers) {
@@ -87,7 +90,7 @@ export class TabularComponent implements OnInit {
     let container = document.getElementById('tabular');
     this.settings = {
       data: this.data,
-      rowHeaders: true,
+      rowHeaders: false,
       colHeaders: true,
       columnSorting: false,
       viewportColumnRenderingOffset: 40,
