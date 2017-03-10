@@ -62,7 +62,7 @@ export class StepsComponent {
     obj.data = dataset;
     this.stepSequence[this.stepsCounter - 1] = obj;
     this.stepsCounter++;
-    console.log(obj);
+    // console.log(obj);
   }
 
 }
