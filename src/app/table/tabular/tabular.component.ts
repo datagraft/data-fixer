@@ -6,6 +6,8 @@ import { SharedTableService } from '../shared.service';
 import { ProfilingService } from './profiling.service';
 import { TransformationsService } from './transformations.service';
 
+declare var Handsontable: any;
+
 @Component({
   selector: 'tabular',
   templateUrl: './tabular.component.html',
@@ -55,9 +57,6 @@ export class TabularComponent implements OnInit {
     this.inferredType = true;
     this.profileSubsetEmitter = new EventEmitter<number>();
     this.tableSelectedEmitter = new EventEmitter<any>();
-
-    this.inferredTypes = this.profilingService.inferDataTypes(this.data);
-
   }
 
   getEmittedRDFdata(value) {
@@ -75,6 +74,7 @@ export class TabularComponent implements OnInit {
     this.rdfComponent.hot = this.hot;
     this.rdfComponent.data = this.data;
     this.rdfComponent.headers = this.headers;
+    this.inferredTypes = this.profilingService.inferDataTypes(this.data);
     this.rdfComponent.inferredTypes = this.inferredTypes;
     this.rdfComponent.init();
   }

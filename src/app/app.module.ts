@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { ListboxModule } from 'primeng/primeng';
 import { NglModule } from 'ng-lightning/ng-lightning';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ClarityModule } from 'clarity-angular';
@@ -19,6 +19,8 @@ import { StepsComponent } from './steps/steps.component';
 import { RdfComponent } from './table/rdf/rdf.component';
 
 import { SharedService } from './shared.service';
+
+import 'hammerjs';
 
 @NgModule({
   declarations: [

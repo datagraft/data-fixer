@@ -18,20 +18,22 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
+        "./styles.css",
+        "../node_modules/handsontable/dist/handsontable.full.css",
         "../node_modules/clarity-icons/clarity-icons.min.css",
         "../node_modules/clarity-ui/clarity-ui.min.css",
         "../node_modules/primeng/resources/themes/bootstrap/theme.css",
         "../node_modules/primeng/resources/primeng.min.css"
       ],
       "scripts": [
+        "../node_modules/handsontable/dist/handsontable.full.js",
         "../node_modules/mutationobserver-shim/dist/mutationobserver.min.js",
         "../node_modules/@webcomponents/custom-elements/custom-elements.min.js",
         "../node_modules/clarity-icons/clarity-icons.min.js",
         "../node_modules/chart.js/dist/Chart.bundle.min.js"
       ],
+      "environmentSource": "environments/environment.ts",
       "environments": {
-        "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }

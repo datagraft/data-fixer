@@ -69,19 +69,22 @@ export class SidebarImportService {
     let filePath: String;
 
     if (selectFile == 'Airports') {
-      filePath = '../data/airports.csv';
+      filePath = './src/data/airports.csv';
     }
     else if (selectFile == 'Stocks') {
-      filePath = '../data/stocks.csv';
+      filePath = './src/data/stocks.csv';
     }
     else if (selectFile == 'Flights 300K') {
-      filePath = '../data/flights-3m.csv';
+      filePath = './src/data/flights-3m.csv';
     }
-    else if (selectFile == 'Statsbygg state of estate') {
-      filePath = '../data/SoE.csv';
-    }
+    // else if (selectFile == 'Statsbygg state of estate') {
+    //  filePath = './src/data/SoE.csv';
+    // }
     else if (selectFile == 'Weather') {
-      filePath = '../data/seattle.csv';
+      filePath = './src/data/seattle.csv';
+    }
+    else if (selectFile == 'RDF') {
+      filePath = './src/data/rdf.csv';
     }
     this.data = datalib.csv({ url: filePath });
     return this.data;
