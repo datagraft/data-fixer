@@ -5,7 +5,7 @@ The MVP extends current features with visual data profiling, suggested transform
 
 Project status: Active - not feature complete.
 
-![Grafterizer MVP user interface](src/assets/Grafterizer_v0.2.JPG)
+![Grafterizer MVP user interface](src/assets/img/Grafterizer_v0.3.JPG)
 
 ## Development server
 This project was generated with [angular-cli](https://github.com/angular/angular-cli). Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
