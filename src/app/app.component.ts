@@ -104,6 +104,14 @@ export class AppComponent implements OnInit {
     this.applyTransformation(true, this.stepsComponent.stepSelected)
   }
 
+  sidebarEmitted(value: any) {
+    if (this.tabularComponent.selection != undefined) {
+      let selection = this.tabularComponent.selection;
+      this.tabularComponent.hot.selectCell(selection[0], selection[1], selection[2], selection[3], false,
+        false);
+    }
+  }
+
   getDataRaw() {
     this.sidebarImportComponent.getDataFromFile();
     setTimeout(() => {
@@ -139,6 +147,11 @@ export class AppComponent implements OnInit {
       }
     }
     else {
+      if (this.tabularComponent.selection != undefined) {
+        let selection = this.tabularComponent.selection;
+        this.tabularComponent.hot.selectCell(selection[0], selection[1], selection[2], selection[3], false,
+          false);
+      }
       this.transformations(this.sidebarComponent.transformationSelected);
     }
     this.sidebarComponent.transformationSelected = null;
@@ -205,7 +218,8 @@ export class AppComponent implements OnInit {
         console.log('Not yet implemented');
         break;
       case 4:
-        console.log('Not yet implemented');
+        this.tabularComponent.removeCol();
+        this.stepsComponent.transformationTitle = 'First column removed';
         break;
       case 5:
         console.log('Not yet implemented');
@@ -232,7 +246,7 @@ export class AppComponent implements OnInit {
         break;
       case 11:
         this.tabularComponent.pad(this.sidebarComponent.input_1, this.sidebarComponent.input_2);
-        this.stepsComponent.transformationTitle = 'Trailing digits padded to value';
+        this.stepsComponent.transformationTitle = 'Zeros added to end of values';
         break;
       case 12:
         this.tabularComponent.reformatDates();
@@ -240,13 +254,14 @@ export class AppComponent implements OnInit {
         break;
       case 13:
         this.tabularComponent.concatenateCadRef();
-        this.stepsComponent.transformationTitle = 'Cells concatenated';
+        this.stepsComponent.transformationTitle = 'Columns concatenated';
         break;
       case 14:
         this.tabularComponent.concatenateCadRefId();
-        this.stepsComponent.transformationTitle = 'Cells concatenated';
+        this.stepsComponent.transformationTitle = 'Columns concatenated';
         break;
     }
+    console.log(this.tabularComponent.selection);
     this.generateTransformationSteps();
     this.setDisplay();
     this.sidebarComponent.input_1 = '';

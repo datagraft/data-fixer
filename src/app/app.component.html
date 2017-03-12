@@ -50,7 +50,7 @@
         </clr-tab-content>
         <clr-tab-content [clrTabContentId]="'content2'" [clrTabContentActive]="false">
           <div class="sidebar">
-            <sidebar></sidebar>
+            <sidebar (sidebarEmitter)='sidebarEmitted($event)'></sidebar>
           </div>
           <div class="container">
             <div class="apply">
