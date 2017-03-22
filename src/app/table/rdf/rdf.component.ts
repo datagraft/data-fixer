@@ -91,7 +91,7 @@ export class RdfComponent implements OnInit {
       this.hot.setDataAtCell(3, col, this.property[col]);
       this.hot.setDataAtCell(4, col, this.value[col]);
     }
-    
+
     this.hot.updateSettings(this.settings);
 
     console.log('data: ', this.data);
