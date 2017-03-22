@@ -83,6 +83,15 @@ export class RdfComponent implements OnInit {
   init() {
     // ex. handsontable instance methods
 
+    for (let col = 0; col < this.hot.countCols(); col++)
+    {
+      this.hot.setDtaAtCell(0, col, this.subjectObject[col]);
+      this.hot.setDataAtCell(1, col, this.urlLiteral[col]);
+      this.hot.setDataAtCell(2, col, this.entity[col]);
+      this.hot.setDataAtCell(3, col, this.property[col]);
+      this.hot.setDataAtCell(4, col, this.value[col]);
+    }
+    
     this.hot.updateSettings(this.settings);
 
     console.log('data: ', this.data);
