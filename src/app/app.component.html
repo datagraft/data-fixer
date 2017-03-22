@@ -66,6 +66,35 @@
           </div>
         </clr-tab-content>
       </clr-tabs>
+      <clr-tabs *ngIf="rdfMode">
+        <clr-tab-link [clrTabLinkId]="'link1'" [clrTabLinkActive]="true">CIAO</clr-tab-link>
+        <clr-tab-link>Suggested Transformations</clr-tab-link>
+        <clr-tab-content [clrTabContentId]="'import'" [clrTabContentActive]="true">
+          <div class="fileSelection">
+            <sidebarImport></sidebarImport>
+          </div>
+          <div class="sidebarImportButton">
+            <button type="submit" (click)="getDataRaw()" class="btn btn-primary btn-sm">CIAO</button>
+          </div>
+        </clr-tab-content>
+        <clr-tab-content [clrTabContentId]="'content2'" [clrTabContentActive]="false">
+          <div class="sidebar">
+            <sidebar></sidebar>
+          </div>
+          <div class="container">
+            <div class="apply">
+              <button type="submit" (click)="applyTransformation()" class="btn btn-primary btn-sm">Apply</button>
+            </div>
+            <div *ngIf="display" class="status">
+              <span class="label label-success"> OK </span>
+            </div>
+          </div>
+          <div class="steps">
+            <h4><strong>Steps</strong></h4>
+            <steps [stepSequence]="stepSequence" (stepsEmitter)="onStepsEmitted($event)"></steps>
+          </div>
+        </clr-tab-content>
+      </clr-tabs>
     </nav>
   </div>
 

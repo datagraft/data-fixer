@@ -65,7 +65,7 @@ export class TabularComponent implements OnInit {
   }
 
   tabMode() {
-    this.hot.alter('remove_row', 0);
+
     this.hot.updateSettings(this.updateSettings(460, this.headers));
     this.hot.render();
   }

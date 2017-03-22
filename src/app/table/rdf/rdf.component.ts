@@ -11,7 +11,7 @@ import { RdfService } from './rdf.service';
 
 export class RdfComponent implements OnInit {
 
-  // shared table resources  
+  // shared table resources
   @Input() data: Array<any>;
   @Input() hot: any;
   @Input() headers: Array<string>;
@@ -80,6 +80,7 @@ export class RdfComponent implements OnInit {
     this.hot.alter('insert_row', 0);
     this.hot.setDataAtCell(0, 0, this.title);
     this.hot.setDataAtCell(0, 1, this.actor);
+
     this.hot.updateSettings(this.settings);
 
     console.log('data: ', this.data);
