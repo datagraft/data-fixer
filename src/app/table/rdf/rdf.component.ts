@@ -18,8 +18,7 @@ export class RdfComponent implements OnInit {
   @Input() inferredTypes: Object;
   @Output() emitter: EventEmitter<any>;
 
-  private title: string = 'dbo:Film';
-  private actor: string = 'A:Title';
+
 
   // rdf mode settings
   public settings: any = {
@@ -27,9 +26,15 @@ export class RdfComponent implements OnInit {
     colHeaders: (col) => {
       switch (col) {
         case 0:
-          return '<div style="line-height:10px;padding:5px;margin:0px;">A:Title</div><div style="line-height:10px;padding:0px;padding-top:5px;margin:0;"><span class="label label-warning" style="font-size:90%;background-color:#FFA500;">S</span><span class="label label-info" style="font-size:90%;background-color:#483D8B;color:white">U</span></div>';
+          return '<div style="line-height:10px;padding:5px;margin:0px;"></div>' +
+            '<div style="line-height:10px;padding:0px;padding-top:5px;margin:0;">' +
+            '<span class="label label-warning" style="font-size:90%;background-color:#FFA500;">S</span>' +
+            '<span class="label label-info" style="font-size:90%;background-color:#483D8B;color:white">U</span></div>';
         case 1:
-          return '<div style="line-height:10px;padding:5px;margin:0px;">B:Actor</div><div style="line-height:10px;padding:0px;padding-top:5px;margin:0;"><span class="label label-warning" style="font-size:90%;background-color:#FFA500;">O</span><span class="label label-info" style="font-size:90%;background-color:#483D8B;color:white">U</span></div>';
+          return '<div style="line-height:10px;padding:5px;margin:0px;"></div>' +
+            '<div style="line-height:10px;padding:0px;padding-top:5px;margin:0;">' +
+            '<span class="label label-warning" style="font-size:90%;background-color:#FFA500;">O</span>' +
+            '<span class="label label-info" style="font-size:90%;background-color:#483D8B;color:white">U</span></div>';
       }
     },
     contextMenu: {
@@ -77,9 +82,6 @@ export class RdfComponent implements OnInit {
 
   init() {
     // ex. handsontable instance methods
-    this.hot.alter('insert_row', 0);
-    this.hot.setDataAtCell(0, 0, this.title);
-    this.hot.setDataAtCell(0, 1, this.actor);
 
     this.hot.updateSettings(this.settings);
 
