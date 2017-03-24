@@ -1,5 +1,14 @@
+<!--<div *ngIf="!tabularMode">
+  <tr>
+      <td *ngFor="let h of headers" width='{{colWidth(h)}}' align="center">
+          {{ h }}
+      </td>
+   </tr>
+</div>-->
+
 <div id='tabular'>
 </div>
+
 
 <rdf [data]='data' [hot]='hot' [headers]='headers' [inferredTypes]='inferredTypes' (emitter)='getEmittedRDFdata($event)'></rdf>
 

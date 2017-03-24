@@ -62,32 +62,13 @@ export class AppComponent implements OnInit {
   }
 
   setTabularMode() {
-    //remove 3 rows used to annotate table
-    if(!this.tabularMode) {
-      this.tabularComponent.hot.alter('remove_row', 0);
-      this.tabularComponent.hot.alter('remove_row', 0);
-      this.tabularComponent.hot.alter('remove_row', 0);
-      this.tabularComponent.hot.alter('remove_row', 0);
-      this.tabularComponent.hot.alter('remove_row', 0);
-    }
-
     this.setViewMode(true, this.activated, this.deactivated);
     this.tabularComponent.tabularMode = true;
     this.rdfMode = false;
     this.tabularComponent.tabMode();
-
   }
 
   setRdfMode() {
-    //only if i come from Tabular mode add 3 rows (the annotation rows
-
-    if(this.tabularMode) {
-      this.tabularComponent.hot.alter('insert_row', 0);
-      this.tabularComponent.hot.alter('insert_row', 0);
-      this.tabularComponent.hot.alter('insert_row', 0);
-      this.tabularComponent.hot.alter('insert_row', 0);
-      this.tabularComponent.hot.alter('insert_row', 0);
-    }
     //because 'false' as first parameter we can show different sidebar, in fact we check the value of tabularMode
     this.setViewMode(false, this.deactivated, this.activated);
     this.tabularComponent.tabularMode = false;
