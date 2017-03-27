@@ -1,10 +1,17 @@
-<!--<div *ngIf="!tabularMode">
+<div *ngIf="!tabularMode">
   <tr>
-      <td *ngFor="let h of headers" width='{{colWidth(h)}}' align="center">
-          {{ h }}
+      <td *ngFor="let h of headers; let colId = index" width="{{colWidth(colId)}}" align="center">
+          {{ h }}<br>
+        <form>
+          <button> S </button>
+          <button> O </button> <br>
+          <input id="Entity"> <br>
+          <input id="Property"> <br>
+          <input id="Type"> <br>
+        </form>
       </td>
    </tr>
-</div>-->
+</div>
 
 <div id='tabular'>
 </div>

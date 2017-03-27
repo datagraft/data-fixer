@@ -44,7 +44,8 @@ export class TabularComponent implements OnInit {
   public selected: any;
 
   //annotation table variables
-  public colId: number = -1;
+
+
   constructor(private chartComponent: ChartComponent, private rdfComponent: RdfComponent, private sharedTableService: SharedTableService, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
     // init table
     let initialize = [];
@@ -275,9 +276,8 @@ export class TabularComponent implements OnInit {
     this.hot.selectCell(rowStartEnd[0], this.selected[1], rowStartEnd[1], this.selected[1]);
   }
 
-  colWidth() {
-    this.colId++;
-    return this.hot.getColWidth(this.colId);
+  colWidth(colId) {
+    return this.hot.getColWidth(colId);
   }
 }
 
