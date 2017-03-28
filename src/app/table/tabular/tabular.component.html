@@ -3,15 +3,15 @@
       <td *ngFor="let h of headers; let Id = index" width="{{ this.colWidth(Id)}}px " >
           {{ h }}<br>
         <form>
-          <input type="radio" id="{{colId}}.Subject " name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
-          <input type="radio" id="{{ colId }}.Object" name="{{ colId }}.radio" value="Object" (click)="objectSelect()">O <br>
-          <input id="{{ colId }}.Entity" placeholder="Insert here Entity"> <br>
-          <div *ngIf="this.object">
-            <input id="{{ colId }}.Property" placeholder="Insert here property"> <br>
-            <input id="{{ colId }}.Type" placeholder="Insert here type (URL or Literal)"> <br>
+          <input type="radio" id="{{Id}}.Subject " name="{{ Id }}.radio" value="Subject" (click)="subjectSelect()"> S
+          <input type="radio" id="{{ Id }}.Object" name="{{ Id }}.radio" value="Object" (click)="objectSelect()">O <br>
+          <input id="{{ Id }}.Entity" placeholder="Insert here Entity"> <br>
+          <div *ngIf="object" >
+            <input id="{{ Id }}.Property" placeholder="Insert here property"> <br>
+            <input id="{{ Id }}.Type" placeholder="Insert here type (URL or Literal)"> <br>
           </div>
         </form>
-        <!--<annotation-form [colId] = "Id" ></annotation-form>-->
+        <!--<annotation-form [Id] = "Id" ></annotation-form>-->
 
       </td>
    </tr>
