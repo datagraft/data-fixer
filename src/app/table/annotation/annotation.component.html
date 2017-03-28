@@ -1,0 +1,11 @@
+<div>
+  <form>
+    <input id="{{getSubjectId()}}" type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
+    <input type="radio" id="{{ colId }}.Object" name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
+    <input id="{{ colId }}.Entity" placeholder="Insert here Entity"> <br>
+    <div>
+      <input id="{{ colId }}.Property" placeholder="Insert here property"> <br>
+      <input id="{{ colId }}.Type" placeholder="Insert here type (URL or Literal)"> <br>
+    </div>
+  </form>
+</div>

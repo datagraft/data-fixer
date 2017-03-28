@@ -44,7 +44,7 @@ export class TabularComponent implements OnInit {
   public selected: any;
 
   //annotation table variables
-
+  public object: boolean = true;
 
   constructor(private chartComponent: ChartComponent, private rdfComponent: RdfComponent, private sharedTableService: SharedTableService, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
     // init table
@@ -78,6 +78,7 @@ export class TabularComponent implements OnInit {
     this.rdfComponent.headers = this.headers;
     this.inferredTypes = this.profilingService.inferDataTypes(this.data);
     this.rdfComponent.inferredTypes = this.inferredTypes;
+    this.object = false;
     this.rdfComponent.init();
   }
 
@@ -278,6 +279,15 @@ export class TabularComponent implements OnInit {
 
   colWidth(colId) {
     return this.hot.getColWidth(colId);
+  }
+
+  //Problem: with this two methods all input appears and disappear, but only input in the column of button will change state
+  objectSelect() {
+    this.object = true;
+  }
+
+  subjectSelect() {
+    this.object = false;
   }
 }
 

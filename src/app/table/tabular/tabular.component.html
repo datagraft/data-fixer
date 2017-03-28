@@ -1,14 +1,18 @@
 <div *ngIf="!tabularMode">
   <tr>
-      <td *ngFor="let h of headers; let colId = index" width="{{colWidth(colId)}}" align="center">
+      <td *ngFor="let h of headers; let Id = index" width="{{ this.colWidth(Id)}}px " >
           {{ h }}<br>
         <form>
-          <button> S </button>
-          <button> O </button> <br>
-          <input id="Entity"> <br>
-          <input id="Property"> <br>
-          <input id="Type"> <br>
+          <input type="radio" id="{{colId}}.Subject " name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
+          <input type="radio" id="{{ colId }}.Object" name="{{ colId }}.radio" value="Object" (click)="objectSelect()">O <br>
+          <input id="{{ colId }}.Entity" placeholder="Insert here Entity"> <br>
+          <div *ngIf="this.object">
+            <input id="{{ colId }}.Property" placeholder="Insert here property"> <br>
+            <input id="{{ colId }}.Type" placeholder="Insert here type (URL or Literal)"> <br>
+          </div>
         </form>
+        <!--<annotation-form [colId] = "Id" ></annotation-form>-->
+
       </td>
    </tr>
 </div>

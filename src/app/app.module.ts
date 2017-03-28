@@ -17,6 +17,7 @@ import { SidebarImportComponent } from './sidebar.import/sidebar.import.componen
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StepsComponent } from './steps/steps.component';
 import { RdfComponent } from './table/rdf/rdf.component';
+import {AnnotationForm} from './table/annotation/annotation.component';
 
 import { SharedService } from './shared.service';
 
@@ -30,7 +31,8 @@ import 'hammerjs';
     ChartComponent,
     SidebarComponent,
     StepsComponent,
-    RdfComponent
+    RdfComponent,
+    AnnotationForm
   ],
   imports: [
     BrowserModule,
