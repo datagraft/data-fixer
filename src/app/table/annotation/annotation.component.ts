@@ -18,6 +18,8 @@ export class AnnotationForm implements OnInit {
 
   @Input() colId : any;
 
+  public object : boolean = false;
+
   ngOnInit() {
   }
 
@@ -25,4 +27,12 @@ export class AnnotationForm implements OnInit {
     return "Subject";
   }
 
+  //Problem: with this two methods all input appears and disappear, but only input in the column of button will change state
+  objectSelect() {
+    this.object = true;
+  }
+
+  subjectSelect() {
+    this.object = false;
+  }
 }

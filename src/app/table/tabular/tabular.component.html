@@ -2,24 +2,13 @@
   <tr>
       <td *ngFor="let h of headers; let Id = index" width="{{ this.colWidth(Id)}}px " >
           {{ h }}<br>
-        <form>
-          <input type="radio" id="{{Id}}.Subject " name="{{ Id }}.radio" value="Subject" (click)="subjectSelect()"> S
-          <input type="radio" id="{{ Id }}.Object" name="{{ Id }}.radio" value="Object" (click)="objectSelect()">O <br>
-          <input id="{{ Id }}.Entity" placeholder="Insert here Entity"> <br>
-          <div *ngIf="object" >
-            <input id="{{ Id }}.Property" placeholder="Insert here property"> <br>
-            <input id="{{ Id }}.Type" placeholder="Insert here type (URL or Literal)"> <br>
-          </div>
-        </form>
-        <!--<annotation-form [Id] = "Id" ></annotation-form>-->
-
+          <annotation-form [colId]='Id' ></annotation-form>
       </td>
    </tr>
 </div>
 
 <div id='tabular'>
 </div>
-
 
 <rdf [data]='data' [hot]='hot' [headers]='headers' [inferredTypes]='inferredTypes' (emitter)='getEmittedRDFdata($event)'></rdf>
 

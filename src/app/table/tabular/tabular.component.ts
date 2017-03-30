@@ -281,13 +281,25 @@ export class TabularComponent implements OnInit {
     return this.hot.getColWidth(colId);
   }
 
-  //Problem: with this two methods all input appears and disappear, but only input in the column of button will change state
-  objectSelect() {
-    this.object = true;
+
+
+  objectCondition(id) {
+    let tagId = (<string>id)
+    let radio = document.getElementsByName("".concat(tagId, "radio"));
+    let radioValue = (<HTMLInputElement>radio.item(1)).value;
+    if (radioValue == "Object")
+      return true;
+    return false;
   }
 
-  subjectSelect() {
-    this.object = false;
+  radioObject(id) {
+    return "".concat(id, "-Object");
   }
+
+  radioSubject(id) {
+    return "".concat(id, "-Subject");
+  }
+
+
 }
 

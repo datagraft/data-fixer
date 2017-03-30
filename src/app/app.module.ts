@@ -20,6 +20,7 @@ import { RdfComponent } from './table/rdf/rdf.component';
 import {AnnotationForm} from './table/annotation/annotation.component';
 
 import { SharedService } from './shared.service';
+import { CommonModule } from '@angular/common';
 
 import 'hammerjs';
 
@@ -35,6 +36,7 @@ import 'hammerjs';
     AnnotationForm
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     HttpModule,
