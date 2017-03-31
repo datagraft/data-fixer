@@ -1,10 +1,13 @@
 import { Component, ViewChild, Input, OnInit } from '@angular/core';
 import { TabularComponent } from './table/tabular/tabular.component';
 import { RdfComponent } from './table/rdf/rdf.component';
+import { AnnotationForm } from './table/annotation/annotation.component'
 import { SidebarImportComponent } from './sidebar.import/sidebar.import.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChartComponent } from './chart/chart.component';
 import { StepsComponent } from './steps/steps.component';
+import { DetailMode } from './table/annotation/detailMode.component';
+
 
 import { SharedService } from './shared.service';
 import { SidebarImportService } from './sidebar.import/sidebar.import.service';
@@ -29,6 +32,10 @@ export class AppComponent implements OnInit {
   @ViewChild(TabularComponent) tabularComponent: TabularComponent;
   @ViewChild(RdfComponent) rdfComponent: RdfComponent;
   @ViewChild(StepsComponent) stepsComponent: StepsComponent;
+  @ViewChild(AnnotationForm) annotationForm : AnnotationForm;
+  @ViewChild(DetailMode) detailMode : DetailMode;
+
+
 
   @Input() profileSubset: any;
   @Input() stepSequence: any;
@@ -37,6 +44,7 @@ export class AppComponent implements OnInit {
 
   private tabularMode: boolean = true;
   private rdfMode: boolean = false;
+  private isDetailMode : boolean = false;
   private linkTabular: String;
   private linkRDF: String;
   private activated = "active nav-link"

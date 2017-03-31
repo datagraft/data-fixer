@@ -18,6 +18,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { StepsComponent } from './steps/steps.component';
 import { RdfComponent } from './table/rdf/rdf.component';
 import {AnnotationForm} from './table/annotation/annotation.component';
+import {DetailMode} from './table/annotation/detailMode.component';
 
 import { SharedService } from './shared.service';
 import { CommonModule } from '@angular/common';
@@ -33,7 +34,8 @@ import 'hammerjs';
     SidebarComponent,
     StepsComponent,
     RdfComponent,
-    AnnotationForm
+    AnnotationForm,
+    DetailMode
   ],
   imports: [
     CommonModule,

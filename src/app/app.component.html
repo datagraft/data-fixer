@@ -28,6 +28,10 @@
       </clr-dropdown>
     </div>
   </header>
+
+
+
+
   <!-- Tabular/ rdf mode section -->
   <div class="content-container">
     <!-- Main content area -->
@@ -37,9 +41,15 @@
                  (tableSelectedEmitter)="onTableSelectedEmitted($event)"></tabular>
       </div>
     </div>
+
+    <!-- Detail Mode--><!-- devo creare un componente che sia lo scheletro della detailMode-->
+    <detailMode>
+
+    </detailMode>
+
     <!-- Sidebar section -->
     <nav class="sidenav">
-      <clr-tabs *ngIf="tabularMode">
+      <clr-tabs *ngIf="tabularMode && !detailMode.isActive">
         <clr-tab-link [clrTabLinkId]="'link1'" [clrTabLinkActive]="true">File Import</clr-tab-link>
         <clr-tab-link>Suggested Transformations</clr-tab-link>
         <clr-tab-content [clrTabContentId]="'import'" [clrTabContentActive]="true">
@@ -58,7 +68,7 @@
             <div class="apply">
               <button type="submit" (click)="applyTransformation()" class="btn btn-primary btn-sm">Apply</button>
             </div>
-            <div *ngIf="display" class="status">
+            <div *ngIf="display && !detailMode.isActive" class="status">
               <span class="label label-success"> OK </span>
             </div>
           </div>
@@ -68,7 +78,7 @@
           </div>
         </clr-tab-content>
       </clr-tabs>
-      <clr-tabs *ngIf="rdfMode">
+      <clr-tabs *ngIf="rdfMode && !detailMode.isActive">
         <clr-tab-link [clrTabLinkId]="'link1'" [clrTabLinkActive]="true">CIAO</clr-tab-link>
         <clr-tab-link>Suggested Transformations</clr-tab-link>
         <clr-tab-content [clrTabContentId]="'import'" [clrTabContentActive]="true">
@@ -87,7 +97,7 @@
             <div class="apply">
               <button type="submit" (click)="applyTransformation()" class="btn btn-primary btn-sm">Apply</button>
             </div>
-            <div *ngIf="display" class="status">
+            <div *ngIf="display && !detailMode.isActive" class="status">
               <span class="label label-success"> OK </span>
             </div>
           </div>
@@ -98,6 +108,9 @@
         </clr-tab-content>
       </clr-tabs>
     </nav>
+
   </div>
+
+
 
 </div>
