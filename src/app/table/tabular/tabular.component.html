@@ -1,8 +1,8 @@
 <div *ngIf="!tabularMode">
   <tr>
-      <td *ngFor="let h of headers; let Id = index" width="{{ this.colWidth(Id)}}px " >
+      <td *ngFor="let h of headers; let Id = index" width="colWidth(Id)">
           {{ h }}<br>
-          <annotation-form [colId]='Id' ></annotation-form>
+          <annotation-form [colId]='Id'></annotation-form>
       </td>
    </tr>
 </div>

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ChartComponent } from '../../chart/chart.component';
 import { RdfComponent } from '../rdf/rdf.component';
-import { AppComponent } from '../../app.component';
 
 import { SharedTableService } from '../shared.service';
 import { ProfilingService } from '../tabular/profiling.service';
@@ -24,6 +23,7 @@ export class DetailMode implements OnInit{
     this.isActive = false;
   }
 
-
-
+  setDetailMode(){
+    this.isActive = true;
+  }
 }

@@ -9,6 +9,7 @@ import { StepsComponent } from './steps/steps.component';
 import { DetailMode } from './table/annotation/detailMode.component';
 
 
+
 import { SharedService } from './shared.service';
 import { SidebarImportService } from './sidebar.import/sidebar.import.service';
 import { SidebarService } from './sidebar/sidebar.service';
@@ -34,8 +35,6 @@ export class AppComponent implements OnInit {
   @ViewChild(StepsComponent) stepsComponent: StepsComponent;
   @ViewChild(AnnotationForm) annotationForm : AnnotationForm;
   @ViewChild(DetailMode) detailMode : DetailMode;
-
-
 
   @Input() profileSubset: any;
   @Input() stepSequence: any;
@@ -269,5 +268,14 @@ export class AppComponent implements OnInit {
     if (this.stepsComponent.stepsCounter < 7) {
       this.stepsComponent.generateStepsArray(this.sidebarComponent.transformationSelected, this.datasetDeepCopy(), this.tabularComponent.hot.getColHeader());
     }
+  }
+
+  setIsDetailMode(){
+    this.isDetailMode = true;
+    this.detailMode.setDetailMode();
+  }
+
+  detailModeStatus(){
+    return this.detailMode.isActive;
   }
 }

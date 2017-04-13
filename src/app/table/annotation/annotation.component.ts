@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angu
 import { ChartComponent } from '../../chart/chart.component';
 import { RdfComponent } from '../rdf/rdf.component';
 import { DetailMode } from './detailMode.component';
+import { AppComponent } from '../../app.component'
 
 import { SharedTableService } from '../shared.service';
 import { ProfilingService } from '../tabular/profiling.service';
@@ -19,8 +20,8 @@ export class AnnotationForm implements OnInit {
 
   @ViewChild(DetailMode) detailMode : DetailMode;
 
-
   @Input() colId : any;
+  //@Input() colWidth : any;
 
   public object : boolean = false;
 
@@ -31,7 +32,6 @@ export class AnnotationForm implements OnInit {
     return "Subject";
   }
 
-  //Problem: with this two methods all input appears and disappear, but only input in the column of button will change state
   objectSelect() {
     this.object = true;
   }
@@ -41,7 +41,6 @@ export class AnnotationForm implements OnInit {
   }
 
   setDetailMode(){
-    this.detailMode.isActive = true;
-
+    this.detailMode.setDetailMode();
   }
 }
