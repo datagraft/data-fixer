@@ -44,7 +44,7 @@
 
     <!-- Sidebar section -->
     <nav class="sidenav">
-      <clr-tabs *ngIf="tabularMode && !detailModeStatus()">
+      <clr-tabs *ngIf="tabularMode">
         <clr-tab-link [clrTabLinkId]="'link1'" [clrTabLinkActive]="true">File Import</clr-tab-link>
         <clr-tab-link>Suggested Transformations</clr-tab-link>
         <clr-tab-content [clrTabContentId]="'import'" [clrTabContentActive]="true">
@@ -63,7 +63,7 @@
             <div class="apply">
               <button type="submit" (click)="applyTransformation()" class="btn btn-primary btn-sm">Apply</button>
             </div>
-            <div *ngIf="display && !detailModeStatus()" class="status">
+            <div *ngIf="display" class="status">
               <span class="label label-success"> OK </span>
             </div>
           </div>
@@ -73,7 +73,7 @@
           </div>
         </clr-tab-content>
       </clr-tabs>
-      <clr-tabs *ngIf="rdfMode && !detailModeStatus()">
+      <clr-tabs *ngIf="rdfMode">
         <clr-tab-link [clrTabLinkId]="'link1'" [clrTabLinkActive]="true">CIAO</clr-tab-link>
         <clr-tab-link>Suggested Transformations</clr-tab-link>
         <clr-tab-content [clrTabContentId]="'import'" [clrTabContentActive]="true">
@@ -107,8 +107,5 @@
   </div>
 
   <!-- Detail Mode--><!-- devo creare un componente che sia lo scheletro della detailMode-->
-  <detailMode>
-
-  </detailMode>
 
 </div>

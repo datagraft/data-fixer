@@ -6,6 +6,7 @@ import { SharedTableService } from '../shared.service';
 import { ProfilingService } from '../tabular/profiling.service';
 import { TransformationsService } from '../tabular/transformations.service';
 import {TabularComponent} from "../tabular/tabular.component";
+import {AnnotationForm} from "./annotation.component";
 
 
 @Component({
@@ -17,13 +18,12 @@ import {TabularComponent} from "../tabular/tabular.component";
 
 export class DetailMode implements OnInit{
 
-  public isActive : boolean;
+  public isActive : boolean = false;
 
   ngOnInit() {
-    this.isActive = false;
   }
 
-  setDetailMode(){
+  setDetailMode2(){
     this.isActive = true;
   }
 }

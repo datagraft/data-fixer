@@ -13,12 +13,12 @@ import {TabularComponent} from "../tabular/tabular.component";
   selector: 'annotation-form',
   templateUrl: './annotation.component.html',
   //styleUrls: ['./annotation.component.css'],
-  providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService, TabularComponent]
+  providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService, TabularComponent, DetailMode]
 })
 
 export class AnnotationForm implements OnInit {
 
-  @ViewChild(DetailMode) detailMode : DetailMode;
+  @ViewChild (DetailMode) detailMode : DetailMode;
 
   @Input() colId : any;
   //@Input() colWidth : any;
@@ -40,7 +40,8 @@ export class AnnotationForm implements OnInit {
     this.object = false;
   }
 
-  setDetailMode(){
-    this.detailMode.setDetailMode();
+  setDetailMode() {
+    let x = this.detailMode.isActive;
+    this.detailMode.setDetailMode2();
   }
 }

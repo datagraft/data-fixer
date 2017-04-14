@@ -34,7 +34,6 @@ export class AppComponent implements OnInit {
   @ViewChild(RdfComponent) rdfComponent: RdfComponent;
   @ViewChild(StepsComponent) stepsComponent: StepsComponent;
   @ViewChild(AnnotationForm) annotationForm : AnnotationForm;
-  @ViewChild(DetailMode) detailMode : DetailMode;
 
   @Input() profileSubset: any;
   @Input() stepSequence: any;
@@ -270,12 +269,4 @@ export class AppComponent implements OnInit {
     }
   }
 
-  setIsDetailMode(){
-    this.isDetailMode = true;
-    this.detailMode.setDetailMode();
-  }
-
-  detailModeStatus(){
-    return this.detailMode.isActive;
-  }
 }

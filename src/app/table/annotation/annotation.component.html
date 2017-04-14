@@ -1,8 +1,8 @@
-<div>
+<div id = "annotation-component">
   <form>
     <input id="{{getSubjectId()}}" type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
     <input type="radio" id="{{ colId }}.Object" name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
-    <button ng-click ="setDetailMode()"> Go to detail page </button><br>
+    <button (click) ="setDetailMode()"> Go to detail page </button><br>
     <input id="{{ colId }}.Entity" placeholder="Insert here Entity"> <br>
     <div *ngIf=" object ">
       <input id="{{ colId }}.Property" placeholder="Insert here property"> <br>
@@ -10,3 +10,7 @@
     </div>
   </form>
 </div>
+
+<detailMode>
+
+</detailMode>
