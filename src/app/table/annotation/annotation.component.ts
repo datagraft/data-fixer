@@ -40,8 +40,16 @@ export class AnnotationForm implements OnInit {
     this.object = false;
   }
 
-  setDetailMode() {
-    let x = this.detailMode.isActive;
-    this.detailMode.setDetailMode2();
+  setDetailMode(colId) {
+    //cast into HTMLInputElement and after take value
+    let property = "";
+    let type ="";
+    let entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
+    if (this.object){
+      property = (<HTMLInputElement> (document.getElementById("0.Property"))).value;
+      type = (<HTMLInputElement> (document.getElementById("0.Type"))).value;
+    }
+
+    this.detailMode.initializeDetailMode(entity, property, type, this.object);
   }
 }

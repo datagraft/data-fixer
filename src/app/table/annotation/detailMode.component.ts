@@ -16,14 +16,35 @@ import {AnnotationForm} from "./annotation.component";
   providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService, TabularComponent]
 })
 
+
+//Detail Mode offers an accurate form for insert the annotation parameters, require the subject/object type and all off
+//attributes for annotation (the same that you can add with annotation form)
+
+
 export class DetailMode implements OnInit{
 
+  //isObject is true if the reource is marked as object in annotation form
+  @Input() isObject : String;
+  @Input() entity : String; //maybe wrong name
+  @Input() property : String;
+  @Input() type : String;
+
   public isActive : boolean = false;
+
 
   ngOnInit() {
   }
 
-  setDetailMode2(){
+  initializeDetailMode(entity, property, type, object){
+    this.entity = entity;
+    this.property = property;
+    this.type = type;
+    this.isObject = object;
+
     this.isActive = true;
+  }
+
+  saveChanges() {
+
   }
 }

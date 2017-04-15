@@ -23,7 +23,9 @@ import { RdfService } from './table/rdf/rdf.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, SharedTableService, RdfService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
+  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService,
+    SharedTableService, RdfService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent,
+    SidebarComponent, StepsComponent, DetailMode]
 })
 
 export class AppComponent implements OnInit {
@@ -34,6 +36,8 @@ export class AppComponent implements OnInit {
   @ViewChild(RdfComponent) rdfComponent: RdfComponent;
   @ViewChild(StepsComponent) stepsComponent: StepsComponent;
   @ViewChild(AnnotationForm) annotationForm : AnnotationForm;
+  @ViewChild(DetailMode) detailMode : DetailMode;
+
 
   @Input() profileSubset: any;
   @Input() stepSequence: any;
