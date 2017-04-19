@@ -34,10 +34,12 @@ export class AnnotationForm implements OnInit {
 
   objectSelect() {
     this.object = true;
+    this.detailMode.isObject = true;
   }
 
   subjectSelect() {
     this.object = false;
+    this.detailMode.isObject = false;
   }
 
   setDetailMode(colId) {
@@ -51,5 +53,17 @@ export class AnnotationForm implements OnInit {
     }
 
     this.detailMode.initializeDetailMode(entity, property, type, this.object);
+  }
+
+  hideDetailMode(){
+    this.detailMode.isActive = false;
+  }
+
+  saveChanges(colId){
+    this.detailMode.entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
+    if(this.object) {
+      this.detailMode.property = (<HTMLInputElement> (document.getElementById("0.Property"))).value;
+      this.detailMode.type = (<HTMLInputElement> (document.getElementById("0.Type"))).value;
+    }
   }
 }

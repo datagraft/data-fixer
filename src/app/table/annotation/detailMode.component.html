@@ -1,5 +1,5 @@
 <div *ngIf = isActive>
-  Hello, i'm DetailMode
+  Hello, i'm DetailMode <br>
 
   Object : {{ isObject }} <br>
   Entity : {{ entity }} <br>
@@ -10,8 +10,11 @@
 
   <input id = "Entity" placeholder="Insert Entity" value={{entity}}>
   <div *ngIf="isObject">
-    <input id = "Property" placeholder="Insert Property" value={{property}}>
-    <input id = "Type" placeholder="Insert tyupe of resource" value={{type}}>
+    <input id = "Property" placeholder="Insert Property" value={{property}}> <br>
+    <input id = "Type" placeholder="Insert type of resource" value={{type}}>
   </div>
+
   <button (click)="saveChanges()"> Apply </button>
+
+
 </div>
