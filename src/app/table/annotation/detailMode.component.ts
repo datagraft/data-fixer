@@ -21,7 +21,7 @@ import {AnnotationForm} from "./annotation.component";
 //attributes for annotation (the same that you can add with annotation form)
 
 
-export class DetailMode implements OnInit{
+export class DetailModeComponent implements OnInit{
 
   //isObject is true if the reource is marked as object in annotation form
   @Input() isObject : boolean;

@@ -6,9 +6,7 @@ import { SidebarImportComponent } from './sidebar.import/sidebar.import.componen
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChartComponent } from './chart/chart.component';
 import { StepsComponent } from './steps/steps.component';
-import { DetailMode } from './table/annotation/detailMode.component';
-
-
+import { DetailModeComponent } from './table/annotation/detailMode.component';
 
 import { SharedService } from './shared.service';
 import { SidebarImportService } from './sidebar.import/sidebar.import.service';
@@ -25,7 +23,7 @@ import { RdfService } from './table/rdf/rdf.service';
   styleUrls: ['./app.component.css'],
   providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService,
     SharedTableService, RdfService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent,
-    SidebarComponent, StepsComponent, DetailMode]
+    SidebarComponent, StepsComponent, DetailModeComponent]
 })
 
 export class AppComponent implements OnInit {
@@ -36,7 +34,7 @@ export class AppComponent implements OnInit {
   @ViewChild(RdfComponent) rdfComponent: RdfComponent;
   @ViewChild(StepsComponent) stepsComponent: StepsComponent;
   @ViewChild(AnnotationForm) annotationForm : AnnotationForm;
-  @ViewChild(DetailMode) detailMode : DetailMode;
+  @ViewChild(DetailModeComponent) detailMode : DetailModeComponent;
 
 
   @Input() profileSubset: any;

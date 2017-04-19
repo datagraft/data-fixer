@@ -3,27 +3,29 @@
     <input id="{{getSubjectId()}}" type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
     <input type="radio" id="{{ colId }}.Object" name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
     <div *ngIf="!detailMode.isActive">
-      <button (click) ="setDetailMode(colId)"> Go to detail page </button><br>
+      <a routerLink="/home" routerLinkActive="active"> <!-- (click) ="setDetailMode(colId)"--> Go to detail page </a><br>
     </div>
     <div *ngIf="detailMode.isActive">
       <button (click) ="hideDetailMode()"> Hide detail page </button><br>
     </div>
+    <div *ngIf="!detailMode.isActive">
+      <input id="{{ colId }}.Entity" placeholder="Insert here Entity"> <br>
+      <div *ngIf=" object ">
+        <input id="{{ colId }}.Property" placeholder="Insert here property"> <br>
 
-    <input id="{{ colId }}.Entity" placeholder="Insert here Entity"> <br>
-    <div *ngIf=" object ">
-      <input id="{{ colId }}.Property" placeholder="Insert here property"> <br>
+        <input type="radio" name="URLorLiteral" value="URL" > URL <br>
+        <input type="radio" name="URLorLiteral" value="Literal" > Literal <br>
 
-      <input type="radio" name="URLorLiteral" value="URL" > URL <br>
-      <input type="radio" name="URLorLiteral" value="Literal" > Literal <br>
-
-      <input id="{{ colId }}.Type" placeholder="Insert here type (URL or Literal)"> <br>
+        <input id="{{ colId }}.Type" placeholder="Insert here type (URL or Literal)"> <br>
+      </div>
+      <button (click)="saveChanges(colId)"> Apply </button>
     </div>
-    <button (click)="saveChanges(colId)"> Apply </button>
   </form>
 </div>
 
 <detailMode>
 
 </detailMode>
+
 
 

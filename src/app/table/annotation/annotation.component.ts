@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ChartComponent } from '../../chart/chart.component';
 import { RdfComponent } from '../rdf/rdf.component';
-import { DetailMode } from './detailMode.component';
+import { DetailModeComponent } from './detailMode.component';
 import { AppComponent } from '../../app.component'
+import { ModuleWithProviders }  from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
 
 import { SharedTableService } from '../shared.service';
 import { ProfilingService } from '../tabular/profiling.service';
@@ -13,12 +16,13 @@ import {TabularComponent} from "../tabular/tabular.component";
   selector: 'annotation-form',
   templateUrl: './annotation.component.html',
   //styleUrls: ['./annotation.component.css'],
-  providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService, TabularComponent, DetailMode]
+  providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService, TabularComponent,
+    DetailModeComponent,RouterModule]
 })
 
 export class AnnotationForm implements OnInit {
 
-  @ViewChild (DetailMode) detailMode : DetailMode;
+  @ViewChild (DetailModeComponent) detailMode : DetailModeComponent;
 
   @Input() colId : any;
   //@Input() colWidth : any;
@@ -52,7 +56,7 @@ export class AnnotationForm implements OnInit {
       type = (<HTMLInputElement> (document.getElementById("0.Type"))).value;
     }
 
-    this.detailMode.initializeDetailMode(entity, property, type, this.object);
+    this.detailMode.initializeDetailMode(this.object);
   }
 
   hideDetailMode(){
