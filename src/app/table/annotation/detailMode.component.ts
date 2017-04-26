@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import {ActivatedRoute} from '@angular/router'
 import { ChartComponent } from '../../chart/chart.component';
 import { RdfComponent } from '../rdf/rdf.component';
 
@@ -6,7 +7,6 @@ import { SharedTableService } from '../shared.service';
 import { ProfilingService } from '../tabular/profiling.service';
 import { TransformationsService } from '../tabular/transformations.service';
 import {TabularComponent} from "../tabular/tabular.component";
-import {AnnotationForm} from "./annotation.component";
 
 
 @Component({
@@ -16,31 +16,29 @@ import {AnnotationForm} from "./annotation.component";
   providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService, TabularComponent]
 })
 
-
 //Detail Mode offers an accurate form for insert the annotation parameters, require the subject/object type and all off
 //attributes for annotation (the same that you can add with annotation form)
-
 
 export class DetailModeComponent implements OnInit{
 
   //isObject is true if the resource is marked as object in annotation form
-  isObject : boolean;
+  isObject : boolean = false;
   entity : String ; //maybe wrong name
   property : String;
   type : String;
 
   public isActive : boolean = false;
 
-
-  ngOnInit() {
+  constructor(private route : ActivatedRoute){
+    this.isObject = this.route.params['isObject'];
+    this.isActive = true;
+    this.entity = this.route.params['entity'];
+    this.property = this.route.params['property'];
+    this.type = this.route.params['type'];
   }
 
-  initializeDetailMode(entity, property, type, object){
-    this.isObject = object;
-    this.isActive = true;
-    this.entity = entity;
-    this.property = property;
-    this.type = type;
+  ngOnInit() {/*
+    ;*/
   }
 
   saveChanges() {
@@ -59,5 +57,4 @@ export class DetailModeComponent implements OnInit{
         this.type = typeInput;
     }
   }
-
 }
