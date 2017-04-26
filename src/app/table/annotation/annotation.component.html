@@ -1,14 +1,17 @@
+<!-- provare ad usare router:Router per reindirizzare, anche se non istanziava -->
+<!-- capire come passare 1 o piu parametri via URL o via Activated Route -->
+<!-- leggere il libro -->
+
 <div id = "annotation-component">
   <form>
     <input id="{{getSubjectId()}}" type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
     <input type="radio" id="{{ colId }}.Object" name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
-    <div *ngIf="!detailMode.isActive">
-      <a routerLink="/home" routerLinkActive="active"> <!-- (click) ="setDetailMode(colId)"--> Go to detail page </a><br>
+
+    <div>
+      <a [routerLink]="['/detail', entity]" routerLinkActive="active"> Go to detail page </a><br>
     </div>
-    <div *ngIf="detailMode.isActive">
-      <button (click) ="hideDetailMode()"> Hide detail page </button><br>
-    </div>
-    <div *ngIf="!detailMode.isActive">
+
+    <div>
       <input id="{{ colId }}.Entity" placeholder="Insert here Entity"> <br>
       <div *ngIf=" object ">
         <input id="{{ colId }}.Property" placeholder="Insert here property"> <br>
@@ -23,9 +26,12 @@
   </form>
 </div>
 
-<detailMode>
+<!--<detailMode>
 
-</detailMode>
+</detailMode>-->
 
+
+
+<!--(click) ="setDetailMode(colId)"-->
 
 

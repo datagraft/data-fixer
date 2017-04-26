@@ -1,4 +1,7 @@
-<div *ngIf = isActive>
+<div>
+
+  <a [routerLink] = "['/home']"> Return to Annotation Mode </a>
+
   Hello, i'm DetailMode <br>
 
   Object : {{ isObject }} <br>
@@ -14,11 +17,12 @@
 
     <input type="radio" name="URLorLiteralD" value="URL" > URL <br>
     <input type="radio" name="URLorLiteralD" value="Literal" > Literal <br>
+    <input type="radio" name="URLorLiteralD" value="Boolean" > Boolean <br>
+
 
     <input id = "Type" placeholder="Insert type of resource" value={{type}}>
   </div>
 
   <button (click)="saveChanges()"> Apply </button>
-
 
 </div>

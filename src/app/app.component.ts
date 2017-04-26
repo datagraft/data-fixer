@@ -24,6 +24,7 @@ import { RdfService } from './table/rdf/rdf.service';
   providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService,
     SharedTableService, RdfService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent,
     SidebarComponent, StepsComponent, DetailModeComponent]
+
 })
 
 export class AppComponent implements OnInit {

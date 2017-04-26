@@ -4,13 +4,14 @@ import { RdfComponent } from '../rdf/rdf.component';
 import { DetailModeComponent } from './detailMode.component';
 import { AppComponent } from '../../app.component'
 import { ModuleWithProviders }  from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {Routes, RouterModule, Router} from '@angular/router';
 
 
 import { SharedTableService } from '../shared.service';
 import { ProfilingService } from '../tabular/profiling.service';
 import { TransformationsService } from '../tabular/transformations.service';
 import {TabularComponent} from "../tabular/tabular.component";
+import {type} from "os";
 
 @Component({
   selector: 'annotation-form',
@@ -27,6 +28,10 @@ export class AnnotationForm implements OnInit {
   @Input() colId : any;
   //@Input() colWidth : any;
 
+
+  public entity = "" ;
+  public property = "";
+  public type = "";
   public object : boolean = false;
 
   ngOnInit() {
@@ -49,14 +54,14 @@ export class AnnotationForm implements OnInit {
   setDetailMode(colId) {
     //cast into HTMLInputElement and after take value
     let property = "";
-    let type ="";
+    let type = "";
     let entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
     if (this.object){
-      property = (<HTMLInputElement> (document.getElementById("0.Property"))).value;
-      type = (<HTMLInputElement> (document.getElementById("0.Type"))).value;
+      property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
+      type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Type")))).value;
     }
 
-    this.detailMode.initializeDetailMode(this.object);
+    this.detailMode.initializeDetailMode(entity, property, type, this.object);
   }
 
   hideDetailMode(){
@@ -64,10 +69,24 @@ export class AnnotationForm implements OnInit {
   }
 
   saveChanges(colId){
-    this.detailMode.entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
+    this.entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
     if(this.object) {
-      this.detailMode.property = (<HTMLInputElement> (document.getElementById("0.Property"))).value;
-      this.detailMode.type = (<HTMLInputElement> (document.getElementById("0.Type"))).value;
+      this.property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
+      this.type = (<HTMLInputElement> (document.getElementById("".concat(colId, "Type")))).value;
     }
+    this.detailMode.initializeDetailMode(this.entity, this.property, this.type, this.object);
+  }
+
+  goToDetailMode(colId){
+    let property = "";
+    let type ="";
+    let entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
+    if (this.object){
+      property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
+      type = (<HTMLInputElement> (document.getElementById("".concat(colId, "Type")))).value;
+    }
+
+
+    //this.detailMode.initializeDetailMode(this.object);
   }
 }

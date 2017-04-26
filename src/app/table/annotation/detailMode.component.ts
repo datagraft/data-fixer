@@ -23,11 +23,11 @@ import {AnnotationForm} from "./annotation.component";
 
 export class DetailModeComponent implements OnInit{
 
-  //isObject is true if the reource is marked as object in annotation form
-  @Input() isObject : boolean;
-  @Input() entity : String; //maybe wrong name
-  @Input() property : String;
-  @Input() type : String;
+  //isObject is true if the resource is marked as object in annotation form
+  isObject : boolean;
+  entity : String ; //maybe wrong name
+  property : String;
+  type : String;
 
   public isActive : boolean = false;
 
@@ -35,9 +35,12 @@ export class DetailModeComponent implements OnInit{
   ngOnInit() {
   }
 
-  initializeDetailMode(object){
+  initializeDetailMode(entity, property, type, object){
     this.isObject = object;
     this.isActive = true;
+    this.entity = entity;
+    this.property = property;
+    this.type = type;
   }
 
   saveChanges() {
