@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import {ActivatedRoute} from '@angular/router'
+import {ActivatedRoute, Params} from '@angular/router'
 import { ChartComponent } from '../../chart/chart.component';
 import { RdfComponent } from '../rdf/rdf.component';
 
 import { SharedTableService } from '../shared.service';
 import { ProfilingService } from '../tabular/profiling.service';
 import { TransformationsService } from '../tabular/transformations.service';
-import {TabularComponent} from "../tabular/tabular.component";
+import { TabularComponent } from "../tabular/tabular.component";
 
 
 @Component({
@@ -26,6 +26,7 @@ export class DetailModeComponent implements OnInit{
   entity : String ; //maybe wrong name
   property : String;
   type : String;
+  value : String;
 
   public isActive : boolean = false;
 
@@ -35,10 +36,10 @@ export class DetailModeComponent implements OnInit{
     this.entity = this.route.params['entity'];
     this.property = this.route.params['property'];
     this.type = this.route.params['type'];
+    this.value = this.route.params['value'];
   }
 
-  ngOnInit() {/*
-    ;*/
+  ngOnInit() {
   }
 
   saveChanges() {
@@ -50,11 +51,34 @@ export class DetailModeComponent implements OnInit{
     if (this.isObject){
       let propertyInput = (<HTMLInputElement> (document.getElementById("Property"))).value;
       let typeInput = (<HTMLInputElement> (document.getElementById("Type"))).value;
+      let valueInput = (<HTMLInputElement> (document.getElementById("Value"))).value;
 
       if ("" != propertyInput)
         this.property = propertyInput;
       if ("" != typeInput)
         this.type = typeInput;
+      if("" != valueInput)
+        this.value = valueInput;
     }
+  }
+
+  objectSelect() {
+    this.isObject = true;
+  }
+
+  subjectSelect() {
+    this.isObject = false;
+  }
+
+  typeURL(){
+    this.type = "URL";
+  }
+
+  typeLiteral(){
+    this.type = "Literal";
+  }
+
+  typeBoolean(){
+    this.type = "Boolean";
   }
 }

@@ -27,13 +27,10 @@ export class AnnotationForm implements OnInit {
   public entity = "null" ;
   public property = "null";
   public type = "null";
+  public value = "null";
   public object : boolean = false;
 
   ngOnInit() {
-  }
-
-  getSubjectId() {
-    return "Subject";
   }
 
   objectSelect() {
@@ -42,6 +39,26 @@ export class AnnotationForm implements OnInit {
 
   subjectSelect() {
     this.object = false;
+  }
+
+  typeURL(){
+    this.type = "URL";
+  }
+
+  typeLiteral(){
+    this.type = "Literal";
+  }
+
+  typeBoolean(){
+    this.type = "Boolean";
+  }
+
+  saveChanges(colId){
+    this.entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
+    if(this.object) {
+      this.property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
+      this.value = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Value")))).value;
+    }
   }
 
   setDetailMode(colId) {
@@ -60,13 +77,7 @@ export class AnnotationForm implements OnInit {
     this.detailMode.isActive = false;
   }
 
-  saveChanges(colId){
-    this.entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
-    if(this.object) {
-      this.property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
-      this.type = (<HTMLInputElement> (document.getElementById("".concat(colId, "Type")))).value;
-    }
-  }
+
 
   goToDetailMode(colId){
     let property = "";

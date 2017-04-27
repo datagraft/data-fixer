@@ -6,7 +6,7 @@ import {HomeComponent} from "./table/annotation/home.component"; //import about 
 
 export const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'detail/:isObject/:entity/:property/:type', component: DetailModeComponent }
+  { path: 'detail/:isObject/:entity/:property/:type/:value', component: DetailModeComponent }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

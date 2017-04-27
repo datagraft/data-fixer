@@ -4,11 +4,11 @@
 
 <div id = "annotation-component">
   <form>
-    <input id="{{getSubjectId()}}" type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
-    <input type="radio" id="{{ colId }}.Object" name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
+    <input id="{{ colId}}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
+    <input id="{{ colId }}.Object" type="radio"  name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
 
     <div>
-      <a [routerLink]="['/detail', object, entity, property, type]" routerLinkActive="active"> Go to detail page </a><br>
+      <a [routerLink]="['/detail', object, entity, property, type, value]" routerLinkActive="active"> Go to detail page </a><br>
     </div>
 
     <div>
@@ -16,10 +16,11 @@
       <div *ngIf=" object ">
         <input id="{{ colId }}.Property" placeholder="Insert here property"> <br>
 
-        <input type="radio" name="URLorLiteral" value="URL" > URL <br>
-        <input type="radio" name="URLorLiteral" value="Literal" > Literal <br>
+        <input type="radio" name="Type" value="URL" (click)="typeURL()"> URL <br>
+        <input type="radio" name="Type" value="Literal" (click)="typeLiteral()"> Literal <br>
+        <input type="radio" name="Type" value="Boolean" (click)="typeBoolean()"> Boolean <br>
 
-        <input id="{{ colId }}.Type" placeholder="Insert here type (URL or Literal)"> <br>
+        <input id="{{ colId }}.Value" placeholder="Insert here value"> <br>
       </div>
       <button (click)="saveChanges(colId)"> Apply </button>
     </div>

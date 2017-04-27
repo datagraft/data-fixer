@@ -1,26 +1,29 @@
 <div>
 
-  <a [routerLink] = "['/home']"> Return to Annotation Mode </a>
+  <a [routerLink] = "['/home']"> Return to Annotation Mode </a> <br>
 
   Hello, i'm DetailMode <br>
 
+  <input id="{{ colId }}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
+  <input id="{{ colId }}.Object" type="radio"  name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
+
   Object : {{ isObject }} <br>
   Entity : {{ entity }} <br>
-  <div *ngIf="isObject">
+  <div *ngIf=" isObject ">
     Property : {{ property }} <br>
     Type : {{ type }} <br>
+    Value : {{ value }} <br>
   </div>
 
-  <input id = "Entity" placeholder="Insert Entity" value={{entity}}>
+  <input id = "Entity" placeholder="Insert Entity" value="{{entity}}">
   <div *ngIf="isObject">
-    <input id = "Property" placeholder="Insert Property" value={{property}}> <br>
+    <input id = "Property" placeholder="Insert Property" value="{{property}}"> <br>
 
-    <input type="radio" name="URLorLiteralD" value="URL" > URL <br>
-    <input type="radio" name="URLorLiteralD" value="Literal" > Literal <br>
-    <input type="radio" name="URLorLiteralD" value="Boolean" > Boolean <br>
+    <input type="radio" name="Type" value="URL" (click)="typeURL()"> URL <br>
+    <input type="radio" name="Type" value="Literal" (click)="typeLiteral()"> Literal <br>
+    <input type="radio" name="Type" value="Boolean" (click)="typeBoolean()"> Boolean <br>
 
-
-    <input id = "Type" placeholder="Insert type of resource" value={{type}}>
+    <input id = "Value" placeholder="Insert value of resource" value="{{ value }}">
   </div>
 
   <button (click)="saveChanges()"> Apply </button>
