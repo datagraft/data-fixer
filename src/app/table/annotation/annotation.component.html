@@ -7,13 +7,13 @@
     <input id="{{ colId}}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
     <input id="{{ colId }}.Object" type="radio"  name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
 
-    <div>
-      <a [routerLink]="['/detail', object, entity, property, type, value]" routerLinkActive="active"> Go to detail page </a><br>
-    </div>
+    <nav>
+      <a [routerLink]="['/detail']"> Go to detail page </a><br>
+    </nav>
 
     <div>
-      <input id="{{ colId }}.Entity" placeholder="Insert here Entity"> <br>
-      <div *ngIf=" object ">
+      <input id="{{ colId }}.Entity" placeholder="Insert here Entity" value="{{ entity }}"> <br>
+      <div *ngIf=" isObject ">
         <input id="{{ colId }}.Property" placeholder="Insert here property"> <br>
 
         <input type="radio" name="Type" value="URL" (click)="typeURL()"> URL <br>

@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 @Component({
   selector :'home',
-  template : `<div> CIAONE </div> `
+  template : `<div> Hi </div> `
 })
 
 export class HomeComponent {}

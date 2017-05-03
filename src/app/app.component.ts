@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
   @ViewChild(TabularComponent) tabularComponent: TabularComponent;
   @ViewChild(RdfComponent) rdfComponent: RdfComponent;
   @ViewChild(StepsComponent) stepsComponent: StepsComponent;
+
   @ViewChild(AnnotationForm) annotationForm : AnnotationForm;
   @ViewChild(DetailModeComponent) detailMode : DetailModeComponent;
 
