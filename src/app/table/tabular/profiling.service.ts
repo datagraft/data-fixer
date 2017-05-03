@@ -158,6 +158,8 @@ export class ProfilingService {
       profile.push(chartLabels01);
       profile.push(chartLabels02);
 
+      console.log(profile);
+
       return Promise.resolve(profile);
     };
 
