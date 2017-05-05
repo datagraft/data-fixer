@@ -1,13 +1,13 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
-import { ChartComponent } from '../../chart/chart.component';
-import { RdfComponent } from '../rdf/rdf.component';
-import { DetailModeComponent } from './detailMode.component';
+import {ChartComponent} from '../../chart/chart.component';
+import {RdfComponent} from '../rdf/rdf.component';
+import {DetailModeComponent} from './detailMode.component';
 import {Router, RouterModule} from '@angular/router';
 
 
-import { SharedTableService } from '../shared.service';
-import { ProfilingService } from '../tabular/profiling.service';
-import { TransformationsService } from '../tabular/transformations.service';
+import {SharedTableService} from '../shared.service';
+import {ProfilingService} from '../tabular/profiling.service';
+import {TransformationsService} from '../tabular/transformations.service';
 import {TabularComponent} from "../tabular/tabular.component";
 import {AnnotationService} from "./annotation.service";
 
@@ -16,93 +16,98 @@ import {AnnotationService} from "./annotation.service";
   templateUrl: './annotation.component.html',
   //styleUrls: ['./annotation.component.css'],
   providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService, TabularComponent,
-    RouterModule, AnnotationService]
+    RouterModule]
 })
 
-export class AnnotationForm implements OnInit, OnDestroy{
+export class AnnotationForm implements OnInit, OnDestroy {
 
-  @ViewChild (DetailModeComponent) detailMode : DetailModeComponent;
+  @ViewChild(DetailModeComponent) detailMode: DetailModeComponent;
 
-  @Input() colId : any;
+  @Input() colId: any;
 
-  public entity : String;
-  public property : String;
-  public type : String;
-  public value : String;
-  public isObject : boolean = false;
+  public type: String; //type
+  public typeLabel: String;
+  public property: String; //property
+  public propertyLabel: String;
+  public dataType: String; //dataType
+  public dataTypeLabel: String;
+  public isSubject: boolean = true; //isSubject
 
-  constructor(private annotationService: AnnotationService) { }
+  constructor(private annotationService: AnnotationService) {
+  }
 
   ngOnInit() {
-    this.isObject = this.annotationService.object;
-    this.entity = this.annotationService.entity;
-    this.property = this.annotationService.property;
-    this.type = this.annotationService.type;
-    this.value = this.annotationService.value;
+    if (this.colId == this.annotationService.colId) {
+      this.isSubject = this.annotationService.isSubject;
+      this.type = this.annotationService.type;
+      this.typeLabel = this.annotationService.typeLabel
+      this.property = this.annotationService.property;
+      this.propertyLabel = this.annotationService.propertyLabel;
+      this.dataType = this.annotationService.dataType;
+      this.dataTypeLabel = this.annotationService.dataTypeLabel;
+    }
   }
 
   ngOnDestroy() {
-    this.annotationService.object = this.isObject;
-    this.annotationService.entity = this.entity;
-    this.annotationService.property = this.property;
+    this.annotationService.isSubject = this.isSubject;
     this.annotationService.type = this.type;
-    this.annotationService.value = this.value;
+    this.annotationService.typeLabel = this.typeLabel
+    this.annotationService.property = this.property;
+    this.annotationService.propertyLabel = this.propertyLabel;
+    this.annotationService.dataType = this.dataType;
+    this.annotationService.dataTypeLabel = this.dataTypeLabel;
+    this.annotationService.colId = this.colId;
   }
 
 
   objectSelect() {
-    this.isObject = true;
+    this.isSubject = false;
   }
 
   subjectSelect() {
-    this.isObject = false;
+    this.isSubject = true;
   }
 
-  typeURL(){
-    this.type = "URL";
+  dataTypeURL() {
+    this.dataType = "URL";
   }
 
-  typeLiteral(){
-    this.type = "Literal";
+  dataTypeLiteral() {
+    this.dataType = "Literal";
   }
 
-  typeBoolean(){
-    this.type = "Boolean";
-  }
-
-  saveChanges(colId){
-    this.entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
-    if(this.isObject) {
+  saveChanges(colId) {
+    this.type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Type")))).value;
+    this.typeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".TypeLabel")))).value;
+    if (this.isSubject) {
       this.property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
-      this.value = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Value")))).value;
+      this.propertyLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".PropertyLabel")))).value;
+      this.dataTypeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".DataTypeLabel")))).value;
     }
   }
 
   setDetailMode(colId) {
     //cast into HTMLInputElement and after take value
     let property = "";
-    let type = "";
-    let entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
-    if (this.isObject){
+    let dataType = "";
+    let type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Type")))).value;
+    if (this.isSubject) {
       property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
-      type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Type")))).value;
+      dataType = (<HTMLInputElement> (document.getElementById("".concat(colId, ".dataType")))).value;
     }
-
   }
 
-  hideDetailMode(){
+  hideDetailMode() {
     this.detailMode.isActive = false;
   }
 
-
-
-  goToDetailMode(colId){
+  goToDetailMode(colId) {
     let property = "";
-    let type ="";
-    let entity = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Entity")))).value;
-    if (this.isObject){
+    let datatype = "";
+    let type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".type")))).value;
+    if (this.isSubject) {
       property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
-      type = (<HTMLInputElement> (document.getElementById("".concat(colId, "Type")))).value;
+      datatype = (<HTMLInputElement> (document.getElementById("".concat(colId, "datatype")))).value;
     }
 
 

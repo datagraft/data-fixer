@@ -14,7 +14,7 @@ import {AnnotationService} from "./annotation.service";
   selector: 'detailMode',
   templateUrl: './detailMode.component.html',
   //styleUrls: ['./annotation.component.css'],
-  providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService, AnnotationService]
+  providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService]
 })
 
 //Detail Mode offers an accurate form for insert the annotation parameters, require the subject/object type and all off
@@ -22,12 +22,14 @@ import {AnnotationService} from "./annotation.service";
 
 export class DetailModeComponent implements OnInit, OnDestroy{
 
-  //isObject is true if the resource is marked as object in annotation form
-  isObject : boolean = false;
-  entity : String ; //maybe wrong name
+  //isSubject is true if the resource is marked as object in annotation form
+  isSubject : boolean = true;
+  type : String ;
+  typeLabel : String;
   property : String;
-  type : String;
-  value : String;
+  propertyLabel : String;
+  dataType : String;
+  dataTypeLabel : String;
 
   public isActive : boolean = false;
 
@@ -35,55 +37,66 @@ export class DetailModeComponent implements OnInit, OnDestroy{
 
 
   ngOnInit() {
-    this.isObject = this.annotationService.object;
-    this.entity = this.annotationService.entity;
-    this.property = this.annotationService.property;
+    this.isSubject = this.annotationService.isSubject;
     this.type = this.annotationService.type;
-    this.value = this.annotationService.value;
+    this.typeLabel = this.annotationService.typeLabel;
+    this.property = this.annotationService.property;
+    this.propertyLabel = this.annotationService.propertyLabel;
+    this.dataType = this.annotationService.dataType;
+    this.dataTypeLabel = this.annotationService.dataTypeLabel;
   }
 
   ngOnDestroy() {
-    this.annotationService.object = this.isObject;
-    this.annotationService.entity = this.entity;
-    this.annotationService.property = this.property;
+    //there will be n entities for n column, so onDestroy we need to send the data at the correct instance of
+    // annotationForm, identify by colId I think
+
+    this.annotationService.isSubject = this.isSubject;
     this.annotationService.type = this.type;
-    this.annotationService.value = this.value;
+    this.annotationService.typeLabel = this.typeLabel;
+    this.annotationService.property = this.property;
+    this.annotationService.propertyLabel = this.propertyLabel;
+    this.annotationService.dataType = this.dataType;
+    this.annotationService.dataTypeLabel = this.dataTypeLabel;
   }
 
   saveChanges() {
 
-    let entityInput = (<HTMLInputElement> (document.getElementById("Entity"))).value;
-    if ("" != entityInput)
-        this.entity = entityInput;
+    let typeInput = (<HTMLInputElement> (document.getElementById("Type"))).value;
+    let typeLabelInput = (<HTMLInputElement> (document.getElementById("TypeLabel"))).value;
+    if ("" != typeInput)
+        this.type = typeInput;
+    if ("" != typeLabelInput)
+      this.typeLabel = typeLabelInput;
 
-    if (this.isObject){
+    if (!this.isSubject){
       let propertyInput = (<HTMLInputElement> (document.getElementById("Property"))).value;
-      let valueInput = (<HTMLInputElement> (document.getElementById("Value"))).value;
+      let propertyLabelInput = (<HTMLInputElement> (document.getElementById("PropertyLabel"))).value;
+      let dataTypeLabelInput = (<HTMLInputElement> (document.getElementById("DataTypeLabel"))).value;
 
       if ("" != propertyInput)
         this.property = propertyInput;
-      if("" != valueInput)
-        this.value = valueInput;
+      if ("" != propertyLabelInput)
+        this.propertyLabel = propertyLabelInput;
+      if ("" != dataTypeLabelInput)
+        this.dataTypeLabel = dataTypeLabelInput;
+
+
     }
   }
 
   objectSelect() {
-    this.isObject = true;
+    this.isSubject = false;
   }
 
   subjectSelect() {
-    this.isObject = false;
+    this.isSubject = true;
   }
 
-  typeURL(){
-    this.type = "URL";
+  dataTypeURL(){
+    this.dataType = "URL";
   }
 
-  typeLiteral(){
-    this.type = "Literal";
-  }
-
-  typeBoolean(){
-    this.type = "Boolean";
+  dataTypeLiteral(){
+    this.dataType = "Literal";
   }
 }

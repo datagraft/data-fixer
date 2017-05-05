@@ -7,23 +7,28 @@
   <input id="{{ colId }}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
   <input id="{{ colId }}.Object" type="radio"  name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
 
-  Object : {{ isObject }} <br>
-  Entity : {{ entity }} <br>
-  <div *ngIf=" isObject ">
+  Subject : {{ isSubject }} <br>
+  Type : {{ type }} <br>
+  TypeLabel : {{ typeLabel}}
+  <div *ngIf=" isSubject ">
     Property : {{ property }} <br>
-    Type : {{ type }} <br>
-    Value : {{ value }} <br>
+    PropertyLabel : {{ propertyLabel }} <br>
+    DataType : {{ dataType }} <br>
+    DataTypeLabel : {{ dataTypeLabel }} <br>
   </div>
 
-  <input id = "Entity" placeholder="Insert Entity" value="{{entity}}">
-  <div *ngIf="isObject">
-    <input id = "Property" placeholder="Insert Property" value="{{property}}"> <br>
+  <input id = "Type" placeholder="Insert Type" value="{{ type }}">
+  <input id = "TypeLabel" placeholder="Insert Property Label" value="{{ typeLabel }}"> <br>
 
-    <input type="radio" name="Type" value="URL" (click)="typeURL()"> URL <br>
-    <input type="radio" name="Type" value="Literal" (click)="typeLiteral()"> Literal <br>
-    <input type="radio" name="Type" value="Boolean" (click)="typeBoolean()"> Boolean <br>
+  <div *ngIf=" !isSubject ">
+    <input id = "Property" placeholder="Insert Property" value="{{ property }}"> <br>
+    <input id = "PropertyLabel" placeholder="Insert Property Label" value="{{ propertyLabel }}"> <br>
 
-    <input id = "Value" placeholder="Insert value of resource" value="{{ value }}">
+    <input type="radio" name="Type" value="URL" (click)="dataTypeURL()"> URL <br>
+    <input type="radio" name="Type" value="Literal" (click)="dataTypeLiteral()"> Literal <br>
+
+    <input id="DataTypeLabel" placeholder="Insert here datatype label"> <br>
+
   </div>
 
   <button (click)="saveChanges()"> Apply </button>

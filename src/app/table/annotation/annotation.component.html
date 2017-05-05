@@ -4,7 +4,7 @@
 
 <div id = "annotation-component">
   <form>
-    <input id="{{ colId}}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
+    <input id="{{ colId }}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
     <input id="{{ colId }}.Object" type="radio"  name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
 
     <nav>
@@ -12,15 +12,18 @@
     </nav>
 
     <div>
-      <input id="{{ colId }}.Entity" placeholder="Insert here Entity" value="{{ entity }}"> <br>
-      <div *ngIf=" isObject ">
-        <input id="{{ colId }}.Property" placeholder="Insert here property"> <br>
+      <input id="{{ colId }}.Type" placeholder="Insert here type" value="{{ type }}"> <br>
+      <input id="{{ colId }}.TypeLabel" placeholder="Insert here type label" value="{{ typeLabel }}"> <br>
 
-        <input type="radio" name="Type" value="URL" (click)="typeURL()"> URL <br>
-        <input type="radio" name="Type" value="Literal" (click)="typeLiteral()"> Literal <br>
-        <input type="radio" name="Type" value="Boolean" (click)="typeBoolean()"> Boolean <br>
+      <div *ngIf=" !isSubject ">
+        <input id="{{ colId }}.Property" placeholder="Insert here property" value = "{{ property }}"> <br>
+        <input id="{{ colId }}.PropertyLabel" placeholder="Insert here property label" value = "{{ propertyLabel }}"> <br>
 
-        <input id="{{ colId }}.Value" placeholder="Insert here value"> <br>
+        <input type="radio" name="dataType" value="URL" (click)="dataTypeURL()"> URL <br>
+        <input type="radio" name="dataType" value="Literal" (click)="dataTypeLiteral()"> Literal <br>
+
+        <input id="{{ colId }}.DataTypeLabel" placeholder="Insert here datatype label" value="{{ dataTypeLabel }}"> <br>
+
       </div>
       <button (click)="saveChanges(colId)"> Apply </button>
     </div>

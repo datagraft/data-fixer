@@ -15,6 +15,7 @@ import { ProfilingService } from './table/tabular/profiling.service';
 import { TransformationsService } from './table/tabular/transformations.service';
 import { SharedTableService } from './table/shared.service';
 import { RdfService } from './table/rdf/rdf.service';
+import {AnnotationService} from "./table/annotation/annotation.service";
 
 
 @Component({
@@ -23,7 +24,7 @@ import { RdfService } from './table/rdf/rdf.service';
   styleUrls: ['./app.component.css'],
   providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService,
     SharedTableService, RdfService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent,
-    SidebarComponent, StepsComponent, DetailModeComponent]
+    SidebarComponent, StepsComponent, DetailModeComponent, AnnotationService]
 
 })
 
