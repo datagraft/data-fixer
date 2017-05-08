@@ -24,7 +24,21 @@ export class ChartComponent implements OnInit {
 
   // chart01 and chart02  
   private view: any[] = [700, 400];
-  private view2: any[] = [500, 400];
+  private view2: any[] = [400, 300];
+
+  private tileSpan1 = 1;
+  private tileSpan2 = 3;
+
+  private tileColor1 = 'dimgray';
+  private tileColor2 = 'darkgray';
+
+  //chart 03
+  showXAxis = true;
+  showYAxis = true;
+  showXAxisLabel = true;
+  showYAxisLabel = true;
+  xAxisLabel = 'Values';
+  yAxisLabel = 'Number of values';
 
   // advanced pie chart02
   private showLabels = true;
@@ -36,7 +50,7 @@ export class ChartComponent implements OnInit {
   private outliersLayout: any;
 
   // chart 04
-  private bordered = true;
+  private bordered = false;
   private striped = false;
 
   private colorScheme1 = {

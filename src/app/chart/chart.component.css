@@ -1,6 +1,22 @@
+.text1 {
+  color: white;
+  font-weight: bold;
+}
 
-h5 {
-  text-align: center;
+.text2 {
+  color: black;
+  font-weight: bold;
+}
+
+md-grid-list {
+  position: relative;
+  z-index: +1;
+  width: 1500px;  
+}
+
+md-grid-tile {
+  margin-left: 0px;
+  margin-bottom: -30px;
 }
 
 .chart01 {
@@ -14,6 +30,8 @@ h5 {
   color: #212121;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  padding-top: 70px;  
+  padding-left: 80px;    
 }
 
 .chart02 {
@@ -27,23 +45,19 @@ h5 {
   color: #212121;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  padding-left: 0;
-}
-
-.chart03 {
-  width: 350px;
-  height: 400px;
+  margin-top: -40px;
+  margin-left: -260px;
 }
 
 #chart03 {
   width: 350px;
-  height: 400px;
-  padding-left: 75px;
+  height: 370px;
+  padding-left: 170px;
 }
 
 .chart04 {
   width: 250px;
-  height: 400px;
-  padding-top: 60px;
-  padding-left: 230px;
+  height: 300px;
+  padding-top: 40px;
+  margin-left: -210px;
 }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
+import { MdGridListModule } from '@angular/material';
 import { ListboxModule } from 'primeng/primeng';
 import { NglModule } from 'ng-lightning/ng-lightning';
 import { ChartsModule } from 'ng2-charts';
@@ -38,6 +39,7 @@ import 'hammerjs';
     HttpModule,
     ChartsModule,
     ListboxModule,
+    MdGridListModule,
     NgxChartsModule,
     MaterialModule.forRoot(),
     NglModule.forRoot(),
