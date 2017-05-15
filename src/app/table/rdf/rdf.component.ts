@@ -8,7 +8,7 @@ import {type} from "os";
   selector: 'rdf',
   templateUrl: './rdf.component.html',
   styleUrls: ['./rdf.component.css'],
-  providers: [SharedTableService, RdfService, AnnotationService]
+  providers: [SharedTableService, RdfService]
 })
 
 export class RdfComponent implements OnInit {
@@ -48,21 +48,24 @@ export class RdfComponent implements OnInit {
   }
 
   constructor(private sharedTableService: SharedTableService, private rdfService: RdfService,
-              private annotationService : AnnotationService) {
+              public annotationService : AnnotationService) {
     this.emitter = new EventEmitter<any>();
   }
 
   ngOnInit() {
-  let col = this.hot.countCols();
+    let col = this.hot.countCols();
     console.log("OnInit RDF");
-    //this.annotationService.type = new Array(col);
+    this.annotationService.type = Array.apply(null, Array(5)).map(function () {return ""});
     console.log(typeof this.annotationService.type);
-    this.annotationService.typeLabel = new Array(col);
-    this.annotationService.property = new Array(col);
-    this.annotationService.propertyLabel = new Array(col);
-    this.annotationService.dataType = new Array(col);
-    this.annotationService.dataTypeLabel = new Array(col);
-    this.annotationService.isSubject = new Array(col);
+    this.annotationService.typeLabel = Array.apply(null, Array(5)).map(function () {return ""});
+    this.annotationService.property = Array.apply(null, Array(5)).map(function () {return ""});
+    this.annotationService.propertyLabel = Array.apply(null, Array(5)).map(function () {return ""});
+    this.annotationService.dataType = Array.apply(null, Array(5)).map(function () {return ""});
+    this.annotationService.dataTypeLabel = Array.apply(null, Array(5)).map(function () {return ""});
+    this.annotationService.isSubject = Array.apply(null, Array(5)).map(function () {return false});
+
+    if (this.annotationService.dataType == null){ console.log("NULL");}
+        else {console.log("CIAONE")};
   }
 
   dataEmitter() {

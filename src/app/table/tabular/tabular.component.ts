@@ -46,7 +46,9 @@ export class TabularComponent implements OnInit {
   //annotation table variables
   public object: boolean = true;
 
-  constructor(private chartComponent: ChartComponent, private rdfComponent: RdfComponent, private sharedTableService: SharedTableService, private profilingService: ProfilingService, private transformationsService: TransformationsService) {
+  constructor(private chartComponent: ChartComponent, private rdfComponent: RdfComponent,
+              private sharedTableService: SharedTableService, private profilingService: ProfilingService,
+              private transformationsService: TransformationsService) {
     // init table
     let initialize = [];
     for (let i = 0; i <= 18; i++) {

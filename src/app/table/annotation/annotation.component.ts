@@ -24,7 +24,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
   @ViewChild(DetailModeComponent) detailMode: DetailModeComponent;
 
-  @Input() colId: any;
+  @Input() colId: number;
 
   public type: String;
   public typeLabel: String;
@@ -34,10 +34,11 @@ export class AnnotationForm implements OnInit, OnDestroy {
   public dataTypeLabel: String;
   public isSubject: Boolean;
 
-  constructor(private rdfService: RdfService, private annotationService: AnnotationService) {  }
+  constructor(private rdfService: RdfService, public annotationService: AnnotationService) {  }
 
   ngOnInit(){
     console.log("InitAnnotation"+ this.colId);
+    console.log(this.annotationService.type[this.colId]);
     //SHOULD BE !=
     if(this.annotationService.dataTypeLabel == null) {
       this.isSubject = this.annotationService.isSubject[this.colId];
