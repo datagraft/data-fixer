@@ -1,6 +1,8 @@
+<rdf [data]='data' [hot]='hot' [headers]='headers' [inferredTypes]='inferredTypes' (emitter)='getEmittedRDFdata($event)'></rdf>
+
 <div *ngIf="!tabularMode">
   <tr>
-      <td *ngFor="let h of headers; let Id = index" width="colWidth(Id)">
+      <td *ngFor="let h of headers; let Id = index">
           {{ h }}<br>
           <annotation-form [colId]='Id'></annotation-form>
       </td>
@@ -10,9 +12,9 @@
 <div id='tabular'>
 </div>
 
-<rdf [data]='data' [hot]='hot' [headers]='headers' [inferredTypes]='inferredTypes' (emitter)='getEmittedRDFdata($event)'></rdf>
 
 <div class='chart' *ngIf='tabularMode'>
-  <chart [chartData01]='chartData01' [chartData02]='chartData02' [chartData03]='chartData03' [statsData]='statsData' [profileSubset]='profileSubset'
-    [inferredType]='inferredType' (profileSubsetEmitter)='onProfileSubsetEmitted($event)'></chart>
+  <chart [chartData01]='chartData01' [chartData02]='chartData02' [chartData03]='chartData03' [statsData]='statsData'
+         [profileSubset]='profileSubset' [inferredType]='inferredType'
+         (profileSubsetEmitter)='onProfileSubsetEmitted($event)'></chart>
 </div>

@@ -10,6 +10,7 @@ import {ProfilingService} from '../tabular/profiling.service';
 import {TransformationsService} from '../tabular/transformations.service';
 import {TabularComponent} from "../tabular/tabular.component";
 import {AnnotationService} from "./annotation.service";
+import {RdfService} from "../rdf/rdf.service";
 
 @Component({
   selector: 'annotation-form',
@@ -25,38 +26,39 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
   @Input() colId: any;
 
-  public type: String; //type
+  public type: String;
   public typeLabel: String;
-  public property: String; //property
+  public property: String;
   public propertyLabel: String;
-  public dataType: String; //dataType
+  public dataType: String;
   public dataTypeLabel: String;
-  public isSubject: boolean = true; //isSubject
+  public isSubject: Boolean;
 
-  constructor(private annotationService: AnnotationService) {
-  }
+  constructor(private rdfService: RdfService, private annotationService: AnnotationService) {  }
 
-  ngOnInit() {
-    if (this.colId == this.annotationService.colId) {
-      this.isSubject = this.annotationService.isSubject;
-      this.type = this.annotationService.type;
-      this.typeLabel = this.annotationService.typeLabel
-      this.property = this.annotationService.property;
-      this.propertyLabel = this.annotationService.propertyLabel;
-      this.dataType = this.annotationService.dataType;
-      this.dataTypeLabel = this.annotationService.dataTypeLabel;
+  ngOnInit(){
+    console.log("InitAnnotation"+ this.colId);
+    //SHOULD BE !=
+    if(this.annotationService.dataTypeLabel == null) {
+      this.isSubject = this.annotationService.isSubject[this.colId];
+      console.log("LETTO!");
+      this.type = this.annotationService.type[this.colId];
+      this.typeLabel = this.annotationService.typeLabel[this.colId];
+      this.property = this.annotationService.property[this.colId];
+      this.propertyLabel = this.annotationService.propertyLabel[this.colId];
+      this.dataType = this.annotationService.dataType[this.colId];
+      this.dataTypeLabel = this.annotationService.dataTypeLabel[this.colId];
     }
   }
 
   ngOnDestroy() {
-    this.annotationService.isSubject = this.isSubject;
-    this.annotationService.type = this.type;
-    this.annotationService.typeLabel = this.typeLabel
-    this.annotationService.property = this.property;
-    this.annotationService.propertyLabel = this.propertyLabel;
-    this.annotationService.dataType = this.dataType;
-    this.annotationService.dataTypeLabel = this.dataTypeLabel;
-    this.annotationService.colId = this.colId;
+    this.annotationService.isSubject[this.colId] = this.isSubject;
+    this.annotationService.type[this.colId] = this.type;
+    this.annotationService.typeLabel[this.colId] = this.typeLabel
+    this.annotationService.property[this.colId] = this.property;
+    this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
+    this.annotationService.dataType[this.colId] = this.dataType;
+    this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
   }
 
 

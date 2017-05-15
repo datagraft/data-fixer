@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SharedTableService } from '../shared.service';
 import { RdfService } from './rdf.service';
+import {AnnotationService} from "../annotation/annotation.service";
+import {type} from "os";
 
 @Component({
   selector: 'rdf',
   templateUrl: './rdf.component.html',
   styleUrls: ['./rdf.component.css'],
-  providers: [SharedTableService, RdfService]
+  providers: [SharedTableService, RdfService, AnnotationService]
 })
 
 export class RdfComponent implements OnInit {
@@ -45,11 +47,22 @@ export class RdfComponent implements OnInit {
     afterSelection: (r, c, r2, c2) => { },
   }
 
-  constructor(private sharedTableService: SharedTableService, private rdfService: RdfService) {
+  constructor(private sharedTableService: SharedTableService, private rdfService: RdfService,
+              private annotationService : AnnotationService) {
     this.emitter = new EventEmitter<any>();
   }
 
   ngOnInit() {
+  let col = this.hot.countCols();
+    console.log("OnInit RDF");
+    //this.annotationService.type = new Array(col);
+    console.log(typeof this.annotationService.type);
+    this.annotationService.typeLabel = new Array(col);
+    this.annotationService.property = new Array(col);
+    this.annotationService.propertyLabel = new Array(col);
+    this.annotationService.dataType = new Array(col);
+    this.annotationService.dataTypeLabel = new Array(col);
+    this.annotationService.isSubject = new Array(col);
   }
 
   dataEmitter() {

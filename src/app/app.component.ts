@@ -61,7 +61,8 @@ export class AppComponent implements OnInit {
   public dataParsedRaw: any;
   public ruleBasedSelectionData: any[];
 
-  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService, private sharedTableService: SharedTableService) { }
+  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService,
+              private sidebarService: SidebarService, private sharedTableService: SharedTableService) { }
 
   ngOnInit() {
     this.profileSubset = new Object();

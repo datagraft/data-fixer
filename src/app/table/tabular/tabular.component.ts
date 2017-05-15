@@ -281,8 +281,6 @@ export class TabularComponent implements OnInit {
     return this.hot.getColWidth(colId);
   }
 
-
-
   objectCondition(id) {
     let tagId = (<string>id)
     let radio = document.getElementsByName("".concat(tagId, "radio"));

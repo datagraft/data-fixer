@@ -8,7 +8,7 @@ import {AppComponent} from "./app.component"; //import about component
 
 export const appRoutes: Routes = [
   { path: 'home', component: AnnotationForm},
-  { path: 'detail', component: DetailModeComponent },
+  { path: 'detail/:colId', component: DetailModeComponent },
   { path: '*', component: AppComponent}
 ];
 

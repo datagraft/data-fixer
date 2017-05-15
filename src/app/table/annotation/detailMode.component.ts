@@ -22,8 +22,10 @@ import {AnnotationService} from "./annotation.service";
 
 export class DetailModeComponent implements OnInit, OnDestroy{
 
+  @Input() colId : any;
+
   //isSubject is true if the resource is marked as object in annotation form
-  isSubject : boolean = true;
+  isSubject : Boolean;
   type : String ;
   typeLabel : String;
   property : String;
@@ -37,26 +39,26 @@ export class DetailModeComponent implements OnInit, OnDestroy{
 
 
   ngOnInit() {
-    this.isSubject = this.annotationService.isSubject;
-    this.type = this.annotationService.type;
-    this.typeLabel = this.annotationService.typeLabel;
-    this.property = this.annotationService.property;
-    this.propertyLabel = this.annotationService.propertyLabel;
-    this.dataType = this.annotationService.dataType;
-    this.dataTypeLabel = this.annotationService.dataTypeLabel;
+    this.isSubject = this.annotationService.isSubject[3];
+    this.type = this.annotationService.type[3];
+    this.typeLabel = this.annotationService.typeLabel[3];
+    this.property = this.annotationService.property[3];
+    this.propertyLabel = this.annotationService.propertyLabel[3];
+    this.dataType = this.annotationService.dataType[3];
+    this.dataTypeLabel = this.annotationService.dataTypeLabel[3];
   }
 
   ngOnDestroy() {
     //there will be n entities for n column, so onDestroy we need to send the data at the correct instance of
     // annotationForm, identify by colId I think
 
-    this.annotationService.isSubject = this.isSubject;
-    this.annotationService.type = this.type;
-    this.annotationService.typeLabel = this.typeLabel;
-    this.annotationService.property = this.property;
-    this.annotationService.propertyLabel = this.propertyLabel;
-    this.annotationService.dataType = this.dataType;
-    this.annotationService.dataTypeLabel = this.dataTypeLabel;
+    this.annotationService.isSubject[this.colId] = this.isSubject;
+    this.annotationService.type[this.colId] = this.type;
+    this.annotationService.typeLabel[this.colId] = this.typeLabel
+    this.annotationService.property[this.colId] = this.property;
+    this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
+    this.annotationService.dataType[this.colId] = this.dataType;
+    this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
   }
 
   saveChanges() {
