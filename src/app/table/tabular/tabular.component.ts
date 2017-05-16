@@ -300,6 +300,9 @@ export class TabularComponent implements OnInit {
     return "".concat(id, "-Subject");
   }
 
+  getDataCol(colId){
+    return this.hot.getDataAtCol(colId);
+  }
 
 }
 

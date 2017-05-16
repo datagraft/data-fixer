@@ -10,6 +10,8 @@ export class AnnotationService {
   public dataType : String[];
   public dataTypeLabel : String[];
   public isSubject : Boolean[];
+  public col : any[];
+  public header;
 
   constructor() { };
 }

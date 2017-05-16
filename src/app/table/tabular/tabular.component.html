@@ -4,7 +4,7 @@
   <tr>
       <td *ngFor="let h of headers; let Id = index">
           {{ h }}<br>
-          <annotation-form [colId]='Id'></annotation-form>
+          <annotation-form [colId]='Id' [colContent]='getDataCol(Id)' [header] = 'h'></annotation-form>
       </td>
    </tr>
 </div>

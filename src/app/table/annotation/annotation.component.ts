@@ -25,7 +25,8 @@ export class AnnotationForm implements OnInit, OnDestroy {
   @ViewChild(DetailModeComponent) detailMode: DetailModeComponent;
 
   @Input() colId: number;
-
+  @Input() colContent : any[];
+  @Input() header : any;
   public type: String;
   public typeLabel: String;
   public property: String;
@@ -33,6 +34,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
   public dataType: String;
   public dataTypeLabel: String;
   public isSubject: Boolean;
+
 
   constructor(private rdfService: RdfService, public annotationService: AnnotationService) {  }
 
@@ -104,16 +106,8 @@ export class AnnotationForm implements OnInit, OnDestroy {
     this.detailMode.isActive = false;
   }
 
-  goToDetailMode(colId) {
-    let property = "";
-    let datatype = "";
-    let type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".type")))).value;
-    if (this.isSubject) {
-      property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
-      datatype = (<HTMLInputElement> (document.getElementById("".concat(colId, "datatype")))).value;
-    }
-
-
-    //this.detailMode.initializeDetailMode(this.object);
+  goToDetailMode() {
+    this.annotationService.col = this.colContent;
+    this.annotationService.header = this.header;
   }
 }

@@ -8,7 +8,7 @@
     <input id="{{ colId }}.Object" type="radio"  name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
 
     <nav>
-      <a [routerLink]="['/detail', colId]"> Go to detail page </a><br>
+      <a [routerLink]="['/detail', colId]" (click) = "goToDetailMode()"> Go to detail page </a><br>
     </nav>
 
     <div>

@@ -32,6 +32,8 @@ export class DetailModeComponent implements OnInit, OnDestroy{
   propertyLabel : String;
   dataType : String;
   dataTypeLabel : String;
+  colContent : any[];
+  header;
 
   public isActive : boolean = false;
 
@@ -39,13 +41,15 @@ export class DetailModeComponent implements OnInit, OnDestroy{
 
 
   ngOnInit() {
-    this.isSubject = this.annotationService.isSubject[3];
-    this.type = this.annotationService.type[3];
-    this.typeLabel = this.annotationService.typeLabel[3];
-    this.property = this.annotationService.property[3];
-    this.propertyLabel = this.annotationService.propertyLabel[3];
-    this.dataType = this.annotationService.dataType[3];
-    this.dataTypeLabel = this.annotationService.dataTypeLabel[3];
+    this.isSubject = this.annotationService.isSubject[this.colId];
+    this.type = this.annotationService.type[this.colId];
+    this.typeLabel = this.annotationService.typeLabel[this.colId];
+    this.property = this.annotationService.property[this.colId];
+    this.propertyLabel = this.annotationService.propertyLabel[this.colId];
+    this.dataType = this.annotationService.dataType[this.colId];
+    this.dataTypeLabel = this.annotationService.dataTypeLabel[this.colId];
+    this.colContent = this.annotationService.col;
+    this.header = this.annotationService.header;
   }
 
   ngOnDestroy() {
