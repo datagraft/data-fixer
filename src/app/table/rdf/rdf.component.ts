@@ -8,7 +8,7 @@ import {type} from "os";
   selector: 'rdf',
   templateUrl: './rdf.component.html',
   styleUrls: ['./rdf.component.css'],
-  providers: [SharedTableService, RdfService]
+  providers: [SharedTableService]
 })
 
 export class RdfComponent implements OnInit {

@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router'
+import {ActivatedRoute, Params, Router} from '@angular/router'
 import { ChartComponent } from '../../chart/chart.component';
 import { RdfComponent } from '../rdf/rdf.component';
 
@@ -22,7 +22,7 @@ import {AnnotationService} from "./annotation.service";
 
 export class DetailModeComponent implements OnInit, OnDestroy{
 
-  @Input() colId : any;
+
 
   //isSubject is true if the resource is marked as object in annotation form
   isSubject : Boolean;
@@ -33,14 +33,16 @@ export class DetailModeComponent implements OnInit, OnDestroy{
   dataType : String;
   dataTypeLabel : String;
   colContent : any[];
-  header;
+  colId : any;
+  header : any;
 
   public isActive : boolean = false;
 
-  constructor(private annotationService: AnnotationService) { }
+  constructor(private annotationService: AnnotationService, route: ActivatedRoute) { }
 
 
   ngOnInit() {
+    this.colId = this.annotationService.colNum;
     this.isSubject = this.annotationService.isSubject[this.colId];
     this.type = this.annotationService.type[this.colId];
     this.typeLabel = this.annotationService.typeLabel[this.colId];
@@ -55,7 +57,6 @@ export class DetailModeComponent implements OnInit, OnDestroy{
   ngOnDestroy() {
     //there will be n entities for n column, so onDestroy we need to send the data at the correct instance of
     // annotationForm, identify by colId I think
-
     this.annotationService.isSubject[this.colId] = this.isSubject;
     this.annotationService.type[this.colId] = this.type;
     this.annotationService.typeLabel[this.colId] = this.typeLabel

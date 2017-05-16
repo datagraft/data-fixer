@@ -25,8 +25,9 @@ import { CommonModule } from '@angular/common';
 
 import 'hammerjs';
 import {routing} from "./app.routing";
-import {HomeComponent} from "./table/annotation/home.component";
+import {HomeComponent} from "./home.component";
 import {AnnotationService} from "./table/annotation/annotation.service";
+import {RdfService} from "./table/rdf/rdf.service";
 
 @NgModule({
   declarations: [
@@ -55,8 +56,8 @@ import {AnnotationService} from "./table/annotation/annotation.service";
     FlexLayoutModule.forRoot(),
     routing
   ],
-  providers: [SharedService, AnnotationService],
-  bootstrap: [AppComponent]
+  providers: [SharedService, AnnotationService, RdfService],
+  bootstrap: [HomeComponent]
 })
 export class AppModule {
 }

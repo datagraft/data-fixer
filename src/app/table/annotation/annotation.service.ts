@@ -12,6 +12,7 @@ export class AnnotationService {
   public isSubject : Boolean[];
   public col : any[];
   public header;
+  public colNum;
 
   constructor() { };
 }

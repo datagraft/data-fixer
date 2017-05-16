@@ -23,8 +23,8 @@ import {AnnotationService} from "./table/annotation/annotation.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService,
-    SharedTableService, RdfService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent,
-    SidebarComponent, StepsComponent, DetailModeComponent, AnnotationService]
+    SharedTableService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent,
+    SidebarComponent, StepsComponent, DetailModeComponent]
 
 })
 

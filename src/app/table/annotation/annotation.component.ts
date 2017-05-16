@@ -39,19 +39,13 @@ export class AnnotationForm implements OnInit, OnDestroy {
   constructor(private rdfService: RdfService, public annotationService: AnnotationService) {  }
 
   ngOnInit(){
-    console.log("InitAnnotation"+ this.colId);
-    console.log(this.annotationService.type[this.colId]);
-    //SHOULD BE !=
-    if(this.annotationService.dataTypeLabel == null) {
       this.isSubject = this.annotationService.isSubject[this.colId];
-      console.log("LETTO!");
       this.type = this.annotationService.type[this.colId];
       this.typeLabel = this.annotationService.typeLabel[this.colId];
       this.property = this.annotationService.property[this.colId];
       this.propertyLabel = this.annotationService.propertyLabel[this.colId];
       this.dataType = this.annotationService.dataType[this.colId];
       this.dataTypeLabel = this.annotationService.dataTypeLabel[this.colId];
-    }
   }
 
   ngOnDestroy() {
@@ -62,6 +56,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
     this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
     this.annotationService.dataType[this.colId] = this.dataType;
     this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
+
   }
 
 
@@ -84,7 +79,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
   saveChanges(colId) {
     this.type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Type")))).value;
     this.typeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".TypeLabel")))).value;
-    if (this.isSubject) {
+    if (!this.isSubject) {
       this.property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
       this.propertyLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".PropertyLabel")))).value;
       this.dataTypeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".DataTypeLabel")))).value;
@@ -92,14 +87,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
   }
 
   setDetailMode(colId) {
-    //cast into HTMLInputElement and after take value
-    let property = "";
-    let dataType = "";
-    let type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Type")))).value;
-    if (this.isSubject) {
-      property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
-      dataType = (<HTMLInputElement> (document.getElementById("".concat(colId, ".dataType")))).value;
-    }
+
   }
 
   hideDetailMode() {
@@ -109,5 +97,6 @@ export class AnnotationForm implements OnInit, OnDestroy {
   goToDetailMode() {
     this.annotationService.col = this.colContent;
     this.annotationService.header = this.header;
+    this.annotationService.colNum = this.colId;
   }
 }
