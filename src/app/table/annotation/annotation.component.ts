@@ -15,7 +15,7 @@ import {RdfService} from "../rdf/rdf.service";
 
 @Component({
   selector: 'annotation-form',
-  templateUrl: './annotation.component.html',
+  templateUrl: './annotation.component2.html',
   //styleUrls: ['./annotation.component.css'],
   providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService, TabularComponent,
     RouterModule]
@@ -64,11 +64,11 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
 
   objectSelect() {
-    this.isSubject = false;
+    this.isSubject = !this.isSubject;
   }
 
   subjectSelect() {
-    this.isSubject = true;
+    this.isSubject = !this.isSubject;
   }
 
   dataTypeURL() {

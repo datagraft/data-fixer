@@ -1,8 +1,12 @@
 <div id = "annotation-component">
-  <form>
-    <input id="{{ colId }}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()"> S
-    <input id="{{ colId }}.Object" type="radio"  name="{{ colId }}.radio" value="Object" (click)="objectSelect()"> O <br>
+  <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
+    <template nglFormLabel><i>Select Subject or Object</i></template>
+    <ngl-form-group-element *ngFor="let day of ['S', 'O']">
+    <template nglFormLabel>{{day}}</template>
+      <input nglFormControl id="{{ colId }}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject" (click)="subjectSelect()">
 
+    </ngl-form-group-element>
+  </fieldset>
     <nav>
       <a [routerLink]="['/detail']"  (click) = "goToDetailMode()"> Go to detail page </a><br>
     </nav>
@@ -23,7 +27,6 @@
       </div>
       <button (click)="saveChanges(colId)"> Apply </button>
     </div>
-  </form>
 </div>
 
 
@@ -31,3 +34,4 @@
 
 </detailMode>-->
 <!--(click) ="setDetailMode(colId)"-->
+
