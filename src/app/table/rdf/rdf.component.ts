@@ -3,6 +3,8 @@ import { SharedTableService } from '../shared.service';
 import { RdfService } from './rdf.service';
 import {AnnotationService} from "../annotation/annotation.service";
 import {type} from "os";
+import {forEach} from "@angular/router/src/utils/collection";
+import {id} from "@swimlane/ngx-charts/release/utils";
 
 @Component({
   selector: 'rdf',
@@ -20,17 +22,15 @@ export class RdfComponent implements OnInit {
   @Input() inferredTypes: Object;
   @Output() emitter: EventEmitter<any>;
 
+  public id = -1;
+
   // rdf mode settings
   public settings: any = {
     height: 800,
-    /*colHeaders: (col) => {
-      switch (col) {
-        case 0:
-          return '<div style="line-height:10px;padding:5px;margin:0px;"></div>';
-        case 1:
-          return '<div style="line-height:10px;padding:5px;margin:0px;"></div>';
-      }
-    },*/
+    //colHeaders: function (index, this.headers){
+      //return '<h1>' + headers[index] +' <h1>';
+    //},
+
     contextMenu: {
       callback: (key, options) => { },
       items: {
@@ -73,16 +73,11 @@ export class RdfComponent implements OnInit {
   }
 
   init() {
-    //this.hot.updateSettings(this.updateSettings(460, this.headers));
+    this.hot.updateSettings(this.settings);
     console.log('data: ', this.data);
     console.log('headers: ', this.headers);
     console.log('inferredTypes: ', this.inferredTypes);
   }
 
-  updateSettings(height, headers) {
-    return {
-      height: height,
-      colHeaders: headers
-    }
-  }
+
 }

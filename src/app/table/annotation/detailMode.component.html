@@ -1,4 +1,4 @@
-<div>
+<div align = "left">
 
   <a [routerLink] = "['/home']"> Return to Annotation Mode </a> <br>
 
@@ -33,14 +33,21 @@
 
   <button (click)="saveChanges()"> Apply </button>
 
-  <br><br>
-  <!--<table>
-  <th> {{ header }} <th>
-    <td>
-      <tr *ngFor="let row of colContent">
-        {{row}}
-      </tr>
-    </td>
-  </table>
--->
+  <!--<div>
+    <table class="handsontable ht_master">
+      <td style="text-align: right">
+        {{ header }}
+        <tr *ngFor="let row of colContent" style="text-align: right">
+          {{ row }}
+        </tr>
+      </td>
+    </table>
+  </div>
+</div>-->
+
+<table ngl-datatable [data]="colContent" trackByKey="value" [(sort)]="sort"
+       (onRowClick)="onRowClick($event)" class="slds-max-medium-table--stacked-horizontal">
+  <ngl-datatable-column key="value" sortable></ngl-datatable-column>
+
+</table>
 </div>

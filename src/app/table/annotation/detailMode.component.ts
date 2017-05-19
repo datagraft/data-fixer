@@ -8,7 +8,7 @@ import { ProfilingService } from '../tabular/profiling.service';
 import { TransformationsService } from '../tabular/transformations.service';
 import { TabularComponent } from "../tabular/tabular.component";
 import {AnnotationService} from "./annotation.service";
-
+import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightning';
 
 @Component({
   selector: 'detailMode',
@@ -35,8 +35,16 @@ export class DetailModeComponent implements OnInit, OnDestroy{
   colContent : any[];
   colId : any;
   header : any;
+  data = [{value : 3}, {value : 4}];
 
   public isActive : boolean = false;
+
+  //ng-lightning attribute
+
+  // Initial sort
+  sort: INglDatatableSort = { key: 'value', order: 'asc' };
+
+
 
   constructor(private annotationService: AnnotationService, route: ActivatedRoute) { }
 
@@ -50,7 +58,9 @@ export class DetailModeComponent implements OnInit, OnDestroy{
     this.propertyLabel = this.annotationService.propertyLabel[this.colId];
     this.dataType = this.annotationService.dataType[this.colId];
     this.dataTypeLabel = this.annotationService.dataTypeLabel[this.colId];
-    this.colContent = this.annotationService.col;
+     this.colContent = this.annotationService.col.map(function makeObject( x ) { return { value: x }});
+    console.log(this.colContent);
+    console.log(this.data);
     this.header = this.annotationService.header;
   }
 
@@ -59,7 +69,7 @@ export class DetailModeComponent implements OnInit, OnDestroy{
     // annotationForm, identify by colId I think
     this.annotationService.isSubject[this.colId] = this.isSubject;
     this.annotationService.type[this.colId] = this.type;
-    this.annotationService.typeLabel[this.colId] = this.typeLabel
+    this.annotationService.typeLabel[this.colId] = this.typeLabel;
     this.annotationService.property[this.colId] = this.property;
     this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
     this.annotationService.dataType[this.colId] = this.dataType;
@@ -106,4 +116,9 @@ export class DetailModeComponent implements OnInit, OnDestroy{
   dataTypeLiteral(){
     this.dataType = "Literal";
   }
+
+  onRowClick($event: INglDatatableRowClick) {
+    console.log('clicked row', $event.data);
+  }
+
 }

@@ -1,12 +1,15 @@
-<rdf [data]='data' [hot]='hot' [headers]='headers' [inferredTypes]='inferredTypes' (emitter)='getEmittedRDFdata($event)'></rdf>
+<rdf [data]='data' [hot]='hot' [headers]='headers' [inferredTypes]='inferredTypes'
+     (emitter)='getEmittedRDFdata($event)'></rdf>
 
 <div *ngIf="!tabularMode">
-  <tr>
+  <table>
+    <tr>
       <td *ngFor="let h of headers; let Id = index">
-          {{ h }}<br>
-          <annotation-form [colId]='Id' [colContent]='getDataCol(Id)' [header] = 'h'></annotation-form>
+        {{ h }}<br>
+        <annotation-form [colId]='Id' [colContent]='getDataCol(Id)' [header]='h'></annotation-form>
       </td>
-   </tr>
+    </tr>
+  </table>
 </div>
 
 <div id='tabular'>

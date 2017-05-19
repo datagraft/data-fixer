@@ -12,6 +12,7 @@ import {TabularComponent} from "../tabular/tabular.component";
 import {AnnotationService} from "./annotation.service";
 import {RdfService} from "../rdf/rdf.service";
 
+
 @Component({
   selector: 'annotation-form',
   templateUrl: './annotation.component.html',
@@ -37,6 +38,8 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
 
   constructor(private rdfService: RdfService, public annotationService: AnnotationService) {  }
+
+
 
   ngOnInit(){
       this.isSubject = this.annotationService.isSubject[this.colId];
