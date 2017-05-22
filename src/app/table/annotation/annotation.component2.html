@@ -1,30 +1,34 @@
 <div id = "annotation-component">
-  <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
-    <template nglFormLabel></template>
-    <ngl-form-group-element *ngFor="let char of ['S', 'O']">
-    <template nglFormLabel>{{char}}</template>
-      <input nglPopover="I open and close with 1 second delay..." nglPopoverBehavior nglTooltip
-             #x="nglPopover"
-             nglFormControl id="{{ colId }}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject"
-             (click)="subjectSelect() ">
 
-    </ngl-form-group-element>
-  </fieldset>
+    <div class = "row">
+      <div class="col-xs-4">
+        <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null">
+          <template nglFormLabel></template>
 
-    <nav>
-      <a class="btn btn-sm" [routerLink]="['/detail']"  (click) = "goToDetailMode()"> Go to detail page </a><br>
-    </nav>
+          <ngl-form-group-element *ngFor="let char of ['S', 'O']">
+            <template nglFormLabel>{{char}}</template>
 
-    <div>
-      <ngl-form-element label="Input Label" [error]="hasError ? error : null" class="slds-m-top--small">
-        <input nglFormControl type="text" id="{{ colId }}.Type" placeholder="Insert here type" value="{{ type }}"
-               [required]="required">
-        <input nglFormControl type="text" id="{{ colId }}.TypeLabel" placeholder="Insert here type label"
-               value="{{ typeLabel }}" [required]="required"> <br>
+            <input
+              nglFormControl id="{{ colId }}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject"
+              (click)="subjectSelect( char ) ">
 
 
-      <!--<input id="{{ colId }}.Type" placeholder="Insert here type" value="{{ type }}"> <br>-->
-      <!--<input id="{{ colId }}.TypeLabel" placeholder="Insert here type label" value="{{ typeLabel }}"> <br>-->
+          </ngl-form-group-element>
+        </fieldset>
+      </div>
+      <div class="col-xs-4">
+
+          <a class="btn btn-sm" [routerLink]="['/detail']"  (click) = "goToDetailMode()"> Detail page </a><br>
+
+      </div>
+    </div>
+
+  <div>
+    <ngl-form-element label="Input Label" [error]="hasError ? error : null" class="slds-m-top--small">
+      <input nglFormControl type="text" id="{{ colId }}.Type" placeholder="Insert here type" value="{{ type }}"
+             [required]="required">
+      <input nglFormControl type="text" id="{{ colId }}.TypeLabel" placeholder="Insert here type label"
+             value="{{ typeLabel }}" [required]="required"> <br>
 
       <div *ngIf=" !isSubject ">
         <input nglFormControl type="text" id="{{ colId }}.Property" placeholder="Insert here property"
@@ -35,22 +39,19 @@
 
         <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
           <template nglFormLabel><i>Select datatype of object</i></template>
-          <ngl-form-group-element *ngFor="let day of ['URL', 'Literal']">
-            <template nglFormLabel>{{day}}</template>
-            <input nglFormControl type="radio"  name="{{ colId }}.dataType" value="URL" (click)="subjectSelect()">
+          <ngl-form-group-element *ngFor="let dataType of ['URL', 'Literal']">
+            <template nglFormLabel>{{dataType}}</template>
+            <input nglFormControl type="radio"  name="{{ colId }}.dataType" value="URL" (click)="dataTypeSelect(dataType)">
 
           </ngl-form-group-element>
         </fieldset>
 
-        <!--<input type="radio" name="dataType" value="URL" (click)="dataTypeURL()"> URL <br>-->
-        <!--<input type="radio" name="dataType" value="Literal" (click)="dataTypeLiteral()"> Literal <br>-->
-
         <input nglFormControl type="text" id="{{ colId }}.DataTypeLabel" placeholder="Insert here datatype label"
                value="{{ dataTypeLabel }}"> <br>
       </div>
-      </ngl-form-element>
-      <button type="button" nglButton="neutral" (click)="saveChanges(colId)"> Apply </button>
-    </div>
+    </ngl-form-element>
+    <button type="button" nglButton="neutral" (click)="saveChanges(colId)"> Apply </button>
+  </div>
 </div>
 
 

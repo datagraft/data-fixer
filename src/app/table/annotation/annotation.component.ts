@@ -61,16 +61,6 @@ export class AnnotationForm implements OnInit, OnDestroy {
     this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
 
   }
-
-
-  objectSelect() {
-    this.isSubject = !this.isSubject;
-  }
-
-  subjectSelect() {
-    this.isSubject = !this.isSubject;
-  }
-
   dataTypeURL() {
     this.dataType = "URL";
   }
@@ -88,18 +78,26 @@ export class AnnotationForm implements OnInit, OnDestroy {
       this.dataTypeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".DataTypeLabel")))).value;
     }
   }
-
-  setDetailMode(colId) {
-
-  }
-
-  hideDetailMode() {
-    this.detailMode.isActive = false;
-  }
-
   goToDetailMode() {
     this.annotationService.col = this.colContent;
     this.annotationService.header = this.header;
     this.annotationService.colNum = this.colId;
+  }
+
+  subjectSelect(isSubject) {
+    if (isSubject == 'O'){
+      this.isSubject = false;
+    }
+    else{
+      this.isSubject = true;
+    }
+  }
+  dataTypeSelect(dataType) {
+    if (dataType == "URL") {
+      this.dataType = dataType;
+    }
+    else {
+      this.dataType = dataType;
+    }
   }
 }

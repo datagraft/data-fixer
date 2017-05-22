@@ -43,7 +43,7 @@
 
 
     <!-- Sidebar section -->
-    <nav class="sidenav">
+    <nav class="sidenav" *ngIf="tabularMode">
       <clr-tabs *ngIf="tabularMode">
         <clr-tab-link [clrTabLinkId]="'link1'" [clrTabLinkActive]="true">File Import</clr-tab-link>
         <clr-tab-link>Suggested Transformations</clr-tab-link>
