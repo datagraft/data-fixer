@@ -12,7 +12,7 @@ import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightnin
 
 @Component({
   selector: 'detailMode',
-  templateUrl: './detailMode.component.html',
+  templateUrl: './detailMode2.component.html',
   //styleUrls: ['./annotation.component.css'],
   providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService]
 })
@@ -21,8 +21,6 @@ import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightnin
 //attributes for annotation (the same that you can add with annotation form)
 
 export class DetailModeComponent implements OnInit, OnDestroy{
-
-
 
   //isSubject is true if the resource is marked as object in annotation form
   isSubject : Boolean;
@@ -105,16 +103,30 @@ export class DetailModeComponent implements OnInit, OnDestroy{
     this.isSubject = false;
   }
 
-  subjectSelect() {
-    this.isSubject = true;
+  subjectSelect(isSubject) {
+    if (isSubject == 'O'){
+      this.isSubject = false;
+    }
+    else{
+      this.isSubject = true;
+    }
   }
 
-  dataTypeURL(){
-    this.dataType = "URL";
-  }
+  // dataTypeURL(){
+  //   this.dataType = "URL";
+  // }
+  //
+  // dataTypeLiteral(){
+  //   this.dataType = "Literal";
+  // }
 
-  dataTypeLiteral(){
-    this.dataType = "Literal";
+  dataTypeSelect(dataType){
+    if (dataType == "URL"){
+      this.dataType = dataType;
+    }
+    else{
+      this.dataType = dataType;
+    }
   }
 
   onRowClick($event: INglDatatableRowClick) {
