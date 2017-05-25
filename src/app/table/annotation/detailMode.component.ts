@@ -12,7 +12,7 @@ import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightnin
 
 @Component({
   selector: 'detailMode',
-  templateUrl: './detailMode2.component.html',
+  templateUrl: './detailMode.component.html',
   //styleUrls: ['./annotation.component.css'],
   providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService]
 })
