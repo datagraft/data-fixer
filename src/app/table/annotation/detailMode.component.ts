@@ -48,30 +48,30 @@ export class DetailModeComponent implements OnInit, OnDestroy{
 
 
   ngOnInit() {
-    this.colId = this.annotationService.colNum;
-    this.isSubject = this.annotationService.isSubject[this.colId];
-    this.type = this.annotationService.type[this.colId];
-    this.typeLabel = this.annotationService.typeLabel[this.colId];
-    this.property = this.annotationService.property[this.colId];
-    this.propertyLabel = this.annotationService.propertyLabel[this.colId];
-    this.dataType = this.annotationService.dataType[this.colId];
-    this.dataTypeLabel = this.annotationService.dataTypeLabel[this.colId];
-     this.colContent = this.annotationService.col.map(function makeObject( x ) { return { value: x }});
-    console.log(this.colContent);
-    console.log(this.data);
-    this.header = this.annotationService.header;
+    // this.colId = this.annotationService.colNum;
+    // this.isSubject = this.annotationService.isSubject[this.colId];
+    // this.type = this.annotationService.type[this.colId];
+    // this.typeLabel = this.annotationService.typeLabel[this.colId];
+    // this.property = this.annotationService.property[this.colId];
+    // this.propertyLabel = this.annotationService.propertyLabel[this.colId];
+    // this.dataType = this.annotationService.dataType[this.colId];
+    // this.dataTypeLabel = this.annotationService.dataTypeLabel[this.colId];
+    //  this.colContent = this.annotationService.col.map(function makeObject( x ) { return { value: x }});
+    // console.log(this.colContent);
+    // console.log(this.data);
+    // this.header = this.annotationService.header;
   }
 
   ngOnDestroy() {
     //there will be n entities for n column, so onDestroy we need to send the data at the correct instance of
     // annotationForm, identify by colId I think
-    this.annotationService.isSubject[this.colId] = this.isSubject;
-    this.annotationService.type[this.colId] = this.type;
-    this.annotationService.typeLabel[this.colId] = this.typeLabel;
-    this.annotationService.property[this.colId] = this.property;
-    this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
-    this.annotationService.dataType[this.colId] = this.dataType;
-    this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
+  //   this.annotationService.isSubject[this.colId] = this.isSubject;
+  //   this.annotationService.type[this.colId] = this.type;
+  //   this.annotationService.typeLabel[this.colId] = this.typeLabel;
+  //   this.annotationService.property[this.colId] = this.property;
+  //   this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
+  //   this.annotationService.dataType[this.colId] = this.dataType;
+  //   this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
   }
 
   saveChanges() {

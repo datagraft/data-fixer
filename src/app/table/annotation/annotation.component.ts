@@ -43,24 +43,24 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
 
   ngOnInit(){
-      this.isSubject = this.annotationService.isSubject[this.colId];
-      this.type = this.annotationService.type[this.colId];
-      this.typeLabel = this.annotationService.typeLabel[this.colId];
-      this.property = this.annotationService.property[this.colId];
-      this.propertyLabel = this.annotationService.propertyLabel[this.colId];
-      this.dataType = this.annotationService.dataType[this.colId];
-      this.dataTypeLabel = this.annotationService.dataTypeLabel[this.colId];
+  //     this.isSubject = this.annotationService.isSubject[this.colId];
+  //     this.type = this.annotationService.type[this.colId];
+  //     this.typeLabel = this.annotationService.typeLabel[this.colId];
+  //     this.property = this.annotationService.property[this.colId];
+  //     this.propertyLabel = this.annotationService.propertyLabel[this.colId];
+  //     this.dataType = this.annotationService.dataType[this.colId];
+  //     this.dataTypeLabel = this.annotationService.dataTypeLabel[this.colId];
   }
 
   ngOnDestroy() {
-    this.annotationService.isSubject[this.colId] = this.isSubject;
-    this.annotationService.type[this.colId] = this.type;
-    this.annotationService.typeLabel[this.colId] = this.typeLabel
-    this.annotationService.property[this.colId] = this.property;
-    this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
-    this.annotationService.dataType[this.colId] = this.dataType;
-    this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
-
+  //   this.annotationService.isSubject[this.colId] = this.isSubject;
+  //   this.annotationService.type[this.colId] = this.type;
+  //   this.annotationService.typeLabel[this.colId] = this.typeLabel
+  //   this.annotationService.property[this.colId] = this.property;
+  //   this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
+  //   this.annotationService.dataType[this.colId] = this.dataType;
+  //   this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
+  //
   }
   dataTypeURL() {
     this.dataType = "URL";

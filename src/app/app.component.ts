@@ -62,7 +62,8 @@ export class AppComponent implements OnInit {
   public ruleBasedSelectionData: any[];
 
   constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService,
-              private sidebarService: SidebarService, private sharedTableService: SharedTableService) { }
+              private sidebarService: SidebarService, private sharedTableService: SharedTableService,
+              private annotationService : AnnotationService) {  }
 
   ngOnInit() {
     this.profileSubset = new Object();
@@ -71,6 +72,7 @@ export class AppComponent implements OnInit {
     this.stepSequence = this.sharedService.initialiseStepSequence();
     this.linkTabular = this.activated;
     this.linkRDF = this.deactivated;
+    this.annotationService.getRemoteResponse();
   }
 
   setTabularMode() {
