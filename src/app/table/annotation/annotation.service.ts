@@ -2,26 +2,96 @@ import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http"
 
 export class Annotation {
-  index : number;
-  type : String;
-  typeLabel : String;
-  property : String;
-  propertyLabel : String;
-  dataType : String;
-  dataTypeLabel : String;
-  isSubject : Boolean;
-  header : String;
+  set index(value: number) {
+    this._index = value;
+  }
+
+  set type(value: String) {
+    this._type = value;
+  }
+
+  set typeLabel(value: String) {
+    this._typeLabel = value;
+  }
+
+  set property(value: String) {
+    this._property = value;
+  }
+
+  set propertyLabel(value: String) {
+    this._propertyLabel = value;
+  }
+
+  set dataType(value: String) {
+    this._dataType = value;
+  }
+
+  set dataTypeLabel(value: String) {
+    this._dataTypeLabel = value;
+  }
+
+  set isSubject(value: Boolean) {
+    this._isSubject = value;
+  }
+
+  set header(value: String) {
+    this._header = value;
+  }
+  get index(): number {
+    return this._index;
+  }
+
+  get type(): String {
+    return this._type;
+  }
+
+  get typeLabel(): String {
+    return this._typeLabel;
+  }
+
+  get property(): String {
+    return this._property;
+  }
+
+  get propertyLabel(): String {
+    return this._propertyLabel;
+  }
+
+  get dataType(): String {
+    return this._dataType;
+  }
+
+  get dataTypeLabel(): String {
+    return this._dataTypeLabel;
+  }
+
+  get isSubject(): Boolean {
+    return this._isSubject;
+  }
+
+  get header(): String {
+    return this._header;
+  }
+  private _index : number;
+  private _type : String;
+  private _typeLabel : String;
+  private _property : String;
+  private _propertyLabel : String;
+  private _dataType : String;
+  private _dataTypeLabel : String;
+  private _isSubject : Boolean;
+  private _header : String;
 
   constructor(obj?: any) {
-    this.index = obj != null && obj.index != null ? obj.index : -1;
-    this.type = obj && obj.type || "";
-    this.typeLabel = obj && obj.typeLabel || "";
-    this.property = obj && obj.property || "";
-    this.propertyLabel = obj && obj.propertyLabel || "";
-    this.dataType = obj && obj.dataType || "";
-    this.dataTypeLabel = obj && obj.dataTypeLabel || "";
-    this.isSubject = false;
-    this.header = obj && obj.header || "";
+    this._index = obj != null && obj.index != null ? obj.index : -1;
+    this._type = obj && obj.type || "";
+    this._typeLabel = obj && obj.typeLabel || "";
+    this._property = obj && obj.property || "";
+    this._propertyLabel = obj && obj.propertyLabel || "";
+    this._dataType = obj && obj.dataType || "";
+    this._dataTypeLabel = obj && obj.dataTypeLabel || "";
+    this._isSubject = false;
+    this._header = obj && obj.header || "";
   }
 }
 
@@ -30,9 +100,9 @@ export class AnnotationService {
 
 
 
-  public annotations : Annotation[];
+  private annotations : Annotation[];
 
-  public col : any[];
+  public colContent;
   public header;
   public colNum;
   public data;
@@ -43,19 +113,29 @@ export class AnnotationService {
   getRemoteResponse(){
     this.http.request('http://localhost:3000/response').subscribe((res :Response) => {
       let response = res.json();
-      let a = response.neCols.map((obj: Object) => { return new Annotation(obj)});
+      this.annotations = response.neCols.map((obj: Object) => { return new Annotation(obj)});
       let b = response.litCols.map((obj: Object) => { return new Annotation(obj)});
 
-      a = a.concat(b);
-        a.sort(function(a, b){
+      this.annotations = this.annotations.concat(b);
+        this.annotations.sort(function(a, b){
           if(a.index < b.index) return -1;
           if(a.index > b.index) return 1;
           return 0;
         });
-        console.log(a);
       },
     (err : any) => {
-      console.log(err);
+
     });
+  }
+
+  setAnnotation(colId, annotation : Annotation){
+    this.annotations[colId] = annotation;
+  }
+  getAnnotation(colId): Annotation {
+    return this.annotations[colId];
+  }
+
+  getHeader() {
+    return this.header;
   }
 }

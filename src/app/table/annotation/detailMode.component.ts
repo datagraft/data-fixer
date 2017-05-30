@@ -7,7 +7,7 @@ import { SharedTableService } from '../shared.service';
 import { ProfilingService } from '../tabular/profiling.service';
 import { TransformationsService } from '../tabular/transformations.service';
 import { TabularComponent } from "../tabular/tabular.component";
-import {AnnotationService} from "./annotation.service";
+import {Annotation, AnnotationService} from "./annotation.service";
 import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightning';
 
 @Component({
@@ -23,13 +23,14 @@ import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightnin
 export class DetailModeComponent implements OnInit, OnDestroy{
 
   //isSubject is true if the resource is marked as object in annotation form
-  isSubject : Boolean;
-  type : String ;
-  typeLabel : String;
-  property : String;
-  propertyLabel : String;
-  dataType : String;
-  dataTypeLabel : String;
+  private annotation : Annotation;
+  // isSubject : Boolean;
+  // type : String ;
+  // typeLabel : String;
+  // property : String;
+  // propertyLabel : String;
+  // dataType : String;
+  // dataTypeLabel : String;
   colContent : any[];
   colId : any;
   header : any;
@@ -48,7 +49,9 @@ export class DetailModeComponent implements OnInit, OnDestroy{
 
 
   ngOnInit() {
-    // this.colId = this.annotationService.colNum;
+    this.colId = this.annotationService.colNum;
+    this.annotation = this.annotationService.getAnnotation(this.colId);
+
     // this.isSubject = this.annotationService.isSubject[this.colId];
     // this.type = this.annotationService.type[this.colId];
     // this.typeLabel = this.annotationService.typeLabel[this.colId];
@@ -56,13 +59,14 @@ export class DetailModeComponent implements OnInit, OnDestroy{
     // this.propertyLabel = this.annotationService.propertyLabel[this.colId];
     // this.dataType = this.annotationService.dataType[this.colId];
     // this.dataTypeLabel = this.annotationService.dataTypeLabel[this.colId];
-    //  this.colContent = this.annotationService.col.map(function makeObject( x ) { return { value: x }});
+    this.colContent = this.annotationService.colContent.map(function makeObject( x ) { return { value: x }});
     // console.log(this.colContent);
     // console.log(this.data);
-    // this.header = this.annotationService.header;
+    this.header = this.annotationService.header;
   }
 
   ngOnDestroy() {
+    this.annotationService.setAnnotation(this.colId, this.annotation);
     //there will be n entities for n column, so onDestroy we need to send the data at the correct instance of
     // annotationForm, identify by colId I think
   //   this.annotationService.isSubject[this.colId] = this.isSubject;
@@ -79,36 +83,36 @@ export class DetailModeComponent implements OnInit, OnDestroy{
     let typeInput = (<HTMLInputElement> (document.getElementById("Type"))).value;
     let typeLabelInput = (<HTMLInputElement> (document.getElementById("TypeLabel"))).value;
     if ("" != typeInput)
-        this.type = typeInput;
+        this.annotation.type = typeInput;
     if ("" != typeLabelInput)
-      this.typeLabel = typeLabelInput;
+      this.annotation.typeLabel = typeLabelInput;
 
-    if (!this.isSubject){
+    if (!this.annotation.isSubject){
       let propertyInput = (<HTMLInputElement> (document.getElementById("Property"))).value;
       let propertyLabelInput = (<HTMLInputElement> (document.getElementById("PropertyLabel"))).value;
       let dataTypeLabelInput = (<HTMLInputElement> (document.getElementById("DataTypeLabel"))).value;
 
       if ("" != propertyInput)
-        this.property = propertyInput;
+        this.annotation.property = propertyInput;
       if ("" != propertyLabelInput)
-        this.propertyLabel = propertyLabelInput;
+        this.annotation.propertyLabel = propertyLabelInput;
       if ("" != dataTypeLabelInput)
-        this.dataTypeLabel = dataTypeLabelInput;
+        this.annotation.dataTypeLabel = dataTypeLabelInput;
 
 
     }
   }
 
-  objectSelect() {
-    this.isSubject = false;
-  }
+  // objectSelect() {
+  //   this.isSubject = false;
+  // }
 
   subjectSelect(isSubject) {
     if (isSubject == 'O'){
-      this.isSubject = false;
+      this.annotation.isSubject = false;
     }
     else{
-      this.isSubject = true;
+      this.annotation.isSubject = true;
     }
   }
 
@@ -122,10 +126,10 @@ export class DetailModeComponent implements OnInit, OnDestroy{
 
   dataTypeSelect(dataType){
     if (dataType == "URL"){
-      this.dataType = dataType;
+      this.annotation.dataType = dataType;
     }
     else{
-      this.dataType = dataType;
+      this.annotation.dataType = dataType;
     }
   }
 

@@ -5,14 +5,14 @@
 
 Hello, i'm DetailMode <br>
 
-Subject : {{ isSubject }} <br>
-Type : {{ type }} <br>
-TypeLabel : {{ typeLabel }}<br>
-<div *ngIf=" !isSubject ">
-  Property : {{ property }} <br>
-  PropertyLabel : {{ propertyLabel }} <br>
-  DataType : {{ dataType }} <br>
-  DataTypeLabel : {{ dataTypeLabel }} <br>
+Subject : {{ annotation.isSubject }} <br>
+Type : {{ annotation.type }} <br>
+TypeLabel : {{ annotation.typeLabel }}<br>
+<div *ngIf=" !annotation.isSubject ">
+  Property : {{ annotation.property }} <br>
+  PropertyLabel : {{ annotation.propertyLabel }} <br>
+  DataType : {{ annotation.dataType }} <br>
+  DataTypeLabel : {{ annotation.dataTypeLabel }} <br>
 </div>
 <div id = "annotation-component">
   <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
@@ -32,20 +32,20 @@ TypeLabel : {{ typeLabel }}<br>
 
   <div>
     <ngl-form-element label="Input Label" [error]="hasError ? error : null" class="slds-m-top--small">
-      <input nglFormControl type="text" id="{{ colId }}.Type" placeholder="Insert here type" value="{{ type }}"
+      <input nglFormControl type="text" id="{{ colId }}.Type" placeholder="Insert here type" value="{{ annotation.type }}"
              [required]="required">
       <input nglFormControl type="text" id="{{ colId }}.TypeLabel" placeholder="Insert here type label"
-             value="{{ typeLabel }}" [required]="required"> <br>
+             value="{{ annotation.typeLabel }}" [required]="required"> <br>
 
 
       <!--<input id="{{ colId }}.Type" placeholder="Insert here type" value="{{ type }}"> <br>-->
       <!--<input id="{{ colId }}.TypeLabel" placeholder="Insert here type label" value="{{ typeLabel }}"> <br>-->
 
-      <div *ngIf=" !isSubject ">
+      <div *ngIf=" !annotation.isSubject ">
         <input nglFormControl type="text" id="{{ colId }}.Property" placeholder="Insert here property"
-               value = "{{ property }}"> <br>
+               value = "{{ annotation.property }}"> <br>
         <input nglFormControl type="text" id="{{ colId }}.PropertyLabel" placeholder="Insert here property label"
-               value = "{{ propertyLabel }}"> <br>
+               value = "{{ annotation.propertyLabel }}"> <br>
 
 
         <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
@@ -61,10 +61,10 @@ TypeLabel : {{ typeLabel }}<br>
         <!--<input type="radio" name="dataType" value="Literal" (click)="dataTypeLiteral()"> Literal <br>-->
 
         <input nglFormControl type="text" id="{{ colId }}.DataTypeLabel" placeholder="Insert here datatype label"
-               value="{{ dataTypeLabel }}"> <br>
+               value="{{ annotation.dataTypeLabel }}"> <br>
       </div>
     </ngl-form-element>
-    <button type="button" nglButton="neutral" (click)="saveChanges(colId)"> Apply </button>
+    <button type="button" nglButton="neutral" (click)="saveChanges()"> Apply </button>
   </div>
 </div>
 </div>

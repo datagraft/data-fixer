@@ -53,19 +53,6 @@ export class RdfComponent implements OnInit {
   }
 
   ngOnInit() {
-  //   let col = this.hot.countCols();
-  //   console.log("OnInit RDF");
-  //   this.annotationService.type = Array.apply(null, Array(5)).map(function () {return ""});
-  //   console.log(typeof this.annotationService.type);
-  //   this.annotationService.typeLabel = Array.apply(null, Array(5)).map(function () {return ""});
-  //   this.annotationService.property = Array.apply(null, Array(5)).map(function () {return ""});
-  //   this.annotationService.propertyLabel = Array.apply(null, Array(5)).map(function () {return ""});
-  //   this.annotationService.dataType = Array.apply(null, Array(5)).map(function () {return ""});
-  //   this.annotationService.dataTypeLabel = Array.apply(null, Array(5)).map(function () {return ""});
-  //   this.annotationService.isSubject = Array.apply(null, Array(5)).map(function () {return false});
-  //
-  //   if (this.annotationService.dataType == null){ console.log("NULL");}
-  //       else {console.log("CIAONE")};
   }
 
   dataEmitter() {
