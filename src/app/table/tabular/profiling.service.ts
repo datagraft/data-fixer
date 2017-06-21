@@ -104,7 +104,13 @@ export class ProfilingService {
               obj.value = histogram[i][key];
             }
             if (key == 'value') {
-              obj.name = histogram[i][key];
+              if (i == 0) {
+                obj.name = histogram[i][key];
+              }
+              else {
+                let str = histogram[i - 1][key] + ' - ' + histogram[i][key];
+                obj.name = str;
+              }
               chartLabels01.push(histogram[i][key]);
             }
             obj.index = i;
@@ -116,12 +122,12 @@ export class ProfilingService {
       let validity_chartData = [];
       validity_chartData.push(valid);
       validity_chartData.push(missing);
-      validity_chartData.push(outliers);
+      // validity_chartData.push(outliers);
 
-      let chartLabels02 = ['Valid', 'Invalid', 'Outliers'];
+      let chartLabels02 = ['Valid', 'Missing'];
 
       let validity_data = [];
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 2; i++) {
         let obj1 = { name: "", value: 0, index: 0 };
         obj1.name = chartLabels02[i];
         obj1.value = validity_chartData[i];
@@ -157,6 +163,8 @@ export class ProfilingService {
       profile.push(chartData_03);
       profile.push(chartLabels01);
       profile.push(chartLabels02);
+
+      console.log(profile);
 
       return Promise.resolve(profile);
     };
@@ -211,9 +219,6 @@ export class ProfilingService {
     let chartSubset: any;
 
     if (chartType == 1) {
-      chartSubset = chartSelection;
-    }
-    else if (chartType == 2) {
       if (chartSelection == 0) {
         chartSubset = "-";
         console.log('Not implemented yet');

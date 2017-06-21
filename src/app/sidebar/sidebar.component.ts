@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SidebarService } from './sidebar.service';
 import { SelectItem } from 'primeng/primeng';
 import { ListboxModule } from 'primeng/primeng';
@@ -14,7 +14,8 @@ import { INglDatatableSort, INglDatatableRowClick } from 'ng-lightning/ng-lightn
 
 export class SidebarComponent {
 
-  public data = this.transformations;
+  @Output() sidebarEmitter: EventEmitter<any>;
+
   private inputParameter: any;
 
   private striped: boolean = false;
@@ -27,21 +28,22 @@ export class SidebarComponent {
   public transformationsEnumerated: SelectItem[];
 
   public transformations: SelectItem[];
+  public data = this.transformations;
 
   constructor(private sidebarService: SidebarService) {
     this.transformationsEnumerated = [
-      { value: 0, label: 'Insert column to the right' },
-      { value: 1, label: 'Insert column to the left' },
+      { value: 0, label: 'Insert column on the right' },
+      { value: 1, label: 'Insert column on the left' },
       { value: 2, label: 'Insert row above' },
       { value: 3, label: 'Insert row below' },
-      { value: 4, label: 'Delete column' },
-      { value: 5, label: 'Delete row' },
+      { value: 4, label: 'Remove column' },
+      { value: 5, label: 'Remove row' },
       { value: 6, label: 'Replace (p1) with (p2)' },
       { value: 7, label: 'Set first row as header' },
       { value: 8, label: 'Set empty cells to value (p1)' },
       { value: 9, label: 'Set text to uppercase' },
       { value: 10, label: 'Convert to standard format' },
-      { value: 11, label: 'Pad trailing (p1) to value of length (p2)' },
+      { value: 11, label: 'Add (p1) to the end of values, max length is (p2)' },
       { value: 12, label: 'Reformat dates' },
       { value: 13, label: 'Concatenate cells' }
     ];
@@ -49,6 +51,14 @@ export class SidebarComponent {
     this.transformations = [
       { value: 7, label: 'Set first row as header' }
     ]
+
+    this.sidebarEmitter = new EventEmitter<any>();
+
+  }
+
+  onChange($event) {
+    this.sidebarEmitter.emit(true);
+    console.log('Test OK');
   }
 
 }

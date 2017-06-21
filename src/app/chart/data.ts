@@ -4,18 +4,42 @@ export var chart01_init = [
     "value": 100
   },
   {
-    "name": "Invalid",
-    "value": 0
-  },
-  {
-    "name": "Outliers",
+    "name": "Missing",
     "value": 0
   }
 ];
 
 export var chart02_init = [
   {
-    "name": "Subsets",
+    "name": "1",
     "value": 100
+  },
+  {
+    "name": "2",
+    "value": 75
+  },
+  {
+    "name": "3",
+    "value": 80
+  },
+  {
+    "name": "4",
+    "value": 60
+  },
+  {
+    "name": "5",
+    "value": 100
+  },
+  {
+    "name": "6",
+    "value": 75
+  },
+  {
+    "name": "7",
+    "value": 80
+  },
+  {
+    "name": "8",
+    "value": 60
   }
 ];

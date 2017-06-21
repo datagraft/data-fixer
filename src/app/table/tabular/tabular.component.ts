@@ -23,7 +23,7 @@ export class TabularComponent implements OnInit {
 
   // shared table resources
   public data: Array<any>;
-  public headers: Array<string>;
+  public headers: Array<any>;
   public inferredTypes: Object;
   public settings: any;
 
@@ -31,6 +31,7 @@ export class TabularComponent implements OnInit {
   public hot: any;
   // tabular mode/ rdf mode
   public tabularMode: boolean = true;
+  public selection: Array<any>;
 
   // visual profiling properties
   public chartData01: any;
@@ -97,10 +98,11 @@ export class TabularComponent implements OnInit {
       contextMenu: {
         callback: (key, options) => {
           if (key === 'row_above' || 'row_below' || 'remove_col' || 'remove_row' || 'col_left' || 'col_right' || 'undo' || 'redo' || 'zero') {
+            this.hot.getSelected();
             this.refresh();
           };
           if (key === "zero") {
-            this.emptyToZero(0);
+            this.emptyToZero(15.6);
           };
         },
         items: {
@@ -110,7 +112,7 @@ export class TabularComponent implements OnInit {
           "remove_row": {},
           "col_left": {},
           "col_right": {},
-          "zero": { name: 'Empty cells to zero' },
+          "zero": { name: 'Set empty cells to median' },
           "undo": {},
           "redo": {}
         },
@@ -119,7 +121,11 @@ export class TabularComponent implements OnInit {
       stretchH: 'all',
       className: 'htCenter htMiddle',
       afterSelection: (r, c, r2, c2) => {
-        this.refresh();
+        let preSelection = this.selection;
+        this.selection = this.hot.getSelected();
+        if (this.selection != preSelection) {
+          this.refresh();
+        }
       }
     };
     this.hot = new Handsontable(container, this.settings);
@@ -256,6 +262,14 @@ export class TabularComponent implements OnInit {
     this.refreshChartData();
     this.headers.push("cad-ref-id");
     this.headersUpdate(this.headers);
+  }
+
+  removeCol() {
+    for (var i = 0; i < this.data.length; i++) {
+      this.data[i].shift();
+    }
+    this.headers.shift();
+    this.refresh();
   }
 
   selectChartLabels(chartID) {
