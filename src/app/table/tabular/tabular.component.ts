@@ -102,7 +102,7 @@ export class TabularComponent implements OnInit {
             this.refresh();
           };
           if (key === "zero") {
-            this.emptyToZero(0);
+            this.emptyToZero(15.6);
           };
         },
         items: {
@@ -112,7 +112,7 @@ export class TabularComponent implements OnInit {
           "remove_row": {},
           "col_left": {},
           "col_right": {},
-          "zero": { name: 'Set empty cells to zero' },
+          "zero": { name: 'Set empty cells to median' },
           "undo": {},
           "redo": {}
         },

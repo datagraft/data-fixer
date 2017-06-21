@@ -122,8 +122,8 @@ export class ChartComponent implements OnInit {
     this.outliersTrace = {
       y: this.chartData03,
       type: 'box',
-      showlegend: true,
-      hoverinfo: "all",
+      showlegend: false,
+      hoverinfo: "x+y+text",
       fillcolor: '#2D2F33',
       jitter: 0.6,
       whiskerwidth: 0.6,

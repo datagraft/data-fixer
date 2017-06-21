@@ -219,9 +219,6 @@ export class ProfilingService {
     let chartSubset: any;
 
     if (chartType == 1) {
-      chartSubset = chartSelection;
-    }
-    else if (chartType == 2) {
       if (chartSelection == 0) {
         chartSubset = "-";
         console.log('Not implemented yet');
