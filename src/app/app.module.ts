@@ -22,6 +22,8 @@ import { RdfComponent } from './table/rdf/rdf.component';
 import { SharedService } from './shared.service';
 
 import 'hammerjs';
+import { VisualizationComponent } from './visualization/visualization.component';
+import { SidebarVisualizationComponent } from './sidebar.visualization/sidebar.visualization.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import 'hammerjs';
     ChartComponent,
     SidebarComponent,
     StepsComponent,
-    RdfComponent
+    RdfComponent,
+    VisualizationComponent,
+    SidebarVisualizationComponent
   ],
   imports: [
     BrowserModule,

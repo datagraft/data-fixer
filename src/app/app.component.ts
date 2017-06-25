@@ -5,6 +5,7 @@ import { SidebarImportComponent } from './sidebar.import/sidebar.import.componen
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ChartComponent } from './chart/chart.component';
 import { StepsComponent } from './steps/steps.component';
+import { VisualizationComponent } from './visualization/visualization.component';
 
 import { SharedService } from './shared.service';
 import { SidebarImportService } from './sidebar.import/sidebar.import.service';
@@ -19,7 +20,7 @@ import { RdfService } from './table/rdf/rdf.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, SharedTableService, RdfService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent]
+  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, SharedTableService, RdfService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent, VisualizationComponent]
 })
 
 export class AppComponent implements OnInit {
@@ -37,8 +38,10 @@ export class AppComponent implements OnInit {
 
   private tabularMode: boolean = true;
   private rdfMode: boolean = false;
+  private visualizationMode: boolean = false;
   private linkTabular: String;
   private linkRDF: String;
+  private linkVisualization: String;
   private activated = "active nav-link"
   private deactivated = "nav-link"
 
@@ -59,24 +62,36 @@ export class AppComponent implements OnInit {
     this.stepSequence = this.sharedService.initialiseStepSequence();
     this.linkTabular = this.activated;
     this.linkRDF = this.deactivated;
+    this.linkVisualization = this.deactivated;
   }
 
   setTabularMode() {
-    this.setViewMode(true, this.activated, this.deactivated);
+    this.tabularMode = true;
+    this.setViewMode(true, false, this.activated, this.deactivated, this.deactivated);
     this.tabularComponent.tabularMode = true;
     this.tabularComponent.tabMode();
   }
 
   setRdfMode() {
-    this.setViewMode(false, this.deactivated, this.activated);
+    this.setViewMode(false, false, this.deactivated, this.activated, this.deactivated);
     this.tabularComponent.tabularMode = false;
     this.tabularComponent.rdfMode();
   }
 
-  setViewMode(tabularMode, tabularStatus, rdfStatus) {
+  setVisualizationMode() {
+    this.tabularMode = false;
+    this.visualizationMode = true;
+    this.setViewMode(false, true, this.deactivated, this.deactivated, this.activated);
+    this.tabularComponent.tabularMode = false;
+    this.tabularComponent.rdfMode();
+  }
+
+  setViewMode(tabularMode, visualizationMode, tabularStatus, rdfStatus, visualizationStatus) {
     this.linkTabular = tabularStatus;
     this.linkRDF = rdfStatus;
+    this.linkVisualization = visualizationStatus;
     this.tabularMode = tabularMode;
+    this.visualizationMode = visualizationMode;
   }
 
   setDisplay() {

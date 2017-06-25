@@ -82,9 +82,9 @@ export class RdfComponent implements OnInit {
     this.hot.setDataAtCell(0, 1, this.actor);
     this.hot.updateSettings(this.settings);
 
-    console.log('data: ', this.data);
-    console.log('headers: ', this.headers);
-    console.log('inferredTypes: ', this.inferredTypes);
+    // console.log('data: ', this.data);
+    // console.log('headers: ', this.headers);
+    // console.log('inferredTypes: ', this.inferredTypes);
   }
 
 }
