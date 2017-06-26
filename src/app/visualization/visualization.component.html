@@ -1,3 +1,17 @@
-<p>
-  visualization works!
-</p>
+<!-- Visualization mode section -->
+<div class="content-container">
+  <!-- Main content area -->
+  <div class="content-area">
+    <button type="submit" (click)="getDataRaw()" class="btn btn-primary btn-sm">Import</button>
+  </div>
+
+  <!-- Sidebar section -->
+  <nav class="sidenav">
+    <clr-tabs>
+      <clr-tab-link>Visualizations</clr-tab-link>
+      <clr-tab-content [clrTabContentId]="'visualizations'" [clrTabContentActive]="true">
+      </clr-tab-content>
+    </clr-tabs>
+
+  </nav>
+</div>

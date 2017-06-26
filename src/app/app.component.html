@@ -30,14 +30,11 @@
   </header>
 
   <!-- Tabular/ rdf/ visualization mode section -->
-  <div class="content-container">
+  <div class="content-container" *ngIf="tabularMode">
     <!-- Main content area -->
     <div class="content-area">
-      <div class="tabular" *ngIf="tabularMode">
+      <div class="tabular">
         <tabular [profileSubset]="profileSubset" (profileSubsetEmitter)="onProfileSubsetEmitted($event)" (tableSelectedEmitter)="onTableSelectedEmitted($event)"></tabular>
-      </div>
-      <div class="visualization" *ngIf="visualizationMode">
-        <visualization></visualization>
       </div>
     </div>
 
@@ -74,10 +71,11 @@
         </clr-tab-content>
       </clr-tabs>
 
-      <!-- Visualization mode -->
-      <sidebarvisualization *ngIf="visualizationMode"></sidebarvisualization>
-
     </nav>
+  </div>
+
+  <div class="visualization" *ngIf="visualizationMode">
+    <visualization></visualization>
   </div>
 
 </div>

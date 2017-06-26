@@ -11,8 +11,6 @@ export class SidebarVisualizationComponent implements OnInit {
 
   constructor(private sidebarVisualizationService: SidebarVisualizationService) { }
 
-  ngOnInit() {
-    this.sidebarVisualizationService.getDataVisualization();
-  }
+  ngOnInit() { }
 
 }

@@ -18,12 +18,11 @@ import { SidebarImportComponent } from './sidebar.import/sidebar.import.componen
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StepsComponent } from './steps/steps.component';
 import { RdfComponent } from './table/rdf/rdf.component';
+import { VisualizationComponent } from './visualization/visualization.component';
 
 import { SharedService } from './shared.service';
 
 import 'hammerjs';
-import { VisualizationComponent } from './visualization/visualization.component';
-import { SidebarVisualizationComponent } from './sidebar.visualization/sidebar.visualization.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +33,7 @@ import { SidebarVisualizationComponent } from './sidebar.visualization/sidebar.v
     SidebarComponent,
     StepsComponent,
     RdfComponent,
-    VisualizationComponent,
-    SidebarVisualizationComponent
+    VisualizationComponent
   ],
   imports: [
     BrowserModule,

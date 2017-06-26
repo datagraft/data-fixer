@@ -86,7 +86,11 @@ export class SidebarImportService {
     else if (selectFile == 'RDF') {
       filePath = './src/data/rdf.csv';
     }
+    else if (selectFile == 'Air quality Oslo') {
+      filePath = './src/data/aladin/no2.csv';
+    }
     this.data = datalib.csv({ url: filePath });
+    console.log(this.data);
     return this.data;
   }
 

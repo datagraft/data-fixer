@@ -14,13 +14,13 @@ import { ProfilingService } from './table/tabular/profiling.service';
 import { TransformationsService } from './table/tabular/transformations.service';
 import { SharedTableService } from './table/shared.service';
 import { RdfService } from './table/rdf/rdf.service';
-
+import { VisualizationService } from './visualization/visualization.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, SharedTableService, RdfService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent, VisualizationComponent]
+  providers: [SharedService, SidebarImportService, SidebarService, ProfilingService, TransformationsService, SharedTableService, RdfService, VisualizationService, TabularComponent, RdfComponent, ChartComponent, SidebarImportComponent, SidebarComponent, StepsComponent, VisualizationComponent]
 })
 
 export class AppComponent implements OnInit {
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
   public dataParsedRaw: any;
   public ruleBasedSelectionData: any[];
 
-  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService, private sharedTableService: SharedTableService) { }
+  constructor(private sharedService: SharedService, private sidebarImportService: SidebarImportService, private sidebarService: SidebarService, private sharedTableService: SharedTableService, private visualizationService: VisualizationService) { }
 
   ngOnInit() {
     this.profileSubset = new Object();
