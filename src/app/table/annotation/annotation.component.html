@@ -2,7 +2,9 @@
 
     <div class = "row">
       <div class="col-xs-4">
-        <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null">
+
+        <!-- here there will be markers : Subject, Object
+        <!--<fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null">
           <template nglFormLabel></template>
 
           <ngl-form-group-element *ngFor="let char of ['S', 'O']">
@@ -14,7 +16,7 @@
 
 
           </ngl-form-group-element>
-        </fieldset>
+        </fieldset>-->
       </div>
       <div class="col-xs-4">
 
@@ -23,14 +25,12 @@
       </div>
     </div>
 
-  <div *ngIf = " first ">
+
     <ngl-form-element label="Input Label" [error]="hasError ? error : null" class="slds-m-top--small">
       <input nglFormControl type="text" id="{{ colId }}.Type" placeholder="Insert here type" value="{{ annotation.type }}"
              [required]="required">
       <input nglFormControl type="text" id="{{ colId }}.TypeLabel" placeholder="Insert here type label"
              value="{{ annotation.typeLabel }}" [required]="required"> <br>
-
-      <div *ngIf=" !annotation.isSubject && first ">
         <input nglFormControl type="text" id="{{ colId }}.Property" placeholder="Insert here property"
                value = "{{ annotation.property }}"> <br>
         <input nglFormControl type="text" id="{{ colId }}.PropertyLabel" placeholder="Insert here property label"
@@ -48,10 +48,9 @@
 
         <input nglFormControl type="text" id="{{ colId }}.DataTypeLabel" placeholder="Insert here datatype label"
                value="{{ annotation.dataTypeLabel }}"> <br>
-      </div>
     </ngl-form-element>
     <button type="button" nglButton="neutral" (click)="saveChanges(colId)"> Apply </button>
-  </div>
+
 </div>
 
 

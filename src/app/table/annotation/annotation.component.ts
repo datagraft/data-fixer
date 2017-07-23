@@ -40,12 +40,15 @@ export class AnnotationForm implements OnInit, OnDestroy {
   public first = false;
 
 
-  constructor(private rdfService: RdfService, public annotationService: AnnotationService) {  }
+  constructor(private rdfService: RdfService, public annotationService: AnnotationService) { }
 
 
 
   ngOnInit(){
-    this.annotation = this.annotationService.getAnnotation(this.colId);
+    this.annotation = new Annotation();
+    if (this.annotationService.isFull)
+      this.annotation = this.annotationService.getAnnotation(this.colId);
+    console.log("AnnotationForm init");
     // console.log(this.annotation.dataTypeLabel);
     // this.isSubject = annotation.isSubject;
     // this.type = annotation.type;
@@ -58,6 +61,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.annotationService.setAnnotation(this.colId, this.annotation);
+    this.annotationService.isFull = true;
   //   this.annotationService.isSubject[this.colId] = this.isSubject;
   //   this.annotationService.type[this.colId] = this.type;
   //   this.annotationService.typeLabel[this.colId] = this.typeLabel
@@ -76,6 +80,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
   // }
 
   saveChanges(colId) {
+    this.annotation.index = colId;
     this.annotation.type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Type")))).value;
     this.annotation.typeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".TypeLabel")))).value;
     if (!this.annotation.isSubject) {
@@ -91,7 +96,6 @@ export class AnnotationForm implements OnInit, OnDestroy {
   }
 
   subjectSelect(isSubject) {
-    this.first = true;
     if (isSubject == 'O'){
       this.annotation.isSubject = false;
     }

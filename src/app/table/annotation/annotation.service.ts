@@ -107,12 +107,18 @@ export class AnnotationService {
   public colNum;
   public data;
 
+  public isFull = false;
+
   constructor(public http : Http) { };
 
   //call the remote service that try to annotate the table, after that map the results in the arrays into annotationService
   getRemoteResponse(){
     this.http.request('http://localhost:3000/response').subscribe((res :Response) => {
       let response = res.json();
+      //get annotation from remote service
+      //first get annotation of named entity columns
+      //after get annotation of literal columns
+      //in the end (it doesn't even matter) sort annotation through the id
       this.annotations = response.neCols.map((obj: Object) => { return new Annotation(obj)});
       let b = response.litCols.map((obj: Object) => { return new Annotation(obj)});
 
@@ -126,6 +132,7 @@ export class AnnotationService {
     (err : any) => {
 
     });
+    this.isFull = true;
   }
 
   setAnnotation(colId, annotation : Annotation){

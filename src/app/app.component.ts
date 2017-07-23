@@ -72,7 +72,6 @@ export class AppComponent implements OnInit {
     this.stepSequence = this.sharedService.initialiseStepSequence();
     this.linkTabular = this.activated;
     this.linkRDF = this.deactivated;
-    this.annotationService.getRemoteResponse();
   }
 
   setTabularMode() {
