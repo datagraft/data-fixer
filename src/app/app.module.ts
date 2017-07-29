@@ -19,6 +19,7 @@ import { StepsComponent } from './steps/steps.component';
 import { RdfComponent } from './table/rdf/rdf.component';
 import {AnnotationForm} from './table/annotation/annotation.component';
 import {DetailModeComponent} from './table/annotation/detailMode.component';
+import {Ng2CompleterModule} from "ng2-completer";
 
 import { SharedService } from './shared.service';
 import { CommonModule } from '@angular/common';
@@ -28,6 +29,7 @@ import {routing} from "./app.routing";
 import {HomeComponent} from "./home.component";
 import {AnnotationService} from "./table/annotation/annotation.service";
 import {RdfService} from "./table/rdf/rdf.service";
+
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import {RdfService} from "./table/rdf/rdf.service";
     RdfComponent,
     AnnotationForm,
     DetailModeComponent,
-    HomeComponent
+    HomeComponent,
+
   ],
   imports: [
     CommonModule,
@@ -54,7 +57,8 @@ import {RdfService} from "./table/rdf/rdf.service";
     NglModule.forRoot(),
     ClarityModule.forRoot(),
     FlexLayoutModule.forRoot(),
-    routing
+    routing,
+    Ng2CompleterModule
   ],
   providers: [SharedService, AnnotationService, RdfService],
   bootstrap: [HomeComponent]

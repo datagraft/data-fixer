@@ -145,4 +145,15 @@ export class AnnotationService {
   getHeader() {
     return this.header;
   }
+
+  /*AbstatAutofill(word){
+    let autofill = "";
+    this.http.request('').subscribe((res :Response) => {
+      this.autofill = res;
+    });
+    return autofill;
+  }*/
+
+  AbstatDomain(type,property,object){}
+
 }

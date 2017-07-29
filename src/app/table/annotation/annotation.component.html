@@ -17,6 +17,12 @@
 
           </ngl-form-group-element>
         </fieldset>-->
+
+        <!-- Markers!!! -->
+        <div>
+          <ngl-badge [type]="SubjectMarker" class="slds-m-horizontal--large"> Subject </ngl-badge>
+          <ngl-badge [type]="ObjectMarker" class="slds-m-horizontal--large"> Object </ngl-badge>
+        </div>
       </div>
       <div class="col-xs-4">
 
@@ -27,8 +33,8 @@
 
 
     <ngl-form-element label="Input Label" [error]="hasError ? error : null" class="slds-m-top--small">
-      <input nglFormControl type="text" id="{{ colId }}.Type" placeholder="Insert here type" value="{{ annotation.type }}"
-             [required]="required">
+      <ng2-completer nglFormControl type="text" id="{{ colId }}.Type" placeholder="Insert here type" [(ngModel)]="annotation.type"
+                     [datasource]="suggestions" [required]="required" onkeypress="refreshSuggestion(annotation.type)"></ng2-completer>
       <input nglFormControl type="text" id="{{ colId }}.TypeLabel" placeholder="Insert here type label"
              value="{{ annotation.typeLabel }}" [required]="required"> <br>
         <input nglFormControl type="text" id="{{ colId }}.Property" placeholder="Insert here property"

@@ -11,6 +11,7 @@ import {TransformationsService} from '../tabular/transformations.service';
 import {TabularComponent} from "../tabular/tabular.component";
 import {Annotation, AnnotationService} from "./annotation.service";
 import {RdfService} from "../rdf/rdf.service";
+import {CompleterService, CompleterData} from "ng2-completer";
 
 
 @Component({
@@ -29,6 +30,9 @@ export class AnnotationForm implements OnInit, OnDestroy {
   @Input() colContent : any[];
   @Input() header : any;
 
+  objectMarker = "default";
+  subjectMarker = "default";
+
   public annotation : Annotation;
   // public type: String;
   // public typeLabel: String;
@@ -39,10 +43,12 @@ export class AnnotationForm implements OnInit, OnDestroy {
   // public isSubject: Boolean;
   public first = false;
 
+  private suggestions;
 
-  constructor(private rdfService: RdfService, public annotationService: AnnotationService) { }
+  constructor(private rdfService: RdfService, public annotationService: AnnotationService, public completerService: CompleterService)
+  {
 
-
+  }
 
   ngOnInit(){
     this.annotation = new Annotation();
@@ -79,14 +85,22 @@ export class AnnotationForm implements OnInit, OnDestroy {
   //   this.dataType = "Literal";
   // }
 
+
+  //change document.getElementById, because doesn't work
   saveChanges(colId) {
     this.annotation.index = colId;
     this.annotation.type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Type")))).value;
     this.annotation.typeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".TypeLabel")))).value;
-    if (!this.annotation.isSubject) {
-      this.annotation.property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
-      this.annotation.propertyLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".PropertyLabel")))).value;
-      this.annotation.dataTypeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".DataTypeLabel")))).value;
+    this.annotation.property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
+    this.annotation.propertyLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".PropertyLabel")))).value;
+    this.annotation.dataTypeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".DataTypeLabel")))).value;
+    if (this.annotation.type != "" && this.annotation.property == "" && this.annotation.dataType == "")
+      this.subjectMarker = "inverse";
+    else if (this.annotation.type != "" && this.annotation.property != "" && this.annotation.dataType != "")
+      this.objectMarker = "inverse";
+    else {
+      this.objectMarker = "default";
+      this.subjectMarker = "default";
     }
   }
   goToDetailMode() {
@@ -110,5 +124,11 @@ export class AnnotationForm implements OnInit, OnDestroy {
     else {
       this.annotation.dataType = dataType;
     }
+  }
+
+  refreshSuggestion(input)
+  {
+    this.suggestions = this.completerService.remote('http://abstat.disco.unimib.it/api/v1/suggestions?query='
+      + input + ',obj');
   }
 }
