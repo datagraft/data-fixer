@@ -1,61 +1,61 @@
 <div id = "annotation-component">
 
-    <div class = "row">
-      <div class="col-xs-4">
+  <div class = "row">
+    <div class="col-xs-4">
 
-        <!-- here there will be markers : Subject, Object
-        <!--<fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null">
-          <template nglFormLabel></template>
+      <!-- here there will be markers : Subject, Object
+      <!--<fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null">
+        <template nglFormLabel></template>
 
-          <ngl-form-group-element *ngFor="let char of ['S', 'O']">
-            <template nglFormLabel>{{char}}</template>
+        <ngl-form-group-element *ngFor="let char of ['S', 'O']">
+          <template nglFormLabel>{{char}}</template>
 
-            <input
-              nglFormControl id="{{ colId }}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject"
-              (click)="subjectSelect( char ) ">
+          <input
+            nglFormControl id="{{ colId }}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject"
+            (click)="subjectSelect( char ) ">
 
 
-          </ngl-form-group-element>
-        </fieldset>-->
-
-        <!-- Markers!!! -->
-        <div>
-          <ngl-badge [type]="SubjectMarker" class="slds-m-horizontal--large"> Subject </ngl-badge>
-          <ngl-badge [type]="ObjectMarker" class="slds-m-horizontal--large"> Object </ngl-badge>
-        </div>
-      </div>
-      <div class="col-xs-4">
-
-          <a class="btn btn-sm" [routerLink]="['/detail']"  (click) = "goToDetailMode()"> Detail page </a><br>
-
-      </div>
+        </ngl-form-group-element>
+      </fieldset>-->
+    </div>
+    <div>
+      <ngl-badge [type]="SubjectMarker" class="slds-m-horizontal--large"> Subject </ngl-badge>
+      <ngl-badge [type]="ObjectMarker" class="slds-m-horizontal--large"> Object </ngl-badge>
     </div>
 
 
-    <ngl-form-element label="Input Label" [error]="hasError ? error : null" class="slds-m-top--small">
-      <ng2-completer nglFormControl type="text" id="{{ colId }}.Type" placeholder="Insert here type" [(ngModel)]="annotation.type"
-                     [datasource]="suggestions" [required]="required" onkeypress="refreshSuggestion(annotation.type)"></ng2-completer>
-      <input nglFormControl type="text" id="{{ colId }}.TypeLabel" placeholder="Insert here type label"
-             value="{{ annotation.typeLabel }}" [required]="required"> <br>
-        <input nglFormControl type="text" id="{{ colId }}.Property" placeholder="Insert here property"
-               value = "{{ annotation.property }}"> <br>
-        <input nglFormControl type="text" id="{{ colId }}.PropertyLabel" placeholder="Insert here property label"
-               value = "{{ annotation.propertyLabel }}"> <br>
+    <div class="col-xs-4">
+
+      <a class="btn btn-sm" [routerLink]="['/detail']"  (click) = "goToDetailMode()"> Detail page </a><br>
+
+    </div>
+  </div>
 
 
-        <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
-          <template nglFormLabel><i>Select datatype of object</i></template>
-          <ngl-form-group-element *ngFor="let dataType of ['URL', 'Literal']">
-            <template nglFormLabel>{{dataType}}</template>
-            <input nglFormControl type="radio"  name="{{ colId }}.dataType" value="URL" (click)="dataTypeSelect(dataType)">
+  <ngl-form-element label="Input Label" [error]="hasError ? error : null" class="slds-m-top--small">
+    <input nglFormControl type="text" attr.data-value="{{ colId }}.Type" placeholder="Insert here type" value="{{ annotation.type }}"
+           [required]="required">
+    <input nglFormControl type="text" attr.data-value="{{ colId }}.TypeLabel" placeholder="Insert here type label"
+           value="{{ annotation.typeLabel }}" [required]="required"> <br>
+    <input nglFormControl type="text" attr.data-value="{{ colId }}.Property" placeholder="Insert here property"
+           value = "{{ annotation.property }}"> <br>
+    <input nglFormControl type="text" attr.data-value="{{ colId }}.PropertyLabel" placeholder="Insert here property label"
+           value = "{{ annotation.propertyLabel }}"> <br>
 
-          </ngl-form-group-element>
-        </fieldset>
 
-        <input nglFormControl type="text" id="{{ colId }}.DataTypeLabel" placeholder="Insert here datatype label"
-               value="{{ annotation.dataTypeLabel }}"> <br>
-    </ngl-form-element>
-    <button type="button" nglButton="neutral" (click)="saveChanges(colId)"> Apply </button>
+    <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
+      <template nglFormLabel><i>Select datatype of object</i></template>
+      <ngl-form-group-element *ngFor="let dataType of ['URL', 'Literal']">
+        <template nglFormLabel>{{dataType}}</template>
+        <input nglFormControl type="radio"  name="{{ colId }}.dataType" value="URL" (click)="dataTypeSelect(dataType)">
+
+      </ngl-form-group-element>
+    </fieldset>
+
+    <input nglFormControl type="text" attr.data-value="{{ colId }}.DataTypeLabel" placeholder="Insert here datatype label"
+           value="{{ annotation.dataTypeLabel }}"> <br>
+  </ngl-form-element>
+  <button type="button" nglButton="neutral" (click)="saveChanges(colId)"> Apply </button>
 
 </div>
 

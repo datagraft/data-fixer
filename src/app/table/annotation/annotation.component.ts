@@ -11,7 +11,6 @@ import {TransformationsService} from '../tabular/transformations.service';
 import {TabularComponent} from "../tabular/tabular.component";
 import {Annotation, AnnotationService} from "./annotation.service";
 import {RdfService} from "../rdf/rdf.service";
-import {CompleterService, CompleterData} from "ng2-completer";
 
 
 @Component({
@@ -43,12 +42,10 @@ export class AnnotationForm implements OnInit, OnDestroy {
   // public isSubject: Boolean;
   public first = false;
 
-  private suggestions;
 
-  constructor(private rdfService: RdfService, public annotationService: AnnotationService, public completerService: CompleterService)
-  {
+  constructor(private rdfService: RdfService, public annotationService: AnnotationService) { }
 
-  }
+
 
   ngOnInit(){
     this.annotation = new Annotation();
@@ -68,14 +65,14 @@ export class AnnotationForm implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.annotationService.setAnnotation(this.colId, this.annotation);
     this.annotationService.isFull = true;
-  //   this.annotationService.isSubject[this.colId] = this.isSubject;
-  //   this.annotationService.type[this.colId] = this.type;
-  //   this.annotationService.typeLabel[this.colId] = this.typeLabel
-  //   this.annotationService.property[this.colId] = this.property;
-  //   this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
-  //   this.annotationService.dataType[this.colId] = this.dataType;
-  //   this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
-  //
+    //   this.annotationService.isSubject[this.colId] = this.isSubject;
+    //   this.annotationService.type[this.colId] = this.type;
+    //   this.annotationService.typeLabel[this.colId] = this.typeLabel
+    //   this.annotationService.property[this.colId] = this.property;
+    //   this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
+    //   this.annotationService.dataType[this.colId] = this.dataType;
+    //   this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
+    //
   }
   // dataTypeURL() {
   //   this.dataType = "URL";
@@ -85,15 +82,15 @@ export class AnnotationForm implements OnInit, OnDestroy {
   //   this.dataType = "Literal";
   // }
 
-
-  //change document.getElementById, because doesn't work
   saveChanges(colId) {
     this.annotation.index = colId;
-    this.annotation.type = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Type")))).value;
-    this.annotation.typeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".TypeLabel")))).value;
-    this.annotation.property = (<HTMLInputElement> (document.getElementById("".concat(colId, ".Property")))).value;
-    this.annotation.propertyLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".PropertyLabel")))).value;
-    this.annotation.dataTypeLabel = (<HTMLInputElement> (document.getElementById("".concat(colId, ".DataTypeLabel")))).value;
+    this.annotation.type = this.getInputValue(colId, ".Type");
+    this.annotation.typeLabel = this.getInputValue(colId, ".TypeLabel");;
+    if (!this.annotation.isSubject) {
+      this.annotation.property = this.getInputValue(colId, ".Property");;
+      this.annotation.propertyLabel = this.getInputValue(colId, ".PropertyLabel");
+      this.annotation.dataTypeLabel = this.getInputValue(colId, ".DataTypeLabel");
+    }
     if (this.annotation.type != "" && this.annotation.property == "" && this.annotation.dataType == "")
       this.subjectMarker = "inverse";
     else if (this.annotation.type != "" && this.annotation.property != "" && this.annotation.dataType != "")
@@ -126,9 +123,15 @@ export class AnnotationForm implements OnInit, OnDestroy {
     }
   }
 
-  refreshSuggestion(input)
-  {
-    this.suggestions = this.completerService.remote('http://abstat.disco.unimib.it/api/v1/suggestions?query='
-      + input + ',obj');
+  getInputValue(colId, selector){
+    let temp = (document.querySelectorAll('[data-value]'));
+    let i = 0;
+    let string = "".concat(colId, selector);
+    while((<HTMLInputElement> temp[i]).getAttribute("data-value") !== string) {
+      console.log(i);
+      console.log((<HTMLInputElement> temp[i]).getAttribute("data-value"));
+      i++;
+    }
+    return (<HTMLInputElement> temp[i]).value;
   }
 }
