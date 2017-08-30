@@ -100,7 +100,7 @@ export class AnnotationService {
 
 
 
-  private annotations : Annotation[];
+  private annotations
 
   public colContent;
   public header;
@@ -109,7 +109,13 @@ export class AnnotationService {
 
   public isFull = false;
 
-  constructor(public http : Http) { };
+  constructor(public http : Http) {
+
+  };
+
+  init(){
+    this.annotations = new Array();
+  }
 
   //call the remote service that try to annotate the table, after that map the results in the arrays into annotationService
   getRemoteResponse(){

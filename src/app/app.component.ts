@@ -71,7 +71,8 @@ export class AppComponent implements OnInit {
     this.profileSubset.chart = 0;
     this.stepSequence = this.sharedService.initialiseStepSequence();
     this.linkTabular = this.activated;
-    this.linkRDF = this.deactivated;
+    this.linkRDF = this.deactivated
+    this.annotationService.init();
   }
 
   setTabularMode() {

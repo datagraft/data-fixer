@@ -92,12 +92,19 @@ export class AnnotationForm implements OnInit, OnDestroy {
       this.annotation.dataTypeLabel = this.getInputValue(colId, ".DataTypeLabel");
     }
     if (this.annotation.type != "" && this.annotation.property == "" && this.annotation.dataType == "")
+    {
       this.subjectMarker = "inverse";
+      console.log("SUBJECT");
+    }
     else if (this.annotation.type != "" && this.annotation.property != "" && this.annotation.dataType != "")
+    {
       this.objectMarker = "inverse";
+      console.log("OBJECT")
+    }
     else {
       this.objectMarker = "default";
       this.subjectMarker = "default";
+      console.log("NONE");
     }
   }
   goToDetailMode() {
@@ -125,13 +132,12 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
   getInputValue(colId, selector){
     let temp = (document.querySelectorAll('[data-value]'));
-    let i = 0;
+    let i =0;
     let string = "".concat(colId, selector);
     while((<HTMLInputElement> temp[i]).getAttribute("data-value") !== string) {
-      console.log(i);
-      console.log((<HTMLInputElement> temp[i]).getAttribute("data-value"));
       i++;
     }
+
     return (<HTMLInputElement> temp[i]).value;
   }
 }
