@@ -41,7 +41,7 @@ export class AnnotationForm implements OnInit, OnDestroy{
   // public source: String;
   // public sourceLabel: String;
   // public property: String;
-  // public propertyLabel: String;
+  // public propertyLabel: String\;
   // public columnType: String;
   // public columnTypeLabel: String;
   // public isSubject: Boolean;

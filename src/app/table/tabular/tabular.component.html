@@ -13,6 +13,30 @@
   </table>
 </div>
 
+<div>
+
+  <table class="table">
+    <thead>
+    <tr>
+
+      <th *ngFor="let h of headers">
+        {{h}}
+      </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rows of data">
+      <td *ngFor="let row of rows">
+        {{row}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
 <div id='tabular'>
 </div>
 

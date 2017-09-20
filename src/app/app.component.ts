@@ -134,6 +134,7 @@ export class AppComponent implements OnInit {
     this.dataParsed = this.sidebarImportComponent.getData();
     this.tabularComponent.data = this.dataParsed;
     this.tabularComponent.headers = this.sidebarImportComponent.headers;
+    //load data into Handsontable
     this.tabularComponent.hot.loadData(this.tabularComponent.data);
     this.stepSequence = this.sharedService.initialiseStepSequence();
     this.stepsComponent.stepsCounter = 1;
@@ -142,6 +143,7 @@ export class AppComponent implements OnInit {
     for (let i = 0; i < this.dataParsed.length; i++) {
       this.dataParsedRaw.push(this.dataParsed[i].slice(0));
     }
+
   }
 
   applyTransformation(recreateSteps?: boolean, stepsIndex?: number) {
