@@ -128,7 +128,7 @@ export class AnnotationService {
   public header;
   public colNum;
   public data;
-  public colNames : string[];
+  public colNames : string[] ;
 
   public isFull = false;
 
@@ -186,5 +186,12 @@ export class AnnotationService {
   }
 
   AbstatDomain(type,property,object){}
+
+  generateColumnsName(headers){
+    for(let i = 0; i<headers.length; i++) {
+      this.colNames[i] = "".concat(i.toString(), ": ", headers[i]);
+    }
+    console.log("GENERATI i colNames");
+  }
 
 }

@@ -5,6 +5,7 @@ import { RdfComponent } from '../rdf/rdf.component';
 import { SharedTableService } from '../shared.service';
 import { ProfilingService } from './profiling.service';
 import { TransformationsService } from './transformations.service';
+import { AnnotationService } from '../annotation/annotation.service';
 
 declare var Handsontable: any;
 
@@ -48,7 +49,7 @@ export class TabularComponent implements OnInit {
 
   constructor(private chartComponent: ChartComponent, private rdfComponent: RdfComponent,
               private sharedTableService: SharedTableService, private profilingService: ProfilingService,
-              private transformationsService: TransformationsService) {
+              private transformationsService: TransformationsService, private annotationService: AnnotationService) {
     // init table
     let initialize = [];
     for (let i = 0; i <= 18; i++) {
@@ -81,6 +82,12 @@ export class TabularComponent implements OnInit {
     this.inferredTypes = this.profilingService.inferDataTypes(this.data);
     this.rdfComponent.inferredTypes = this.inferredTypes;
     this.object = false;
+
+    //i call this method here because is the only position that know all headers and it is called before generate annotationForms
+    //because i need those informations (the colNames Array) when i create the annotationForms
+    this.annotationService.generateColumnsName(this.headers);
+
+
     this.rdfComponent.init();
   }
 

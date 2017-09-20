@@ -1,4 +1,7 @@
-import {Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy} from '@angular/core';
+import {
+  Component, OnInit, ViewChild, Input, Output, EventEmitter,
+  OnDestroy, AfterContentChecked, AfterViewChecked
+} from '@angular/core';
 import {ChartComponent} from '../../chart/chart.component';
 import {RdfComponent} from '../rdf/rdf.component';
 import {DetailModeComponent} from './detailMode.component';
@@ -11,6 +14,7 @@ import {TransformationsService} from '../tabular/transformations.service';
 import {TabularComponent} from "../tabular/tabular.component";
 import {Annotation, AnnotationService} from "./annotation.service";
 import {RdfService} from "../rdf/rdf.service";
+import {forEach} from "@angular/router/src/utils/collection";
 
 
 @Component({
@@ -21,7 +25,7 @@ import {RdfService} from "../rdf/rdf.service";
     RouterModule]
 })
 
-export class AnnotationForm implements OnInit, OnDestroy {
+export class AnnotationForm implements OnInit, OnDestroy{
 
   @ViewChild(DetailModeComponent) detailMode: DetailModeComponent;
 
@@ -44,7 +48,9 @@ export class AnnotationForm implements OnInit, OnDestroy {
   public first = false;
   typeSuggestions = ['dbo:person', 'foaf:person', 'person'];
   propertySuggestions = ['dbo:person', 'foaf:person', 'person'];
-  listOfSubjects = this.annotationService.colNames;
+  listOfSubjects: string[] = [];
+  colName;
+
 
 
   constructor(private rdfService: RdfService, public annotationService: AnnotationService) { }
@@ -53,10 +59,10 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
   ngOnInit(){
     this.annotation = new Annotation();
+    this.colName = this.colId.toString().concat( ": ", this.header);
     if (this.annotationService.isFull)
       this.annotation = this.annotationService.getAnnotation(this.colId);
-    this.annotationService.colNames[this.colId] = "".concat(this.colId.toString(), ": ", this.header)
-    console.log(this.annotation.colName);
+    this.getSubjects();
     // console.log(this.annotation.columnTypeLabel);
     // this.isSubject = annotation.isSubject;
     // this.source = annotation.source;
@@ -66,6 +72,12 @@ export class AnnotationForm implements OnInit, OnDestroy {
     // this.columnType = annotation.columnType;
     // this.columnTypeLabel = annotation.columnTypeLabel;
   }
+
+  // ngAfterViewChecked(){
+  //   this.colName = "".concat(this.colId.toString(), ": ", this.header);
+  //   this.annotationService.colNames[this.colId] = this.colName;
+  //   this.getSubjects();
+  // }
 
   ngOnDestroy() {
     this.annotationService.setAnnotation(this.colId, this.annotation);
@@ -147,5 +159,18 @@ export class AnnotationForm implements OnInit, OnDestroy {
   autocomplete(word){
     console.log("dentro");
     this.typeSuggestions = this.annotationService.abstatAutofill(word);
+  }
+
+
+
+  getSubjects(){
+
+    for(let i = 0; i<this.annotationService.colNames.length; i++){
+      if(this.annotationService.colNames[i] != this.colName)
+        this.listOfSubjects.push(this.annotationService.colNames[i]);
+
+    }
+    console.log(this.listOfSubjects);
+    console.log(this.colName);
   }
 }
