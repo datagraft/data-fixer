@@ -34,15 +34,17 @@ export class AnnotationForm implements OnInit, OnDestroy {
   myData = "primo";
 
   public annotation : Annotation;
-  // public type: String;
-  // public typeLabel: String;
+  // public source: String;
+  // public sourceLabel: String;
   // public property: String;
   // public propertyLabel: String;
-  // public dataType: String;
-  // public dataTypeLabel: String;
+  // public columnType: String;
+  // public columnTypeLabel: String;
   // public isSubject: Boolean;
   public first = false;
-  mySource = ['dbo:person', 'foaf:person', 'person'];
+  typeSuggestions = ['dbo:person', 'foaf:person', 'person'];
+  propertySuggestions = ['dbo:person', 'foaf:person', 'person'];
+  listOfSubjects = this.annotationService.colNames;
 
 
   constructor(private rdfService: RdfService, public annotationService: AnnotationService) { }
@@ -53,51 +55,51 @@ export class AnnotationForm implements OnInit, OnDestroy {
     this.annotation = new Annotation();
     if (this.annotationService.isFull)
       this.annotation = this.annotationService.getAnnotation(this.colId);
-      this.annotation.colName = "".concat(this.colId.toString(), ": ", this.header)
+    this.annotationService.colNames[this.colId] = "".concat(this.colId.toString(), ": ", this.header)
     console.log(this.annotation.colName);
-    // console.log(this.annotation.dataTypeLabel);
+    // console.log(this.annotation.columnTypeLabel);
     // this.isSubject = annotation.isSubject;
-    // this.type = annotation.type;
-    // this.typeLabel = annotation.typeLabel;
+    // this.source = annotation.source;
+    // this.sourceLabel = annotation.sourceLabel;
     // this.property = annotation.property;
     // this.propertyLabel = annotation.propertyLabel;
-    // this.dataType = annotation.dataType;
-    // this.dataTypeLabel = annotation.dataTypeLabel;
+    // this.columnType = annotation.columnType;
+    // this.columnTypeLabel = annotation.columnTypeLabel;
   }
 
   ngOnDestroy() {
     this.annotationService.setAnnotation(this.colId, this.annotation);
     this.annotationService.isFull = true;
     //   this.annotationService.isSubject[this.colId] = this.isSubject;
-    //   this.annotationService.type[this.colId] = this.type;
-    //   this.annotationService.typeLabel[this.colId] = this.typeLabel
+    //   this.annotationService.source[this.colId] = this.source;
+    //   this.annotationService.sourceLabel[this.colId] = this.sourceLabel
     //   this.annotationService.property[this.colId] = this.property;
     //   this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
-    //   this.annotationService.dataType[this.colId] = this.dataType;
-    //   this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
+    //   this.annotationService.columnType[this.colId] = this.columnType;
+    //   this.annotationService.columnTypeLabel[this.colId] = this.columnTypeLabel;
     //
   }
   // dataTypeURL() {
-  //   this.dataType = "URL";
+  //   this.columnType = "URL";
   // }
 
   // dataTypeLiteral() {
-  //   this.dataType = "Literal";
+  //   this.columnType = "Literal";
   // }
 
   saveChangesSmall(colId) {
     this.annotation.index = colId;
-    this.annotation.type = this.getInputValue(colId, ".Type");
+    this.annotation.source = this.getInputValue(colId, ".Source");
     if (!this.annotation.isSubject) {
       this.annotation.property = this.getInputValue(colId, ".Property");;
-      this.annotation.dataTypeLabel = this.getInputValue(colId, ".DataTypeLabel");
+      this.annotation.columnType= this.getInputValue(colId, ".ColumnType");
     }
-    if (this.annotation.type != "" && this.annotation.property == "" && this.annotation.dataType == "")
+    if (this.annotation.source != "" && this.annotation.property == "" && this.annotation.columnType == "")
     {
       this.subjectMarker = "inverse";
       console.log("SUBJECT");
     }
-    else if (this.annotation.type != "" && this.annotation.property != "" && this.annotation.dataType != "")
+    else if (this.annotation.source != "" && this.annotation.property != "" && this.annotation.columnType != "")
     {
       this.objectMarker = "inverse";
       console.log("OBJECT")
@@ -124,10 +126,10 @@ export class AnnotationForm implements OnInit, OnDestroy {
   }
   dataTypeSelect(dataType) {
     if (dataType == "URL") {
-      this.annotation.dataType = dataType;
+      this.annotation.columnDataType = dataType;
     }
     else {
-      this.annotation.dataType = dataType;
+      this.annotation.columnDataType = dataType;
     }
   }
 
@@ -144,7 +146,6 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
   autocomplete(word){
     console.log("dentro");
-    this.mySource = this.annotationService.abstatAutofill(word);
-    console.log(this.mySource);
+    this.typeSuggestions = this.annotationService.abstatAutofill(word);
   }
 }

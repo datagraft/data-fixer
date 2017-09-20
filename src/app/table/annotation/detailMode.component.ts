@@ -17,7 +17,7 @@ import {INglDatatableSort, INglDatatableRowClick} from 'ng-lightning/ng-lightnin
   providers: [ChartComponent, RdfComponent, SharedTableService, ProfilingService, TransformationsService]
 })
 
-//Detail Mode offers an accurate form for insert the annotation parameters, require the subject/object type and all off
+//Detail Mode offers an accurate form for insert the annotation parameters, require the subject/object source and all off
 //attributes for annotation (the same that you can add with annotation form)
 
 export class DetailModeComponent implements OnInit, OnDestroy{
@@ -25,12 +25,12 @@ export class DetailModeComponent implements OnInit, OnDestroy{
   //isSubject is true if the resource is marked as object in annotation form
   private annotation : Annotation;
   // isSubject : Boolean;
-  // type : String ;
-  // typeLabel : String;
+  // source : String ;
+  // sourceLabel : String;
   // property : String;
   // propertyLabel : String;
-  // dataType : String;
-  // dataTypeLabel : String;
+  // columnType : String;
+  // columnTypeLabel : String;
   colContent : any[];
   colId : any;
   header : any;
@@ -53,12 +53,12 @@ export class DetailModeComponent implements OnInit, OnDestroy{
     this.annotation = this.annotationService.getAnnotation(this.colId);
 
     // this.isSubject = this.annotationService.isSubject[this.colId];
-    // this.type = this.annotationService.type[this.colId];
-    // this.typeLabel = this.annotationService.typeLabel[this.colId];
+    // this.source = this.annotationService.source[this.colId];
+    // this.sourceLabel = this.annotationService.sourceLabel[this.colId];
     // this.property = this.annotationService.property[this.colId];
     // this.propertyLabel = this.annotationService.propertyLabel[this.colId];
-    // this.dataType = this.annotationService.dataType[this.colId];
-    // this.dataTypeLabel = this.annotationService.dataTypeLabel[this.colId];
+    // this.columnType = this.annotationService.columnType[this.colId];
+    // this.columnTypeLabel = this.annotationService.columnTypeLabel[this.colId];
     this.colContent = this.annotationService.colContent.map(function makeObject( x ) { return { value: x }});
     // console.log(this.colContent);
     // console.log(this.data);
@@ -70,12 +70,12 @@ export class DetailModeComponent implements OnInit, OnDestroy{
     //there will be n entities for n column, so onDestroy we need to send the data at the correct instance of
     // annotationForm, identify by colId I think
   //   this.annotationService.isSubject[this.colId] = this.isSubject;
-  //   this.annotationService.type[this.colId] = this.type;
-  //   this.annotationService.typeLabel[this.colId] = this.typeLabel;
+  //   this.annotationService.source[this.colId] = this.source;
+  //   this.annotationService.sourceLabel[this.colId] = this.sourceLabel;
   //   this.annotationService.property[this.colId] = this.property;
   //   this.annotationService.propertyLabel[this.colId] = this.propertyLabel;
-  //   this.annotationService.dataType[this.colId] = this.dataType;
-  //   this.annotationService.dataTypeLabel[this.colId] = this.dataTypeLabel;
+  //   this.annotationService.columnType[this.colId] = this.columnType;
+  //   this.annotationService.columnTypeLabel[this.colId] = this.columnTypeLabel;
   }
 
   saveChanges() {
@@ -83,9 +83,9 @@ export class DetailModeComponent implements OnInit, OnDestroy{
     let typeInput = (<HTMLInputElement> (document.getElementById("Type"))).value;
     let typeLabelInput = (<HTMLInputElement> (document.getElementById("TypeLabel"))).value;
     if ("" != typeInput)
-        this.annotation.type = typeInput;
+        this.annotation.source = typeInput;
     if ("" != typeLabelInput)
-      this.annotation.typeLabel = typeLabelInput;
+      this.annotation.sourceLabel = typeLabelInput;
 
     if (!this.annotation.isSubject){
       let propertyInput = (<HTMLInputElement> (document.getElementById("Property"))).value;
@@ -97,7 +97,7 @@ export class DetailModeComponent implements OnInit, OnDestroy{
       if ("" != propertyLabelInput)
         this.annotation.propertyLabel = propertyLabelInput;
       if ("" != dataTypeLabelInput)
-        this.annotation.dataTypeLabel = dataTypeLabelInput;
+        this.annotation.columnTypeLabel = dataTypeLabelInput;
 
 
     }
@@ -117,19 +117,19 @@ export class DetailModeComponent implements OnInit, OnDestroy{
   }
 
   // dataTypeURL(){
-  //   this.dataType = "URL";
+  //   this.columnType = "URL";
   // }
   //
   // dataTypeLiteral(){
-  //   this.dataType = "Literal";
+  //   this.columnType = "Literal";
   // }
 
   dataTypeSelect(dataType){
     if (dataType == "URL"){
-      this.annotation.dataType = dataType;
+      this.annotation.columnType = dataType;
     }
     else{
-      this.annotation.dataType = dataType;
+      this.annotation.columnType = dataType;
     }
   }
 
