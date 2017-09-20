@@ -83,8 +83,11 @@ export class SidebarImportService {
     else if (selectFile == 'Weather') {
       filePath = './src/data/seattle.csv';
     }
-    else if (selectFile == 'RDF') {
-      filePath = './src/data/rdf.csv';
+    else if (selectFile == 'Customer') {
+      filePath = './src/data/customer.csv';
+    }
+    else if (selectFile == 'Product') {
+      filePath = './src/data/product.csv';
     }
     this.data = datalib.csv({ url: filePath });
     return this.data;

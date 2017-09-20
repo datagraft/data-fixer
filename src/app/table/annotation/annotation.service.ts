@@ -37,6 +37,11 @@ export class Annotation {
   set header(value: String) {
     this._header = value;
   }
+
+  set colName(value: String) {
+    this._colName = value;
+  }
+
   get index(): number {
     return this._index;
   }
@@ -72,6 +77,11 @@ export class Annotation {
   get header(): String {
     return this._header;
   }
+
+  get colName(): String {
+    return this._colName;
+  }
+
   private _index : number;
   private _type : String;
   private _typeLabel : String;
@@ -81,6 +91,7 @@ export class Annotation {
   private _dataTypeLabel : String;
   private _isSubject : Boolean;
   private _header : String;
+  private _colName: String;
 
   constructor(obj?: any) {
     this._index = obj != null && obj.index != null ? obj.index : -1;
@@ -92,6 +103,7 @@ export class Annotation {
     this._dataTypeLabel = obj && obj.dataTypeLabel || "";
     this._isSubject = false;
     this._header = obj && obj.header || "";
+    this._colName = obj && obj.colName || "";
   }
 }
 
@@ -152,13 +164,14 @@ export class AnnotationService {
     return this.header;
   }
 
-  /*AbstatAutofill(word){
+  abstatAutofill(word){
+    /*
     let autofill = "";
     this.http.request('').subscribe((res :Response) => {
       this.autofill = res;
-    });
-    return autofill;
-  }*/
+    });*/
+    return word;
+  }
 
   AbstatDomain(type,property,object){}
 

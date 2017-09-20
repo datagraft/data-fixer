@@ -20,6 +20,7 @@ import { RdfComponent } from './table/rdf/rdf.component';
 import {AnnotationForm} from './table/annotation/annotation.component';
 import {DetailModeComponent} from './table/annotation/detailMode.component';
 import {Ng2CompleterModule} from "ng2-completer";
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 
 import { SharedService } from './shared.service';
 import { CommonModule } from '@angular/common';
@@ -58,7 +59,8 @@ import {RdfService} from "./table/rdf/rdf.service";
     ClarityModule.forRoot(),
     FlexLayoutModule.forRoot(),
     routing,
-    Ng2CompleterModule
+    Ng2CompleterModule,
+    NguiAutoCompleteModule
   ],
   providers: [SharedService, AnnotationService, RdfService],
   bootstrap: [HomeComponent]

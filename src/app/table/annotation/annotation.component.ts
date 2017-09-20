@@ -31,6 +31,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
   objectMarker = "default";
   subjectMarker = "default";
+  myData = "primo";
 
   public annotation : Annotation;
   // public type: String;
@@ -41,6 +42,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
   // public dataTypeLabel: String;
   // public isSubject: Boolean;
   public first = false;
+  mySource = ['dbo:person', 'foaf:person', 'person'];
 
 
   constructor(private rdfService: RdfService, public annotationService: AnnotationService) { }
@@ -51,7 +53,8 @@ export class AnnotationForm implements OnInit, OnDestroy {
     this.annotation = new Annotation();
     if (this.annotationService.isFull)
       this.annotation = this.annotationService.getAnnotation(this.colId);
-    console.log("AnnotationForm init");
+      this.annotation.colName = "".concat(this.colId.toString(), ": ", this.header)
+    console.log(this.annotation.colName);
     // console.log(this.annotation.dataTypeLabel);
     // this.isSubject = annotation.isSubject;
     // this.type = annotation.type;
@@ -82,13 +85,11 @@ export class AnnotationForm implements OnInit, OnDestroy {
   //   this.dataType = "Literal";
   // }
 
-  saveChanges(colId) {
+  saveChangesSmall(colId) {
     this.annotation.index = colId;
     this.annotation.type = this.getInputValue(colId, ".Type");
-    this.annotation.typeLabel = this.getInputValue(colId, ".TypeLabel");;
     if (!this.annotation.isSubject) {
       this.annotation.property = this.getInputValue(colId, ".Property");;
-      this.annotation.propertyLabel = this.getInputValue(colId, ".PropertyLabel");
       this.annotation.dataTypeLabel = this.getInputValue(colId, ".DataTypeLabel");
     }
     if (this.annotation.type != "" && this.annotation.property == "" && this.annotation.dataType == "")
@@ -139,5 +140,11 @@ export class AnnotationForm implements OnInit, OnDestroy {
     }
 
     return (<HTMLInputElement> temp[i]).value;
+  }
+
+  autocomplete(word){
+    console.log("dentro");
+    this.mySource = this.annotationService.abstatAutofill(word);
+    console.log(this.mySource);
   }
 }

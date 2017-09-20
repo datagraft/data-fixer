@@ -18,44 +18,53 @@
         </ngl-form-group-element>
       </fieldset>-->
     </div>
+    {{annotation.colName}}<br>
+    <div class="col-xs-4">
+
+      <a class="btn btn-sm" [routerLink]="['/detail']"  (click) = "goToDetailMode()"> Detail page </a><br>
+
+    </div><br>
     <div>
       <ngl-badge [type]="subjectMarker" class="slds-m-horizontal--large"> Subject </ngl-badge>
       <ngl-badge [type]="objectMarker" class="slds-m-horizontal--large"> Object </ngl-badge>
     </div>
 
 
-    <div class="col-xs-4">
-
-      <a class="btn btn-sm" [routerLink]="['/detail']"  (click) = "goToDetailMode()"> Detail page </a><br>
-
-    </div>
   </div>
 
+<div>
+
+  <input nglFormControl auto-complete [(ngModel)]="annotation.dataType" [source]="suggestions" (keydown)="autocomplete()"
+         type="text" attr.data-value="{{ colId }}.DataTypeLabel" placeholder="Insert here type of column"
+         value="{{ annotation.dataTypeLabel }}"> <br>
+</div>
 
   <ngl-form-element label="Input Label" [error]="hasError ? error : null" class="slds-m-top--small">
-    <input nglFormControl type="text" attr.data-value="{{ colId }}.Type" placeholder="Insert here type" value="{{ annotation.type }}"
+    <input nglFormControl  auto-complete [(ngModel)]="annotation.type" [source]="suggestions" (keyup)="autocomplete()"
+           type="text" attr.data-value="{{ colId }}.Type" placeholder="Insert here source" value="{{ annotation.type }}"
            [required]="required">
-    <input nglFormControl type="text" attr.data-value="{{ colId }}.TypeLabel" placeholder="Insert here type label"
-           value="{{ annotation.typeLabel }}" [required]="required"> <br>
-    <input nglFormControl type="text" attr.data-value="{{ colId }}.Property" placeholder="Insert here property"
+    <!--<input nglFormControl type="text" attr.data-value="{{ colId }}.TypeLabel" placeholder="Insert here type label"-->
+           <!--value="{{ annotation.typeLabel }}" [required]="required"> <br>-->
+    <input nglFormControl auto-complete [(ngModel)]="annotation.property" [source]="suggestions" (keyup)="autocomplete()"
+           type="text" attr.data-value="{{ colId }}.Property" placeholder="Insert here property"
            value = "{{ annotation.property }}"> <br>
-    <input nglFormControl type="text" attr.data-value="{{ colId }}.PropertyLabel" placeholder="Insert here property label"
-           value = "{{ annotation.propertyLabel }}"> <br>
+    <!--<input nglFormControl type="text" attr.data-value="{{ colId }}.PropertyLabel" placeholder="Insert here property label"-->
+           <!--value = "{{ annotation.propertyLabel }}"> <br>-->
 
 
     <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
       <template nglFormLabel><i>Select datatype of object</i></template>
+
       <ngl-form-group-element *ngFor="let dataType of ['URL', 'Literal']">
         <template nglFormLabel>{{dataType}}</template>
-        <input nglFormControl type="radio"  name="{{ colId }}.dataType" value="URL" (click)="dataTypeSelect(dataType)">
+        <input nglFormControl class = "slds-button_small" type="radio"  name="{{ colId }}.dataType" value="URL" (click)="dataTypeSelect(dataType)">
 
       </ngl-form-group-element>
     </fieldset>
 
-    <input nglFormControl type="text" attr.data-value="{{ colId }}.DataTypeLabel" placeholder="Insert here datatype label"
-           value="{{ annotation.dataTypeLabel }}"> <br>
+
   </ngl-form-element>
-  <button type="button" nglButton="neutral" (click)="saveChanges(colId)"> Apply </button>
+  <button type="button" nglButton="neutral" (click)="saveChangesSmall(colId)"> Apply </button>
 
 </div>
 
