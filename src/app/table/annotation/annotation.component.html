@@ -34,16 +34,15 @@
 
 <div>
 
-  <input nglFormControl auto-complete [(ngModel)]="annotation.columnType" [source]="typeSuggestions" (keydown)="autocomplete()"
-         type="text" attr.data-value="{{ colId }}.ColumnType" placeholder="Insert here type of column"
-         value="{{ annotation.columnTypeLabel }}"> <br>
+  <columnTypeSuggestion (suggestionOutput) = updateTypeSuggestion($event)></columnTypeSuggestion>
+
 </div>
 
   <ngl-form-element [error]="hasError ? error : null" class="slds-m-top--small">
     <input nglFormControl auto-complete [(ngModel)]="annotation.source" [source]="listOfSubjects" (change)="getSubjects()"
            type="text" attr.data-value="{{ colId }}.Source" placeholder="Insert here source" value="{{ annotation.source }}"
            [required]="required">
-    <input nglFormControl auto-complete [(ngModel)]="annotation.property" [source]="propertySuggestions" (keyup)="autocomplete()"
+    <input nglFormControl auto-complete [(ngModel)]="annotation.property" [source]="propertySuggestions"
            type="text" attr.data-value="{{ colId }}.Property" placeholder="Insert here property"
            value = "{{ annotation.property }}"> <br>
 

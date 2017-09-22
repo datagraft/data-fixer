@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http"
+import {Observable} from "rxjs/Observable";
 
 //here I create the Annotation Class, with attributes and set/get
 export class Annotation {
@@ -43,7 +44,7 @@ export class Annotation {
     this._colName = value;
   }
 
-  set columnDataType(value : String){
+  set columnDataType(value: String) {
     this._columnDataType = value;
   }
 
@@ -87,20 +88,20 @@ export class Annotation {
     return this._colName;
   }
 
-  get columnDataType() : String{
+  get columnDataType(): String {
     return this._columnDataType
   }
 
-  private _index : number;
-  private _source : String;
-  private _sourceLabel : String;
-  private _property : String;
-  private _propertyLabel : String;
-  private _columnType : String;
-  private _columnTypeLabel : String;
-  private _columnDataType : String;
-  private _isSubject : Boolean;
-  private _header : String;
+  private _index: number;
+  private _source: String;
+  private _sourceLabel: String;
+  private _property: String;
+  private _propertyLabel: String;
+  private _columnType: String;
+  private _columnTypeLabel: String;
+  private _columnDataType: String;
+  private _isSubject: Boolean;
+  private _header: String;
   private _colName: String;
 
   constructor(obj?: any) {
@@ -128,46 +129,54 @@ export class AnnotationService {
   public header;
   public colNum;
   public data;
-  public colNames : string[] ;
+  public colNames: string[];
 
   public isFull = false;
 
-  constructor(public http : Http) {
+  public suggestion;
+  public suggestionFull: boolean = false;
+
+  constructor(public http: Http) {
 
   };
 
-  init(){
+  init() {
     this.annotations = new Array();
     this.colNames = new Array();
   }
 
   //call the remote service that try to annotate the table, after that map the results in the arrays into annotationService
-  getRemoteResponse(){
-    this.http.request('http://localhost:3000/response').subscribe((res :Response) => {
-      let response = res.json();
-      //get annotation from remote service
-      //first get annotation of named entity columns
-      //after get annotation of literal columns
-      //in the end (it doesn't even matter) sort annotation through the id
-      this.annotations = response.neCols.map((obj: Object) => { return new Annotation(obj)});
-      let b = response.litCols.map((obj: Object) => { return new Annotation(obj)});
+  getRemoteResponse() {
+    this.http.request('http://localhost:3000/response').subscribe((res: Response) => {
+        let response = res.json();
+        //get annotation from remote service
+        //first get annotation of named entity columns
+        //after get annotation of literal columns
+        //in the end (it doesn't even matter) sort annotation through the id
+        this.annotations = response.neCols.map((obj: Object) => {
+          return new Annotation(obj)
+        });
+        let b = response.litCols.map((obj: Object) => {
+          return new Annotation(obj)
+        });
 
-      this.annotations = this.annotations.concat(b);
-        this.annotations.sort(function(a, b){
-          if(a.index < b.index) return -1;
-          if(a.index > b.index) return 1;
+        this.annotations = this.annotations.concat(b);
+        this.annotations.sort(function (a, b) {
+          if (a.index < b.index) return -1;
+          if (a.index > b.index) return 1;
           return 0;
         });
       },
-    (err : any) => {
+      (err: any) => {
 
-    });
+      });
     this.isFull = true;
   }
 
-  setAnnotation(colId, annotation : Annotation){
+  setAnnotation(colId, annotation: Annotation) {
     this.annotations[colId] = annotation;
   }
+
   getAnnotation(colId): Annotation {
     return this.annotations[colId];
   }
@@ -176,19 +185,22 @@ export class AnnotationService {
     return this.header;
   }
 
-  abstatAutofill(word){
-    /*
-    let autofill = "";
-    this.http.request('').subscribe((res :Response) => {
-      this.autofill = res;
-    });*/
-    return word;
+  abstatAutofill(word, position, rows, start): Observable<string[]> {
+
+    let URL = "http://abstat.disco.unimib.it/api/v1/SolrSuggestions?query=".concat(word, ",",
+      position, "&rows=", rows, "&start=", start);
+
+    return this.http.request(URL)
+      .map((response: Response) => {
+        return (<any>response)._body;
+      });
   }
 
-  AbstatDomain(type,property,object){}
+  AbstatDomain(type, property, object) {
+  }
 
-  generateColumnsName(headers){
-    for(let i = 0; i<headers.length; i++) {
+  generateColumnsName(headers) {
+    for (let i = 0; i < headers.length; i++) {
       this.colNames[i] = "".concat(i.toString(), ": ", headers[i]);
     }
     console.log("GENERATI i colNames");

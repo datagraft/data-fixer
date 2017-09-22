@@ -30,6 +30,7 @@ import {routing} from "./app.routing";
 import {HomeComponent} from "./home.component";
 import {AnnotationService} from "./table/annotation/annotation.service";
 import {RdfService} from "./table/rdf/rdf.service";
+import {ColumnTypeSuggestion} from "./table/annotation/column.type.suggestion.component";
 
 
 @NgModule({
@@ -44,7 +45,7 @@ import {RdfService} from "./table/rdf/rdf.service";
     AnnotationForm,
     DetailModeComponent,
     HomeComponent,
-
+    ColumnTypeSuggestion
   ],
   imports: [
     CommonModule,

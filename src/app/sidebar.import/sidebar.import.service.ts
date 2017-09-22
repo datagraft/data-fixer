@@ -74,12 +74,10 @@ export class SidebarImportService {
     else if (selectFile == 'Stocks') {
       filePath = './src/data/stocks.csv';
     }
+    // else if (selectFile ==
     else if (selectFile == 'Flights 300K') {
       filePath = './src/data/flights-3m.csv';
     }
-    // else if (selectFile == 'Statsbygg state of estate') {
-    //  filePath = './src/data/SoE.csv';
-    // }
     else if (selectFile == 'Weather') {
       filePath = './src/data/seattle.csv';
     }

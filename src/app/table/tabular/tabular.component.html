@@ -3,15 +3,15 @@
 
 </rdf>
 
-<div *ngIf="!tabularMode">
-  <table>
-    <tr>
-      <td *ngFor="let h of headers; let Id = index">
-        <annotation-form [colId]='Id' [colContent]='getDataCol(Id)' [header]='h'></annotation-form>
-      </td>
-    </tr>
-  </table>
-</div>
+<!--<div *ngIf="!tabularMode">-->
+  <!--<table>-->
+    <!--<tr>-->
+      <!--<td *ngFor="let h of headers; let Id = index">-->
+        <!--<annotation-form [colId]='Id' [colContent]='getDataCol(Id)' [header]='h'></annotation-form>-->
+      <!--</td>-->
+    <!--</tr>-->
+  <!--</table>-->
+<!--</div>-->
 
 <div>
 
@@ -22,10 +22,15 @@
       <th *ngFor="let h of headers">
         {{h}}
       </th>
-
+    </tr>
+    <tr *ngIf="!tabularMode">
+      <td *ngFor="let h of headers; let Id = index">
+        <annotation-form [colId]='Id' [colContent]='getDataCol(Id)' [header]='h'></annotation-form>
+      </td>
     </tr>
     </thead>
     <tbody>
+
     <tr *ngFor="let rows of data">
       <td *ngFor="let row of rows">
         {{row}}
