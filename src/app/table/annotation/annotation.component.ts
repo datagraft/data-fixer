@@ -23,7 +23,6 @@ import 'rxjs/add/operator/debounceTime'
 import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/observable/fromEvent'
-import {ColumnTypeSuggestion} from "./column.type.suggestion.component";
 
 
 @Component({
@@ -37,7 +36,6 @@ import {ColumnTypeSuggestion} from "./column.type.suggestion.component";
 export class AnnotationForm implements OnInit, OnDestroy {
 
   @ViewChild(DetailModeComponent) detailMode: DetailModeComponent;
-  @ViewChild(ColumnTypeSuggestion) columnTypeSuggestion: ColumnTypeSuggestion;
 
   @Input() colId: number;
   @Input() colContent: any[];
@@ -56,15 +54,13 @@ export class AnnotationForm implements OnInit, OnDestroy {
   // public columnTypeLabel: String;
   // public isSubject: Boolean;
   public first = false;
-  typeSuggestions : string[] = [];
-  @Output() typeEmitter: EventEmitter<string[]> = new EventEmitter<string[]>();
-  propertySuggestions: EventEmitter<string[]> = new EventEmitter<string[]>();
+  typeSuggestions : string= "http://abstat.disco.unimib.it/api/v1/SolrSuggestions?query=:keyword,subj&rows=15&start=0";
+  propertySuggestions: string = "http://abstat.disco.unimib.it/api/v1/SolrSuggestions?query=:keyword,pred&rows=15&start=0";
   listOfSubjects: string[] = [];
   colName;
 
-
-  constructor(private rdfService: RdfService, public annotationService: AnnotationService, public http: Http,
-              private typeEl: ElementRef, ) {  }
+  constructor(private rdfService: RdfService, public annotationService: AnnotationService, public http: Http)
+               {  }
 
   ngOnInit() {
     this.annotation = new Annotation();
@@ -83,12 +79,6 @@ export class AnnotationForm implements OnInit, OnDestroy {
     // this.columnType = annotation.columnType;
     // this.columnTypeLabel = annotation.columnTypeLabel;
   }
-
-  // ngAfterViewChecked(){
-  //   this.colName = "".concat(this.colId.toString(), ": ", this.header);
-  //   this.annotationService.colNames[this.colId] = this.colName;
-  //   this.getSubjects();
-  // }
 
   ngOnDestroy() {
     this.annotationService.setAnnotation(this.colId, this.annotation);
@@ -114,18 +104,24 @@ export class AnnotationForm implements OnInit, OnDestroy {
   saveChangesSmall(colId) {
     this.annotation.index = colId;
     this.annotation.source = this.getInputValue(colId, ".Source");
+    console.log("source letto");
     if (!this.annotation.isSubject) {
       this.annotation.property = this.getInputValue(colId, ".Property");
-      ;
+      console.log("property letto");
+
       this.annotation.columnType = this.getInputValue(colId, ".ColumnType");
+      console.log("columnType letto");
+
     }
-    if (this.annotation.source != "" && this.annotation.property == "" && this.annotation.columnType == "") {
+    if (this.annotation.source == "" && this.annotation.property == "" && this.annotation.columnType != "") {
       this.subjectMarker = "inverse";
+      this.objectMarker = "default";
       console.log("SUBJECT");
     }
     else if (this.annotation.source != "" && this.annotation.property != "" && this.annotation.columnType != "") {
       this.objectMarker = "inverse";
-      console.log("OBJECT")
+      this.subjectMarker = "default";
+      console.log("OBJECT");
     }
     else {
       this.objectMarker = "default";
@@ -165,7 +161,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
     while ((<HTMLInputElement> temp[i]).getAttribute("data-value") !== string) {
       i++;
     }
-
+    console.log((<HTMLInputElement> temp[i]).value);
     return (<HTMLInputElement> temp[i]).value;
   }
 
@@ -214,11 +210,4 @@ export class AnnotationForm implements OnInit, OnDestroy {
     console.log(this.listOfSubjects);
     console.log(this.colName);
   }
-
-  updateTypeSuggestion(suggestion: string[]){
-    console.log("CIAONE");
-    this.columnTypeSuggestion.typeSuggestion = suggestion;
-
-  }
-
 }

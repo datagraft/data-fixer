@@ -32,24 +32,18 @@
 
   </div>
 
-<div>
-
-  <columnTypeSuggestion (suggestionOutput) = updateTypeSuggestion($event)></columnTypeSuggestion>
-
-</div>
+  <input nglFormControl ngui-auto-complete [(ngModel)]="annotation.columnType" [source]="typeSuggestions"
+         type="text" attr.data-value="{{ colId }}.ColumnType" placeholder="Insert here property" min-chars="2"> <br>
 
   <ngl-form-element [error]="hasError ? error : null" class="slds-m-top--small">
     <input nglFormControl auto-complete [(ngModel)]="annotation.source" [source]="listOfSubjects" (change)="getSubjects()"
            type="text" attr.data-value="{{ colId }}.Source" placeholder="Insert here source" value="{{ annotation.source }}"
            [required]="required">
-    <input nglFormControl auto-complete [(ngModel)]="annotation.property" [source]="propertySuggestions"
-           type="text" attr.data-value="{{ colId }}.Property" placeholder="Insert here property"
-           value = "{{ annotation.property }}"> <br>
-
-
+    <input nglFormControl ngui-auto-complete [(ngModel)]="annotation.property" [source]="propertySuggestions"
+           type="text" attr.data-value="{{ colId }}.Property" placeholder="Insert here property" min-chars="2"> <br>
 
     <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
-      <template nglFormLabel><i>Select datatype of object</i></template>
+      <template nglFormLabel></template>
 
       <ngl-form-group-element *ngFor="let columnDataType of ['URL', 'Literal']">
         <template nglFormLabel>{{columnDataType}}</template>
