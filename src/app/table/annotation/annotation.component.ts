@@ -41,9 +41,10 @@ export class AnnotationForm implements OnInit, OnDestroy {
   @Input() colContent: any[];
   @Input() header: any;
 
-  objectMarker = "default";
-  subjectMarker = "default";
+  objectMarker = "shade";
+  subjectMarker = "shade";
   myData = "primo";
+  open = false;
 
   public annotation: Annotation;
   // public source: String;
@@ -60,7 +61,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
   colName;
 
   constructor(private rdfService: RdfService, public annotationService: AnnotationService, public http: Http)
-               {  }
+  {  }
 
   ngOnInit() {
     this.annotation = new Annotation();
@@ -115,17 +116,17 @@ export class AnnotationForm implements OnInit, OnDestroy {
     }
     if (this.annotation.source == "" && this.annotation.property == "" && this.annotation.columnType != "") {
       this.subjectMarker = "inverse";
-      this.objectMarker = "default";
+      this.objectMarker = "shade";
       console.log("SUBJECT");
     }
     else if (this.annotation.source != "" && this.annotation.property != "" && this.annotation.columnType != "") {
       this.objectMarker = "inverse";
-      this.subjectMarker = "default";
+      this.subjectMarker = "shade";
       console.log("OBJECT");
     }
     else {
-      this.objectMarker = "default";
-      this.subjectMarker = "default";
+      this.objectMarker = "shade";
+      this.subjectMarker = "shade";
       console.log("NONE");
     }
   }

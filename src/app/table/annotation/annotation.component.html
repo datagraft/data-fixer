@@ -1,67 +1,82 @@
-<div id = "annotation-component">
-
-  <div class = "row">
-    <div class="col-xs-4">
-
-      <!-- here there will be markers : Subject, Object
-      <!--<fieldset ngl-form-group-alt [required]="required" [error]="hasError ? errorsourceull">
-        <template nglFormLabel></template>
-
-        <ngl-form-group-element *ngFor="let char of ['S', 'O']">
-          <template nglFormLabel>{{char}}</template>
-
-          <input
-            nglFormControl id="{{ colId }}.Subject " type="radio"  name="{{ colId }}.radio" value="Subject"
-            (click)="subjectSelect( char ) ">
-
-
-        </ngl-form-group-element>
-      </fieldset>-->
-    </div>
-    {{annotationService.colNames[colId]}}<br>
-    <div class="col-xs-4">
-
-      <a class="btn btn-sm" [routerLink]="['/detail']"  (click) = "goToDetailMode()"> Detail page </a><br>
-
-    </div><br>
-    <div>
-      <ngl-badge [type]="subjectMarker" class="slds-m-horizontal--large"> Subject </ngl-badge>
-      <ngl-badge [type]="objectMarker" class="slds-m-horizontal--large"> Object </ngl-badge>
-    </div>
-
-
+<template #rolesTip>
+  <div class="slds-text-title--caps">The roles of this column are detected based on the
+    relationships.
   </div>
+</template>
 
-  <input nglFormControl ngui-auto-complete [(ngModel)]="annotation.columnType" [source]="typeSuggestions"
-         type="text" attr.data-value="{{ colId }}.ColumnType" placeholder="Insert here property" min-chars="2"> <br>
-
-  <ngl-form-element [error]="hasError ? error : null" class="slds-m-top--small">
-    <input nglFormControl auto-complete [(ngModel)]="annotation.source" [source]="listOfSubjects" (change)="getSubjects()"
-           type="text" attr.data-value="{{ colId }}.Source" placeholder="Insert here source" value="{{ annotation.source }}"
-           [required]="required">
-    <input nglFormControl ngui-auto-complete [(ngModel)]="annotation.property" [source]="propertySuggestions"
-           type="text" attr.data-value="{{ colId }}.Property" placeholder="Insert here property" min-chars="2"> <br>
-
-    <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null" class="slds-m-top--small">
-      <template nglFormLabel></template>
-
-      <ngl-form-group-element *ngFor="let columnDataType of ['URL', 'Literal']">
-        <template nglFormLabel>{{columnDataType}}</template>
-        <input nglFormControl class = "slds-button_small" type="radio"  name="{{ colId }}.columnDataType" value="URL"
-               (click)="dataTypeSelect(columnDataType)">
-
-      </ngl-form-group-element>
-    </fieldset>
-
-
-  </ngl-form-element>
-  <button type="button" nglButton="neutral" (click)="saveChangesSmall(colId)"> Apply </button>
-
+<div id="annotation-component" class="slds-panel slds-grid slds-grid_vertical slds-nowrap">
+  <div class="slds-panel__section">
+    <h3 class="slds-text-heading_small slds-m-bottom_medium" style="margin-top: 0">Column Information</h3>
+    <ul>
+      <li class="slds-form-element slds-hint-parent slds-border_bottom"><span
+        class="slds-form-element__label">Column ID</span>
+        <div class="slds-form-element__control">
+          <span class="slds-form-element__static">{{annotationService.colNames[colId]}}</span>
+        </div>
+      </li>
+      <li class="slds-form-element slds-hint-parent slds-border_bottom">
+        <span class="slds-form-element__label">Column Type</span>
+        <div class="slds-form-element__control">
+          <input nglFormControl ngui-auto-complete [(ngModel)]="annotation.columnType"
+                 [source]="typeSuggestions"
+                 type="text" attr.data-value="{{ colId }}.ColumnType"
+                 placeholder="Insert column type"
+                 min-chars="2">
+        </div>
+      </li>
+      <li class="slds-form-element slds-hint-parent slds-border_bottom">
+        <span class="slds-form-element__label">Column values type</span>
+        <div class="slds-form-element__control">
+          <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null"
+                    class="slds-form-element__static">
+            <template nglFormLabel></template>
+            <ngl-form-group-element *ngFor="let columnDataType of ['URL', 'Literal']">
+              <template nglFormLabel>{{columnDataType}}</template>
+              <input nglFormControl type="radio"
+                     name="{{ colId }}.columnDataType" value="URL"
+                     (click)="dataTypeSelect(columnDataType)">
+            </ngl-form-group-element>
+          </fieldset>
+        </div>
+      </li>
+      <li class="slds-form-element slds-hint-parent slds-border_bottom">
+        <span class="slds-form-element__label">Column roles
+          <a [nglPopover]="rolesTip" [nglPopoverPlacement]="placement" [nglOpen]="open"
+             (mouseenter)="open = true" (mouseleave)="open = false">
+             <ngl-icon icon="question" size="x-small" type="default"></ngl-icon>
+          </a></span>
+        <div class="slds-form-element__control">
+          <ngl-badge [type]="subjectMarker"
+                     class="slds-form-element__static slds-m-horizontal--large">SUB
+          </ngl-badge>
+          <ngl-badge [type]="objectMarker"
+                     class="slds-form-element__static slds-m-horizontal--large">OBJ
+          </ngl-badge>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="slds-panel__section">
+    <h3 class="slds-text-heading_small slds-m-bottom_medium" style="margin-top: 0">Relationships</h3>
+    <ngl-form-element [error]="hasError ? error : null" class="slds-m-top--small">
+      <ul>
+        <li class="slds-form-element slds-hint-parent slds-border_bottom">
+          <input nglFormControl auto-complete [(ngModel)]="annotation.source"
+                 [source]="listOfSubjects"
+                 (change)="getSubjects()"
+                 type="text" attr.data-value="{{ colId }}.Source"
+                 placeholder="Choose a source column"
+                 value="{{ annotation.source }}"
+                 [required]="required">
+          <input nglFormControl ngui-auto-complete [(ngModel)]="annotation.property"
+                 [source]="propertySuggestions"
+                 type="text" attr.data-value="{{ colId }}.Property"
+                 placeholder="Insert relationship property"
+                 min-chars="2">
+        </li>
+      </ul>
+    </ngl-form-element>
+  </div>
 </div>
-
-
-<!--<detailMode>
-
-</detailMode>-->
-<!--(click) ="setDetailMode(colId)"-->
-
+<button type="button" nglButton="neutral" (click)="saveChangesSmall(colId)">Annotate</button>
+<button type="button" nglButton="neutral" [routerLink]="['/detail']" (click)="goToDetailMode()">Detail page</button>
