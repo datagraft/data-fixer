@@ -1,9 +1,9 @@
-import {EventEmitter, Injectable} from "@angular/core";
-import {Http, Response} from "@angular/http"
-import {Observable} from "rxjs/Observable";
-import {forEach} from "@angular/router/src/utils/collection";
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 
-//here I create the Annotation Class, with attributes and set/get
+// here I create the Annotation Class, with attributes and set/get
 export class Annotation {
   set index(value: number) {
     this._index = value;
@@ -49,9 +49,9 @@ export class Annotation {
     this._columnDataType = value;
   }
 
-  get index(): number {
-    return this._index;
-  }
+  // get index(): number {
+  //   return this._index;
+  // }
 
   get source(): String {
     return this._source;
@@ -90,7 +90,7 @@ export class Annotation {
   }
 
   get columnDataType(): String {
-    return this._columnDataType
+    return this._columnDataType;
   }
 
   private _index: number;
@@ -107,20 +107,20 @@ export class Annotation {
 
   constructor(obj?: any) {
     this._index = obj != null && obj.index != null ? obj.index : -1;
-    this._source = obj && obj.source || "";
-    this._sourceLabel = obj && obj.sourceLabel || "";
-    this._property = obj && obj.property || "";
-    this._propertyLabel = obj && obj.propertyLabel || "";
-    this._columnType = obj && obj.columnType || "";
-    this._columnTypeLabel = obj && obj.columnTypeLabel || "";
+    this._source = obj && obj.source || '';
+    this._sourceLabel = obj && obj.sourceLabel || '';
+    this._property = obj && obj.property || '';
+    this._propertyLabel = obj && obj.propertyLabel || '';
+    this._columnType = obj && obj.columnType || '';
+    this._columnTypeLabel = obj && obj.columnTypeLabel || '';
     this._isSubject = false;
-    this._header = obj && obj.header || "";
-    this._colName = obj && obj.colName || "";
-    this._columnDataType = obj && obj._columnDataType || "Literal";
+    this._header = obj && obj.header || '';
+    this._colName = obj && obj.colName || '';
+    this._columnDataType = obj && obj._columnDataType || 'Literal';
   }
 }
 
-//here I create the service that has an Array of Annotations.
+// here I create the service that has an Array of Annotations.
 @Injectable()
 export class AnnotationService {
 
@@ -135,58 +135,58 @@ export class AnnotationService {
   public isFull = false;
 
   public suggestion;
-  public suggestionFull: boolean = false;
-  public subject: string[] = [];
-  public subjects: any = [[]];
+
+  public subjects = new Map<number, String>();
+  subjectsChange: Subject<Map<number, String>> = new Subject<Map<number, String>>();
 
   constructor(public http: Http) {
-
+    this.subjectsChange.subscribe((value) => {
+      this.subjects = value;
+    });
   };
 
-  init() {
-    this.annotations = new Array();
-    console.log("INIZIALIZZATO");
-    console.log(this.subjects);
-    this.colNames = new Array();
+  updateSubjects(subjects) {
+    this.subjectsChange.next(subjects);
   }
 
-  //call the remote service that try to annotate the table, after that map the results in the arrays into annotationService
+  init() {
+    this.annotations = [];
+    console.log('INIZIALIZZATO');
+    console.log(this.subjects);
+    this.colNames = [];
+  }
+
+  // call the remote service that try to annotate the table, after that map the results in the arrays into annotationService
   getRemoteResponse() {
     this.http.request('http://localhost:3000/response').subscribe((res: Response) => {
-        let response = res.json();
-        //get annotation from remote service
-        //first get annotation of named entity columns
-        //after get annotation of literal columns
-        //in the end (it doesn't even matter) sort annotation through the id
+        const response = res.json();
+        // get annotation from remote service
+        // first get annotation of named entity columns
+        // after get annotation of literal columns
+        // in the end (it doesn't even matter) sort annotation through the id
         this.annotations = response.neCols.map((obj: Object) => {
-          return new Annotation(obj)
+          return new Annotation(obj);
         });
-        let b = response.litCols.map((obj: Object) => {
-          return new Annotation(obj)
+        const b = response.litCols.map((obj: Object) => {
+          return new Annotation(obj);
         });
 
         this.annotations = this.annotations.concat(b);
-        this.annotations.sort(function (a, b) {
-          if (a.index < b.index) return -1;
-          if (a.index > b.index) return 1;
+        this.annotations.sort(function (a, c) {
+          if (a.index < c.index) { return -1; }
+          if (a.index > c.index) {return 1; }
           return 0;
         });
       },
       (err: any) => {
-
+        console.log(err);
       });
     this.isFull = true;
   }
 
   setAnnotation(colId, annotation: Annotation) {
-    console.log(this.annotations[colId]);
-    if(this.subjects[0].length == 0 || !(this.annotations[colId])){
-      console.log("dentro!!!!");
-      this.subjects[0].push(annotation.source);
-      console.log(this.subjects[0]);
-    }
-    else
-      this.updateSubjects(this.annotations[colId].source, annotation.source);
+    this.subjects.set(colId, annotation.source);
+    this.updateSubjects(this.subjects);
     this.annotations[colId] = annotation;
   }
 
@@ -194,14 +194,14 @@ export class AnnotationService {
     return this.annotations[colId];
   }
 
-  getHeader() {
-    return this.header;
-  }
+  // getHeader() {
+  //   return this.header;
+  // }
 
   abstatAutofill(word, position, rows, start): Observable<string[]> {
 
-    let URL = "http://abstat.disco.unimib.it/api/v1/SolrSuggestions?query=".concat(word, ",",
-      position, "&rows=", rows, "&start=", start);
+    const URL = 'http://abstat.disco.unimib.it/api/v1/SolrSuggestions?query='.concat(word, ',',
+      position, '&rows=', rows, '&start=', start);
 
     return this.http.request(URL)
       .map((response: Response) => {
@@ -209,24 +209,21 @@ export class AnnotationService {
       });
   }
 
-  AbstatDomain(type, property, object) {
-  }
+  // AbstatDomain(type, property, object) {
+  // }
 
   generateColumnsName(headers) {
     for (let i = 0; i < headers.length; i++) {
-      this.colNames[i] = "".concat(i.toString(), ": ", headers[i]);
+      this.colNames[i] = ''.concat(i.toString(), ': ', headers[i]);
     }
-    console.log("GENERATI i colNames");
+    console.log('GENERATI i colNames');
   }
 
-  updateSubjects(oldSubject, newSubject){
-    if(oldSubject != "empty") {
-      console.log("!= empty");
-      var index = this.subjects[0].indexOf(oldSubject);
-      this.subjects[0].splice(index);
-    }
-    this.subjects[0].push(newSubject);
-   console.log("ARRAY AGGIORNATO");
-   console.log(this.subjects[0]);
-  }
+  // updateSubjects(oldSubject, newSubject) {
+  //   const index = this.subjects[0].indexOf(oldSubject);
+  //   this.subjects[0].splice(index, 1);
+  //   this.subjects[0].push(newSubject);
+  //   console.log('ARRAY AGGIORNATO');
+  //   console.log(this.subjects[0]);
+  // }
 }
