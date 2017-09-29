@@ -7,7 +7,6 @@ import {RdfComponent} from '../rdf/rdf.component';
 import {DetailModeComponent} from './detailMode.component';
 import {Router, RouterModule} from '@angular/router';
 import {Http, Response} from '@angular/http';
-
 import {SharedTableService} from '../shared.service';
 import {ProfilingService} from '../tabular/profiling.service';
 import {TransformationsService} from '../tabular/transformations.service';
@@ -16,7 +15,7 @@ import {Annotation, AnnotationService} from "./annotation.service";
 import {RdfService} from "../rdf/rdf.service";
 import {forEach} from "@angular/router/src/utils/collection";
 import {isUndefined} from "util";
-import {Observable} from "rxjs/Observable";
+import {Observable} from "rxjs";
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/switch'
 import 'rxjs/add/operator/debounceTime'
@@ -70,7 +69,56 @@ export class AnnotationForm implements OnInit, OnDestroy {
       this.annotation = this.annotationService.getAnnotation(this.colId);
     this.getSubjects();
 
+    Observable.from(this.annotationService.subjects).subscribe((subject: string[]) => {
+      console.log(this.colName + ": colname");
+      console.log(subject);
+      if(subject.indexOf(this.colName) != -1){
+        console.log("Trovato!!!!");
+          this.subjectMarker = "inverse";
+          this.annotation.isSubject = true;
+          this.annotationService.setAnnotation(this.colId, this.annotation);
+        }else if(this.annotationService.getAnnotation(this.colId) &&
+          this.annotationService.getAnnotation(this.colId).isSubject) {
+        console.log("Era un soggetto, ora non più");
+          this.subjectMarker = "shade";
+          this.annotation.isSubject = false;
+        this.annotationService.setAnnotation(this.colId, this.annotation);
+      }
+    })
 
+    // Observable.from(this.annotationService.subjects).subscribe((subject: string[]) => {
+    //   var i = 0;
+    //   console.log(this.annotationService.subjects);
+    //   console.log(subject);
+    //   if(subject[0] != "empty") {
+    //     if (!(subject == this.colName)) {
+    //       console.log(i + "volte dentro l'Observable");
+    //       this.objectMarker = "shade";
+    //       this.annotation.isSubject = false;
+    //       this.annotationService.setAnnotation(this.colId, this.annotation);
+    //       i++;
+    //     } else {
+    //       console.log(i + "volte dentro l'Observable");
+    //       this.objectMarker = "inverse";
+    //       this.annotation.isSubject = true;
+    //       this.annotationService.setAnnotation(this.colId, this.annotation);
+    //       i++;
+    //     }
+    //   }
+    //   else console.log("sono entrato");
+    //   })
+
+    // this.annotationService.subjects.subscribe((subject: string[] ) => {
+    //   if (!(subject.some((x => x == this.colName)))) {
+    //     this.objectMarker = "shade";
+    //     this.annotation.isSubject = false;
+    //     this.annotationService.setAnnotation(this.colId, this.annotation);
+    //   }else{
+    //     this.objectMarker = "inverse";
+    //     this.annotation.isSubject = true;
+    //     this.annotationService.setAnnotation(this.colId, this.annotation);
+    //   }
+    // })
     // console.log(this.annotation.columnTypeLabel);
     // this.isSubject = annotation.isSubject;
     // this.source = annotation.source;
@@ -103,33 +151,33 @@ export class AnnotationForm implements OnInit, OnDestroy {
   // }
 
   saveChangesSmall(colId) {
-    this.annotation.index = colId;
-    this.annotation.source = this.getInputValue(colId, ".Source");
-    console.log("source letto");
-    if (!this.annotation.isSubject) {
+    // // if(this.validation(this.getInputValue(colId, ".Source"),
+    //     this.getInputValue(colId, ".Property"),
+    //     this.getInputValue(colId, ".ColumnType"))) {
+      this.annotation.index = colId;
+      this.annotation.source = this.getInputValue(colId, ".Source");
+      console.log("source letto");
       this.annotation.property = this.getInputValue(colId, ".Property");
       console.log("property letto");
 
       this.annotation.columnType = this.getInputValue(colId, ".ColumnType");
       console.log("columnType letto");
 
-    }
-    if (this.annotation.source == "" && this.annotation.property == "" && this.annotation.columnType != "") {
-      this.subjectMarker = "inverse";
-      this.objectMarker = "shade";
-      console.log("SUBJECT");
-    }
-    else if (this.annotation.source != "" && this.annotation.property != "" && this.annotation.columnType != "") {
-      this.objectMarker = "inverse";
-      this.subjectMarker = "shade";
-      console.log("OBJECT");
-    }
-    else {
-      this.objectMarker = "shade";
-      this.subjectMarker = "shade";
-      console.log("NONE");
-    }
+     if (this.annotation.source != "" && this.annotation.property != "" && this.annotation.columnType != "") {
+       this.objectMarker = "inverse";
+       console.log("OBJECT");
+     }
+      this.annotationService.setAnnotation(this.colId, this.annotation);
+      console.log(this.annotation);
+
   }
+
+  // validation(source, property, columnType){
+  //   if(this.listOfSubjects.some((x=> x == source)))
+  //     return true;
+  //   return false;
+  //
+  // }
 
   goToDetailMode() {
     this.annotationService.colContent = this.colContent;
@@ -200,15 +248,11 @@ export class AnnotationForm implements OnInit, OnDestroy {
 
   }
 
-
   getSubjects() {
-
     for (let i = 0; i < this.annotationService.colNames.length; i++) {
       if (this.annotationService.colNames[i] != this.colName)
         this.listOfSubjects.push(this.annotationService.colNames[i]);
 
     }
-    console.log(this.listOfSubjects);
-    console.log(this.colName);
   }
 }

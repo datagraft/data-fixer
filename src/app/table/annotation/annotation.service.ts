@@ -1,6 +1,7 @@
-import {Injectable} from "@angular/core";
+import {EventEmitter, Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http"
 import {Observable} from "rxjs/Observable";
+import {forEach} from "@angular/router/src/utils/collection";
 
 //here I create the Annotation Class, with attributes and set/get
 export class Annotation {
@@ -135,6 +136,8 @@ export class AnnotationService {
 
   public suggestion;
   public suggestionFull: boolean = false;
+  public subject: string[] = [];
+  public subjects: any = [[]];
 
   constructor(public http: Http) {
 
@@ -142,6 +145,8 @@ export class AnnotationService {
 
   init() {
     this.annotations = new Array();
+    console.log("INIZIALIZZATO");
+    console.log(this.subjects);
     this.colNames = new Array();
   }
 
@@ -174,6 +179,14 @@ export class AnnotationService {
   }
 
   setAnnotation(colId, annotation: Annotation) {
+    console.log(this.annotations[colId]);
+    if(this.subjects[0].length == 0 || !(this.annotations[colId])){
+      console.log("dentro!!!!");
+      this.subjects[0].push(annotation.source);
+      console.log(this.subjects[0]);
+    }
+    else
+      this.updateSubjects(this.annotations[colId].source, annotation.source);
     this.annotations[colId] = annotation;
   }
 
@@ -206,4 +219,14 @@ export class AnnotationService {
     console.log("GENERATI i colNames");
   }
 
+  updateSubjects(oldSubject, newSubject){
+    if(oldSubject != "empty") {
+      console.log("!= empty");
+      var index = this.subjects[0].indexOf(oldSubject);
+      this.subjects[0].splice(index);
+    }
+    this.subjects[0].push(newSubject);
+   console.log("ARRAY AGGIORNATO");
+   console.log(this.subjects[0]);
+  }
 }
