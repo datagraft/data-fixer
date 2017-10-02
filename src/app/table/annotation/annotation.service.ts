@@ -116,7 +116,7 @@ export class Annotation {
     this._isSubject = false;
     this._header = obj && obj.header || '';
     this._colName = obj && obj.colName || '';
-    this._columnDataType = obj && obj._columnDataType || 'Literal';
+    this._columnDataType = obj && obj._columnDataType || '';
   }
 }
 

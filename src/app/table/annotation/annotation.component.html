@@ -14,20 +14,30 @@
           <span class="slds-form-element__static">{{annotationService.colNames[colId]}}</span>
         </div>
       </li>
+
       <li class="slds-form-element slds-hint-parent slds-border_bottom">
+        <ngl-form-element [error] = "hasColumnTypeError ? columnTypeError : null">
         <span class="slds-form-element__label">Column Type</span>
         <div class="slds-form-element__control">
           <input nglFormControl ngui-auto-complete [(ngModel)]="annotation.columnType"
                  [source]="typeSuggestions"
                  type="text" attr.data-value="{{ colId }}.ColumnType"
                  placeholder="Insert column type"
-                 min-chars="2">
+                 pattern = {{urlREGEX}} #columnTypeUrl = "ngModel"
+                 min-chars="2" >
+          <div *ngIf="columnTypeUrl.errors && (columnTypeUrl.dirty || columnTypeUrl.touched)" class="alert alert-danger">
+            <div [hidden]="!columnTypeUrl.errors.pattern">
+              Must be a valid URL!
+            </div>
+          </div>
         </div>
+        </ngl-form-element>
       </li>
       <li class="slds-form-element slds-hint-parent slds-border_bottom">
         <span class="slds-form-element__label">Column values type</span>
         <div class="slds-form-element__control">
-          <fieldset ngl-form-group-alt [required]="required" [error]="hasError ? error : null"
+          <fieldset ngl-form-group-alt [required]="required"
+                    [error] = "hasSubjectError ? subjectError : (hasUrlLiteralError ? urlLiteralError : null)"
                     class="slds-form-element__static">
             <template nglFormLabel></template>
             <ngl-form-group-element *ngFor="let columnDataType of ['URL', 'Literal']">
@@ -58,7 +68,9 @@
   </div>
   <div class="slds-panel__section">
     <h3 class="slds-text-heading_small slds-m-bottom_medium" style="margin-top: 0">Relationships</h3>
-    <ngl-form-element [error]="hasError ? error : null" class="slds-m-top--small">
+    <ngl-form-element [error] = "hasSourceError ? sourceError :
+                                 (hasSourcePropertyError ? sourcePropertyError : null)"
+                      class="slds-m-top--small">
       <ul>
         <li class="slds-form-element slds-hint-parent slds-border_bottom">
           <input nglFormControl auto-complete [(ngModel)]="annotation.source"
@@ -67,12 +79,20 @@
                  type="text" attr.data-value="{{ colId }}.Source"
                  placeholder="Choose a source column"
                  value="{{ annotation.source }}"
-                 [required]="required">
+                 [required]="required"
+                 (change)="subjectValidate(annotation.source)" >
+
           <input nglFormControl ngui-auto-complete [(ngModel)]="annotation.property"
                  [source]="propertySuggestions"
+                 pattern = {{urlREGEX}} #propertyUrl = "ngModel"
                  type="text" attr.data-value="{{ colId }}.Property"
                  placeholder="Insert relationship property"
                  min-chars="2">
+          <div *ngIf="propertyUrl.errors && (propertyUrl.dirty || propertyUrl.touched)" class="alert alert-danger">
+            <div [hidden]="!propertyUrl.errors.pattern">
+              Must be a valid URL!
+            </div>
+          </div>
         </li>
       </ul>
     </ngl-form-element>

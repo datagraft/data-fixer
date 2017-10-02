@@ -59,15 +59,43 @@ export class AnnotationForm implements OnInit, OnDestroy {
   propertySuggestions = 'http://abstat.disco.unimib.it/api/v1/SolrSuggestions?query=:keyword,pred&rows=15&start=0';
   listOfSubjects: string[] = [];
   colName;
+  private annotated : boolean = false;
+  private hasSourcePropertyError: boolean = false;
+  private sourcePropertyError: string = "Both property and source must be filled";
+  private hasColumnTypeError: boolean = false;
+  private columnTypeError: string = "Column type is required";
+  private hasUrlLiteralError: boolean = false;
+  private urlLiteralError: string = "A column values type must be chosen";
+  private hasSubjectError: boolean = false;
+  private subjectErrorBase : string = "Column values type must be an URL because is the source column of columns: ";
+  private subjectError : string = "";
+  private hasSourceError : boolean;
+  private sourceError : string = "Insert a valid source column"
+
+  urlREGEX = '(ftp|http|https):\/\/[^ "]+$';
+  urlREGEX2 : RegExp =new RegExp( '/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/');
+
+
 
   constructor(private rdfService: RdfService, public annotationService: AnnotationService, public http: Http) {
     this.annotationService.subjectsChange.subscribe(subjects => {
       this.subjectMarker = 'shade';
+      this.annotation.isSubject = false;
+      let i = 0;
+      let subjectsLabel = [];
       subjects.forEach((value: String) => {
         if (value === this.colName) {
           this.subjectMarker = 'inverse';
+          this.annotation.isSubject = true;
+          if(this.annotation.columnDataType !== "URL"){
+            console.log(this.annotation.columnDataType);
+            this.hasSubjectError = true;
+            subjectsLabel.push(i);
+          }
         }
+        i++;
       });
+      this.subjectError = this.subjectErrorBase + subjectsLabel.join(", ");
     });
   }
 
@@ -79,65 +107,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
       this.annotation = this.annotationService.getAnnotation(this.colId);
     }
     this.getSubjects();
-
-    // Observable.from(this.annotationService.subjects).subscribe((subject: string[]) => {
-    //   console.log(this.colName + ': colname');
-    //   console.log(subject);
-    //   if (subject.indexOf(this.colName) !== -1) {
-    //     console.log('Trovato!!!!');
-    //     this.subjectMarker = 'inverse';
-    //     this.annotation.isSubject = true;
-    //     this.annotationService.setAnnotation(this.colId, this.annotation);
-    //   } else if (this.annotationService.getAnnotation(this.colId) &&
-    //     this.annotationService.getAnnotation(this.colId).isSubject) {
-    //     console.log('Era un soggetto, ora non più');
-    //     this.subjectMarker = 'shade';
-    //     this.annotation.isSubject = false;
-    //     this.annotationService.setAnnotation(this.colId, this.annotation);
-    //   }
-    // });
-
-    // Observable.from(this.annotationService.subjects).subscribe((subject: string[]) => {
-    //   var i = 0;
-    //   console.log(this.annotationService.subjects);
-    //   console.log(subject);
-    //   if(subject[0] != "empty") {
-    //     if (!(subject == this.colName)) {
-    //       console.log(i + "volte dentro l'Observable");
-    //       this.objectMarker = "shade";
-    //       this.annotation.isSubject = false;
-    //       this.annotationService.setAnnotation(this.colId, this.annotation);
-    //       i++;
-    //     } else {
-    //       console.log(i + "volte dentro l'Observable");
-    //       this.objectMarker = "inverse";
-    //       this.annotation.isSubject = true;
-    //       this.annotationService.setAnnotation(this.colId, this.annotation);
-    //       i++;
-    //     }
-    //   }
-    //   else console.log("sono entrato");
-    //   })
-
-    // this.annotationService.subjects.subscribe((subject: string[] ) => {
-    //   if (!(subject.some((x => x == this.colName)))) {
-    //     this.objectMarker = "shade";
-    //     this.annotation.isSubject = false;
-    //     this.annotationService.setAnnotation(this.colId, this.annotation);
-    //   }else{
-    //     this.objectMarker = "inverse";
-    //     this.annotation.isSubject = true;
-    //     this.annotationService.setAnnotation(this.colId, this.annotation);
-    //   }
-    // })
-    // console.log(this.annotation.columnTypeLabel);
-    // this.isSubject = annotation.isSubject;
-    // this.source = annotation.source;
-    // this.sourceLabel = annotation.sourceLabel;
-    // this.property = annotation.property;
-    // this.propertyLabel = annotation.propertyLabel;
-    // this.columnType = annotation.columnType;
-    // this.columnTypeLabel = annotation.columnTypeLabel;
+    console.log(this.annotation.columnDataType);
   }
 
   ngOnDestroy() {
@@ -162,28 +132,42 @@ export class AnnotationForm implements OnInit, OnDestroy {
   //   this.columnType = "Literal";
   // }
 
-  saveChangesSmall(colId) {
-    // // if(this.validation(this.getInputValue(colId, ".Source"),
-    //     this.getInputValue(colId, ".Property"),
-    //     this.getInputValue(colId, ".ColumnType"))) {
-    this.annotation.index = colId;
-    this.annotation.source = this.getInputValue(colId, '.Source');
-    this.annotation.property = this.getInputValue(colId, '.Property');
-    this.annotation.columnType = this.getInputValue(colId, '.ColumnType');
-
-    if (this.annotation.source !== '' && this.annotation.property !== '' && this.annotation.columnType !== '') {
-      this.objectMarker = 'inverse';
-      console.log('OBJECT');
+  validation(source, property, columnType) {
+    this.hasColumnTypeError = false;
+    this.hasSourcePropertyError = false;
+    this.hasUrlLiteralError = false;
+    if (columnType == "") {
+      this.hasColumnTypeError = true;
     }
-    this.annotationService.setAnnotation(this.colId, this.annotation);
+    if (this.annotation.columnDataType == "") {
+      this.hasUrlLiteralError = true;
+
+    }
+    if ((source != "" && property == "") || (source == "" && property != "")) {
+      this.hasSourcePropertyError = true;
+    }
+    return !this.hasUrlLiteralError && !this.hasSourcePropertyError && !this.hasColumnTypeError;
   }
 
-  // validation(source, property, columnType){
-  //   if(this.listOfSubjects.some((x=> x == source)))
-  //     return true;
-  //   return false;
-  //
-  // }
+  saveChangesSmall(colId) {
+    let source = this.getInputValue(colId, ".Source");
+    let property = this.getInputValue(colId, ".Property");
+    let columnType = this.getInputValue(colId, ".ColumnType");
+    if (this.validation(source, property, columnType)) {
+      this.annotation.index = colId;
+      this.annotation.source = source;
+      this.annotation.property = property;
+      this.annotation.columnType = columnType;
+
+      if (this.annotation.source !== '' && this.annotation.property !== '' && this.annotation.columnType !== '') {
+        this.objectMarker = 'inverse';
+        console.log('OBJECT');
+      }
+      this.annotated = true;
+      this.annotationService.setAnnotation(this.colId, this.annotation);
+    }
+  }
+
 
   goToDetailMode() {
     this.annotationService.colContent = this.colContent;
@@ -200,11 +184,8 @@ export class AnnotationForm implements OnInit, OnDestroy {
   }
 
   dataTypeSelect(dataType) {
-    if (dataType === 'URL') {
-      this.annotation.columnDataType = dataType;
-    } else {
-      this.annotation.columnDataType = dataType;
-    }
+    this.annotation.columnDataType = dataType;
+    this.annotated = false;
   }
 
   getInputValue(colId, selector) {
@@ -214,7 +195,6 @@ export class AnnotationForm implements OnInit, OnDestroy {
     while ((<HTMLInputElement> temp[i]).getAttribute('data-value') !== string) {
       i++;
     }
-    console.log((<HTMLInputElement> temp[i]).value);
     return (<HTMLInputElement> temp[i]).value;
   }
 
@@ -256,6 +236,16 @@ export class AnnotationForm implements OnInit, OnDestroy {
       if (this.annotationService.colNames[i] !== this.colName) {
         this.listOfSubjects.push(this.annotationService.colNames[i]);
       }
+    }
+  }
+
+  subjectValidate(partialSubject){
+    if(this.listOfSubjects.indexOf(partialSubject) > -1){
+      console.log("false, " + this.listOfSubjects.indexOf(partialSubject));
+      this.hasSourceError = false;
+    }else{
+      this.hasSourceError = true;
+      console.log("true, " + this.listOfSubjects.indexOf(partialSubject));
     }
   }
 }
