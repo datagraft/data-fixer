@@ -59,21 +59,24 @@ export class AnnotationForm implements OnInit, OnDestroy {
   propertySuggestions = 'http://abstat.disco.unimib.it/api/v1/SolrSuggestions?query=:keyword,pred&rows=15&start=0';
   listOfSubjects: string[] = [];
   colName;
-  private annotated : boolean = false;
-  private hasSourcePropertyError: boolean = false;
-  private sourcePropertyError: string = "Both property and source must be filled";
-  private hasColumnTypeError: boolean = false;
-  private columnTypeError: string = "Column type is required";
-  private hasUrlLiteralError: boolean = false;
-  private urlLiteralError: string = "A column values type must be chosen";
-  private hasSubjectError: boolean = false;
-  private subjectErrorBase : string = "Column values type must be an URL because is the source column of columns: ";
-  private subjectError : string = "";
-  private hasSourceError : boolean;
-  private sourceError : string = "Insert a valid source column"
+  annotated : boolean = false;
+  hasSourcePropertyError: boolean = false;
+  hasPropertySourceError: boolean = false;
+  sourcePropertyError: string = "Both property and source must be filled";
+  hasColumnTypeError: boolean = false;
+  columnTypeError: string = "Column type is required";
+  hasUrlLiteralError: boolean = false;
+  urlLiteralError: string = "A column values type must be chosen";
+  hasSubjectError: boolean = false;
+  subjectErrorBase : string = "Column values type must be an URL because is the source column of columns: ";
+  subjectError : string = "";
+  hasSourceError : boolean;
+  sourceError : string = "Insert a valid source column";
+  hasUrlError: boolean = false;
+  urlError : string = "URL not valid";
 
-  urlREGEX = '(ftp|http|https):\/\/[^ "]+$';
-  urlREGEX2 : RegExp =new RegExp( '/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/');
+  urlREGEX : RegExp = new RegExp('(ftp|http|https):\/\/[^ "]+$');
+  urlREGEX2 : RegExp =new RegExp('/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/');
 
 
 
@@ -90,6 +93,7 @@ export class AnnotationForm implements OnInit, OnDestroy {
           if(this.annotation.columnDataType !== "URL"){
             console.log(this.annotation.columnDataType);
             this.hasSubjectError = true;
+            this.annotated = false;
             subjectsLabel.push(i);
           }
         }
@@ -141,9 +145,11 @@ export class AnnotationForm implements OnInit, OnDestroy {
     }
     if (this.annotation.columnDataType == "") {
       this.hasUrlLiteralError = true;
-
     }
-    if ((source != "" && property == "") || (source == "" && property != "")) {
+    if (source != "" && property == "") {
+      this.hasPropertySourceError = true;
+    }
+    if ((source == "" && property != "")) {
       this.hasSourcePropertyError = true;
     }
     return !this.hasUrlLiteralError && !this.hasSourcePropertyError && !this.hasColumnTypeError;
@@ -198,26 +204,6 @@ export class AnnotationForm implements OnInit, OnDestroy {
     return (<HTMLInputElement> temp[i]).value;
   }
 
-  // typeAutocomplete() {
-  //   // console.log("dentro");
-  //   let word = this.getInputValue(this.colId, ".ColumnType");
-  //   console.log(word);
-  //   let URL = "http://abstat.disco.unimib.it/api/v1/SolrSuggestions?query=".concat(word, ",subj&rows=100&start=0");
-  //
-  //   this.http.request(URL).subscribe((res: Response) => {
-  //       this.typeSuggestions = res.json();
-  //
-  //       console.log("Api restituita");
-  //       // console.log(this.typeSuggestions);
-  //     },
-  //     (err: any) => {
-  //
-  //     });
-  //
-  //   // this.typeSuggestions = this.annotationService.abstatAutofill(word, "subj", 100, 0);
-  //   console.log(this.typeSuggestions);
-  // }
-
 
   propertyAutocomplete() {
     // console.log("dentro");
@@ -240,12 +226,30 @@ export class AnnotationForm implements OnInit, OnDestroy {
   }
 
   subjectValidate(partialSubject){
-    if(this.listOfSubjects.indexOf(partialSubject) > -1){
-      console.log("false, " + this.listOfSubjects.indexOf(partialSubject));
-      this.hasSourceError = false;
-    }else{
-      this.hasSourceError = true;
-      console.log("true, " + this.listOfSubjects.indexOf(partialSubject));
-    }
+    return this.annotation.source === "" || (this.listOfSubjects.indexOf(partialSubject) > -1);
+  }
+
+  validateURL(url){
+    return url === "" || this.urlREGEX.test(<string> url);
+  }
+
+  invalidateAnnotation(){
+    this.annotated = false;
+  }
+
+  returnUrlError(){
+    this.annotated = false;
+    this.hasUrlError = true;
+    this.hasErrors();
+    return this.urlError;
+  }
+
+  hasErrors(){
+    return this.hasSubjectError || this.hasUrlLiteralError || this.hasColumnTypeError ||
+      this.hasSourcePropertyError || this.hasSourceError || this.hasPropertySourceError || this.hasUrlError;
+  }
+
+  disabledErrors(){
+    return this.hasErrors() || this.annotation.source === "" || this.annotation.columnDataType === ""
   }
 }
